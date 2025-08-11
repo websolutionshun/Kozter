@@ -1,0 +1,17 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+A jelenlegi rendszer egy Yii Advanced keretrendszer.
+Ne hozz létre migrációs fájlt, ami csak logol, olyat soha ne hozz létre, csak akkor ha adatbázishoz kapcsolódó művelet a cél.
+# Migrációs fájl létrehozása automatikus yes válasszal
+php yii migrate/create add_field_to_table --interactive=0
+# Migrációs fájl futtatása automatikus yes válasszal
+php yii migrate/up --interactive=0
+# Fontos, azoknál a parancsoknál, amikben php yii migrate van mindig legyen ott az --interactive=0
+soha ne használd a php yii serve --port=8080 megoldást, mert wamperservert használunk virtual host-tal
+# a virtualhost jelen projekt esetén (frontend, majd admin)
+http://lactimilk.test #frontend
+http://lactimilk-admin.test #admin
+# csak a komplexebb új modulfejlesztésekről készíts dokumentációt ide: /#dev_docs. használj időbélyeget a fájl leírás elejére, mindig az aktuális mai nappal! pl.: yyyy_mm_dd_dashboard_readme.md használd előtte a "echo %date%" parancsot a pontos dátum meghatározásához! A dokumentációnál a fejlesztő neve mindig "Web Solutions Hungary Kft." legyen!
