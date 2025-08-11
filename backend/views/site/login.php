@@ -21,11 +21,11 @@ $this->title = 'Bejelentkezés';
                 <h2 class="h2 text-center mb-4">Jelentkezzen be a fiókjába</h2>
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                     <div class="mb-3">
-                        <?= $form->field($model, 'username')->textInput([
+                        <?= $form->field($model, 'email')->textInput([
                             'class' => 'form-control',
-                            'placeholder' => 'Felhasználónév',
+                            'placeholder' => 'E-mail cím',
                             'autofocus' => true
-                        ])->label('Felhasználónév') ?>
+                        ])->label('E-mail cím') ?>
                     </div>
                     <div class="mb-2">
                         <?= $form->field($model, 'password')->passwordInput([

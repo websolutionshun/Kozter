@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\AdminRegistrationForm;
 use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
@@ -24,7 +25,7 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error', 'admin-register'],
                         'allow' => true,
                     ],
                     [
@@ -86,6 +87,33 @@ class SiteController extends Controller
         $model->password = '';
 
         return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Admin registration action.
+     *
+     * @return string|Response
+     */
+    public function actionAdminRegister()
+    {
+        // Ellenőrizzük, hogy az env változó be van-e állítva
+        $adminKey = $_ENV['ADMIN_ADD_USER_MANUAL'] ?? null;
+        if (empty($adminKey)) {
+            throw new \yii\web\NotFoundHttpException('Az oldal nem található.');
+        }
+
+        $this->layout = 'blank';
+
+        $model = new AdminRegistrationForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('success', 'Admin felhasználó sikeresen létrehozva!');
+            return $this->redirect(['login']);
+        }
+
+        return $this->render('admin-register', [
             'model' => $model,
         ]);
     }
