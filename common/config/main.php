@@ -9,5 +9,8 @@ return [
         'cache' => [
             'class' => \yii\caching\FileCache::class,
         ],
+        'phpmailer' => [
+            'class' => \common\components\PHPMailerComponent::class,
+        ],
     ],
 ];
