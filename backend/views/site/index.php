@@ -152,7 +152,7 @@ $this->title = 'Adminisztrációs Panel';
                         </div>
                     </div>
                     <div>
-                        <div class="row">
+        <div class="row">
                             <div class="col-auto">
                                 <span class="avatar">EL</span>
                             </div>

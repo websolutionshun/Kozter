@@ -115,7 +115,7 @@ AppAsset::register($this);
                     </div>
                 </div>
             </div>
-        </header>
+</header>
         <div class="page-wrapper">
             <!-- Page header -->
             <div class="page-header d-print-none">
@@ -132,9 +132,9 @@ AppAsset::register($this);
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
-                    <?= Alert::widget() ?>
-                    <?= $content ?>
-                </div>
+        <?= Alert::widget() ?>
+        <?= $content ?>
+    </div>
             </div>
         </div>
     </div>
