@@ -115,17 +115,17 @@ function isActiveController($controller) {
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></svg>
                                     </span>
-                                    Felhasználók kezelése', ['/felhasznalok'], ['class' => 'dropdown-item ' . isActiveRoute('/felhasznalok')]) ?>
+                                    Felhasználók kezelése', ['/felhasznalok'], ['class' => 'dropdown-item ' . isActiveRoute('/felhasznalok'), 'style' => isActiveRoute('/felhasznalok') ? 'color: #FFF !important;' : '']) ?>
                                     <?= Html::a('
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6"/><path d="M21 12h-6m-6 0H3"/></svg>
                                     </span>
-                                    Szerepkörök', ['/szerepkorok'], ['class' => 'dropdown-item ' . isActiveRoute('/szerepkorok')]) ?>
+                                    Szerepkörök', ['/szerepkorok'], ['class' => 'dropdown-item ' . isActiveRoute('/szerepkorok'), 'style' => isActiveRoute('/szerepkorok') ? 'color: #FFF !important;' : '']) ?>
                                     <?= Html::a('
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M8 11.973c0 2.51 1.79 4.527 4 4.527c2.21 0 4 -2.017 4 -4.527s-1.79 -4.527 -4 -4.527c-2.21 0 -4 2.017 -4 4.527z"/><path d="M8 12h8"/><path d="M12 9v6"/></svg>
                                     </span>
-                                    Jogosultságkezelés', ['/jogosultsagok'], ['class' => 'dropdown-item ' . isActiveRoute('/jogosultsagok')]) ?>
+                                    Jogosultságkezelés', ['/jogosultsagok'], ['class' => 'dropdown-item ' . isActiveRoute('/jogosultsagok'), 'style' => isActiveRoute('/jogosultsagok') ? 'color: #FFF !important;' : '']) ?>
                                 </div>
                             </li>
 
