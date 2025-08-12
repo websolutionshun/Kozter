@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </td>
                                         <?php foreach ($roles as $role): ?>
                                             <td class="text-center">
-                                                <div class="form-check form-switch">
+                                                <div class="form-check form-switch d-flex justify-content-center">
                                                     <input class="form-check-input permission-checkbox" type="checkbox" 
                                                            data-role-id="<?= $role->id ?>"
                                                            data-permission-id="<?= $permission->id ?>"
