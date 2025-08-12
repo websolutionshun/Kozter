@@ -36,14 +36,23 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                // Magyar nyelvű útvonalak
+                'fooldal' => 'site/index',
+                'bejelentkezes' => 'site/login',
+                'kijelentkezes' => 'site/logout',
+                'regisztracio' => 'site/signup',
+                'kapcsolat' => 'site/contact',
+                'rolunk' => 'site/about',
+                'jelszo-visszaallitas' => 'site/request-password-reset',
+                'jelszo-uj/<token>' => 'site/reset-password',
+                'email-ujrakuldese' => 'site/resend-verification-email',
+                'email-megerositese/<token>' => 'site/verify-email',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

@@ -13,7 +13,7 @@ $this->title = 'Elfelejtett jelszó';
     <div class="container container-tight py-4">
         <div class="text-center mb-4">
             <a href="<?= Yii::$app->homeUrl ?>" class="navbar-brand navbar-brand-autodark">
-                <h2><?= Html::encode(Yii::$app->name) ?></h2>
+                <?= Html::img('@web/imgs/kozter_admin_login_logo.png', ['alt' => 'Közter Admin', 'style' => 'max-height: 100px;']) ?>
             </a>
         </div>
         <div class="card card-md">
@@ -41,7 +41,7 @@ $this->title = 'Elfelejtett jelszó';
             </div>
         </div>
         <div class="text-center text-muted mt-3">
-            Mégis bejelentkezés? <a href="<?= \yii\helpers\Url::to(['site/login']) ?>" tabindex="-1">Vissza a bejelentkezéshez</a>
+            Mégis bejelentkezés? <a href="<?= \yii\helpers\Url::to(['/bejelentkezes']) ?>" tabindex="-1">Vissza a bejelentkezéshez</a>
         </div>
     </div>
 </div> 

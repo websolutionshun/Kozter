@@ -13,7 +13,7 @@ $this->title = 'Bejelentkezés';
     <div class="container container-tight py-4">
         <div class="text-center mb-4">
             <a href="<?= Yii::$app->homeUrl ?>" class="navbar-brand navbar-brand-autodark">
-                <h2><?= Html::encode(Yii::$app->name) ?></h2>
+                <?= Html::img('@web/imgs/kozter_admin_login_logo.png', ['alt' => 'Közter Admin', 'style' => 'max-height: 100px;']) ?>
             </a>
         </div>
         <div class="card card-md">
@@ -35,14 +35,11 @@ $this->title = 'Bejelentkezés';
                         ])->label('Jelszó') ?>
                     </div>
                     <div class="mb-2">
-                        <label class="form-check">
-                            <?= $form->field($model, 'rememberMe')->checkbox([
-                                'class' => 'form-check-input',
-                                'template' => '{input}',
-                                'id' => 'remember-me-checkbox'
-                            ])->label(false) ?>
-                            <span class="form-check-label">Emlékezz rám</span>
-                        </label>
+                        <?= $form->field($model, 'rememberMe')->checkbox([
+                            'template' => '<label class="form-check">{input}<span class="form-check-label">Emlékezz rám</span></label>',
+                            'class' => 'form-check-input',
+                            'id' => 'remember-me-checkbox'
+                        ])->label(false) ?>
                     </div>
                     <div class="form-footer">
                         <?= Html::submitButton('Bejelentkezés', [
@@ -54,7 +51,7 @@ $this->title = 'Bejelentkezés';
             </div>
         </div>
         <div class="text-center text-muted mt-3">
-            Elfelejtette a jelszavát? <a href="<?= \yii\helpers\Url::to(['site/forgot-password']) ?>" tabindex="-1">Jelszó visszaállítás</a>
+            Elfelejtette a jelszavát? <a href="<?= \yii\helpers\Url::to(['/elfelejtett-jelszo']) ?>" tabindex="-1">Jelszó visszaállítás</a>
         </div>
     </div>
 </div>

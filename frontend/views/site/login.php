@@ -31,9 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]) ?>
 
                 <div class="my-1 mx-0" style="color:#999;">
-                    Elfelejtette a jelszavát? <?= Html::a('Jelszó visszaállítás', ['site/request-password-reset']) ?>.
+                    Elfelejtette a jelszavát? <?= Html::a('Jelszó visszaállítás', ['/jelszo-visszaallitas']) ?>.
                     <br>
-                    Új megerősítő e-mailt szeretne? <?= Html::a('Újraküldés', ['site/resend-verification-email']) ?>
+                    Új megerősítő e-mailt szeretne? <?= Html::a('Újraküldés', ['/email-ujrakuldese']) ?>
                 </div>
 
                 <div class="form-group">

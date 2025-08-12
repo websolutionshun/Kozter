@@ -64,6 +64,7 @@ return [
                 'bejelentkezes' => 'site/login',
                 'kijelentkezes' => 'site/logout',
                 'admin-regisztracio' => 'site/admin-register',
+                'elfelejtett-jelszo' => 'site/forgot-password',
             ],
         ],
     ],
