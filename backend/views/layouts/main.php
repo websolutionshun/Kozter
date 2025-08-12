@@ -8,6 +8,18 @@ use common\widgets\Alert;
 use yii\helpers\Html;
 
 AppAsset::register($this);
+
+// Function to check if current route is active
+function isActiveRoute($route) {
+    $currentRoute = '/' . Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
+    return $currentRoute === $route ? 'active' : '';
+}
+
+// Function to check if current controller is active (for controller-level menu items)
+function isActiveController($controller) {
+    $currentController = Yii::$app->controller->id;
+    return $currentController === $controller ? 'active' : '';
+}
 ?>
 <?php $this->beginPage() ?>
 <!doctype html>
@@ -70,12 +82,15 @@ AppAsset::register($this);
                                 </span>
                                 <span class="nav-link-title">
                                     Főoldal
-                                </span>', ['/site/index'], ['class' => 'nav-link']) ?>
+                                </span>', ['/site/index'], ['class' => 'nav-link ' . isActiveRoute('/site/index')]) ?>
                         </li>
 
                         <?php if (!Yii::$app->user->isGuest): ?>
+                            <?php 
+                            $userModulesActive = in_array(Yii::$app->controller->id, ['user', 'role', 'permission']);
+                            ?>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#navbar-users" data-bs-toggle="dropdown"
+                                <a class="nav-link dropdown-toggle <?= $userModulesActive ? 'active' : '' ?>" href="#navbar-users" data-bs-toggle="dropdown"
                                     data-bs-auto-close="false" role="button" aria-expanded="true">
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -95,17 +110,17 @@ AppAsset::register($this);
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></svg>
                                     </span>
-                                    Felhasználók kezelése', ['/user/index'], ['class' => 'dropdown-item']) ?>
+                                    Felhasználók kezelése', ['/user/index'], ['class' => 'dropdown-item ' . isActiveRoute('/user/index')]) ?>
                                     <?= Html::a('
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6"/><path d="M21 12h-6m-6 0H3"/></svg>
                                     </span>
-                                    Szerepkörök', ['/role/index'], ['class' => 'dropdown-item']) ?>
+                                    Szerepkörök', ['/role/index'], ['class' => 'dropdown-item ' . isActiveRoute('/role/index')]) ?>
                                     <?= Html::a('
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M8 11.973c0 2.51 1.79 4.527 4 4.527c2.21 0 4 -2.017 4 -4.527s-1.79 -4.527 -4 -4.527c-2.21 0 -4 2.017 -4 4.527z"/><path d="M8 12h8"/><path d="M12 9v6"/></svg>
                                     </span>
-                                    Jogosultságkezelés', ['/permission/index'], ['class' => 'dropdown-item']) ?>
+                                    Jogosultságkezelés', ['/permission/index'], ['class' => 'dropdown-item ' . isActiveRoute('/permission/index')]) ?>
                                 </div>
                             </li>
 
@@ -256,17 +271,17 @@ AppAsset::register($this);
                                                 <div class="col-6">
                                                     <?= Html::a('
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></svg>
-                                                        <div class="h4">Felhasználók</div>', ['/user/index'], ['class' => 'text-center text-muted text-decoration-none']) ?>
+                                                        <div class="h4">Felhasználók</div>', ['/user/index'], ['class' => 'text-center text-decoration-none ' . (isActiveController('user') ? 'text-primary' : 'text-muted')]) ?>
                                                 </div>
                                                 <div class="col-6">
                                                     <?= Html::a('
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6"/><path d="M21 12h-6m-6 0H3"/></svg>
-                                                        <div class="h4">Szerepkörök</div>', ['/role/index'], ['class' => 'text-center text-muted text-decoration-none']) ?>
+                                                        <div class="h4">Szerepkörök</div>', ['/role/index'], ['class' => 'text-center text-decoration-none ' . (isActiveController('role') ? 'text-primary' : 'text-muted')]) ?>
                                                 </div>
                                                 <div class="col-6">
                                                     <?= Html::a('
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M8 11.973c0 2.51 1.79 4.527 4 4.527c2.21 0 4 -2.017 4 -4.527s-1.79 -4.527 -4 -4.527c-2.21 0 -4 2.017 -4 4.527z"/><path d="M8 12h8"/><path d="M12 9v6"/></svg>
-                                                        <div class="h4">Jogosultságok</div>', ['/permission/index'], ['class' => 'text-center text-muted text-decoration-none']) ?>
+                                                        <div class="h4">Jogosultságok</div>', ['/permission/index'], ['class' => 'text-center text-decoration-none ' . (isActiveController('permission') ? 'text-primary' : 'text-muted')]) ?>
                                                 </div>
                                                 <div class="col-6">
                                                     <a href="#" class="text-center text-muted text-decoration-none">
