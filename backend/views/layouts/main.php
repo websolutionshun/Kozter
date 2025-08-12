@@ -12,6 +12,11 @@ AppAsset::register($this);
 // Function to check if current route is active
 function isActiveRoute($route) {
     $currentRoute = '/' . Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
+    // Magyar URL-ek ellenőrzése
+    if ($route === '/felhasznalok' && $currentRoute === '/user/index') return 'active';
+    if ($route === '/szerepkorok' && $currentRoute === '/role/index') return 'active';
+    if ($route === '/jogosultsagok' && $currentRoute === '/permission/index') return 'active';
+    if ($route === '/fooldal' && $currentRoute === '/site/index') return 'active';
     return $currentRoute === $route ? 'active' : '';
 }
 
@@ -65,7 +70,7 @@ function isActiveController($controller) {
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                 <a href="#" class="dropdown-item">Profil</a>
                                 <div class="dropdown-divider"></div>
-                                <?= Html::beginForm(['/site/logout'], 'post', ['class' => 'd-inline']) ?>
+                                <?= Html::beginForm(['/kijelentkezes'], 'post', ['class' => 'd-inline']) ?>
                                 <?= Html::submitButton('Kijelentkezés', ['class' => 'dropdown-item']) ?>
                                 <?= Html::endForm() ?>
                             </div>
@@ -82,7 +87,7 @@ function isActiveController($controller) {
                                 </span>
                                 <span class="nav-link-title">
                                     Főoldal
-                                </span>', ['/site/index'], ['class' => 'nav-link ' . isActiveRoute('/site/index')]) ?>
+                                </span>', ['/fooldal'], ['class' => 'nav-link ' . isActiveRoute('/fooldal')]) ?>
                         </li>
 
                         <?php if (!Yii::$app->user->isGuest): ?>
@@ -110,17 +115,17 @@ function isActiveController($controller) {
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></svg>
                                     </span>
-                                    Felhasználók kezelése', ['/user/index'], ['class' => 'dropdown-item ' . isActiveRoute('/user/index')]) ?>
+                                    Felhasználók kezelése', ['/felhasznalok'], ['class' => 'dropdown-item ' . isActiveRoute('/felhasznalok')]) ?>
                                     <?= Html::a('
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6"/><path d="M21 12h-6m-6 0H3"/></svg>
                                     </span>
-                                    Szerepkörök', ['/role/index'], ['class' => 'dropdown-item ' . isActiveRoute('/role/index')]) ?>
+                                    Szerepkörök', ['/szerepkorok'], ['class' => 'dropdown-item ' . isActiveRoute('/szerepkorok')]) ?>
                                     <?= Html::a('
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M8 11.973c0 2.51 1.79 4.527 4 4.527c2.21 0 4 -2.017 4 -4.527s-1.79 -4.527 -4 -4.527c-2.21 0 -4 2.017 -4 4.527z"/><path d="M8 12h8"/><path d="M12 9v6"/></svg>
                                     </span>
-                                    Jogosultságkezelés', ['/permission/index'], ['class' => 'dropdown-item ' . isActiveRoute('/permission/index')]) ?>
+                                    Jogosultságkezelés', ['/jogosultsagok'], ['class' => 'dropdown-item ' . isActiveRoute('/jogosultsagok')]) ?>
                                 </div>
                             </li>
 
@@ -271,17 +276,17 @@ function isActiveController($controller) {
                                                 <div class="col-6">
                                                     <?= Html::a('
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></svg>
-                                                        <div class="h4">Felhasználók</div>', ['/user/index'], ['class' => 'text-center text-decoration-none ' . (isActiveController('user') ? 'text-primary' : 'text-muted')]) ?>
+                                                        <div class="h4">Felhasználók</div>', ['/felhasznalok'], ['class' => 'text-center text-decoration-none ' . (isActiveController('user') ? 'text-primary' : 'text-muted')]) ?>
                                                 </div>
                                                 <div class="col-6">
                                                     <?= Html::a('
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6"/><path d="M21 12h-6m-6 0H3"/></svg>
-                                                        <div class="h4">Szerepkörök</div>', ['/role/index'], ['class' => 'text-center text-decoration-none ' . (isActiveController('role') ? 'text-primary' : 'text-muted')]) ?>
+                                                        <div class="h4">Szerepkörök</div>', ['/szerepkorok'], ['class' => 'text-center text-decoration-none ' . (isActiveController('role') ? 'text-primary' : 'text-muted')]) ?>
                                                 </div>
                                                 <div class="col-6">
                                                     <?= Html::a('
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M8 11.973c0 2.51 1.79 4.527 4 4.527c2.21 0 4 -2.017 4 -4.527s-1.79 -4.527 -4 -4.527c-2.21 0 -4 2.017 -4 4.527z"/><path d="M8 12h8"/><path d="M12 9v6"/></svg>
-                                                        <div class="h4">Jogosultságok</div>', ['/permission/index'], ['class' => 'text-center text-decoration-none ' . (isActiveController('permission') ? 'text-primary' : 'text-muted')]) ?>
+                                                        <div class="h4">Jogosultságok</div>', ['/jogosultsagok'], ['class' => 'text-center text-decoration-none ' . (isActiveController('permission') ? 'text-primary' : 'text-muted')]) ?>
                                                 </div>
                                                 <div class="col-6">
                                                     <a href="#" class="text-center text-muted text-decoration-none">
@@ -318,14 +323,14 @@ function isActiveController($controller) {
                                     <a href="#" class="dropdown-item">Profil</a>
                                     <a href="#" class="dropdown-item">Beállítások</a>
                                     <div class="dropdown-divider"></div>
-                                    <?= Html::beginForm(['/site/logout'], 'post', ['class' => 'd-inline w-100']) ?>
+                                    <?= Html::beginForm(['/kijelentkezes'], 'post', ['class' => 'd-inline w-100']) ?>
                                     <?= Html::submitButton('Kijelentkezés', ['class' => 'dropdown-item border-0 bg-transparent']) ?>
                                     <?= Html::endForm() ?>
                                 </div>
                             </div>
                         <?php else: ?>
                             <div class="nav-item">
-                                <?= Html::a('Bejelentkezés', ['/site/login'], ['class' => 'btn btn-primary']) ?>
+                                <?= Html::a('Bejelentkezés', ['/bejelentkezes'], ['class' => 'btn btn-primary']) ?>
                             </div>
                         <?php endif; ?>
                     </div>

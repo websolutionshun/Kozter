@@ -41,6 +41,29 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                // Magyar nyelvű útvonalak
+                'felhasznalok' => 'user/index',
+                'felhasznalok/letrehozas' => 'user/create',
+                'felhasznalok/<id:\d+>' => 'user/view',
+                'felhasznalok/<id:\d+>/szerkesztes' => 'user/update',
+                'felhasznalok/<id:\d+>/torles' => 'user/delete',
+                
+                'szerepkorok' => 'role/index',
+                'szerepkorok/letrehozas' => 'role/create',
+                'szerepkorok/<id:\d+>' => 'role/view',
+                'szerepkorok/<id:\d+>/szerkesztes' => 'role/update',
+                'szerepkorok/<id:\d+>/torles' => 'role/delete',
+                
+                'jogosultsagok' => 'permission/index',
+                'jogosultsagok/letrehozas' => 'permission/create',
+                'jogosultsagok/<id:\d+>' => 'permission/view',
+                'jogosultsagok/<id:\d+>/szerkesztes' => 'permission/update',
+                'jogosultsagok/<id:\d+>/torles' => 'permission/delete',
+                
+                'fooldal' => 'site/index',
+                'bejelentkezes' => 'site/login',
+                'kijelentkezes' => 'site/logout',
+                'admin-regisztracio' => 'site/admin-register',
             ],
         ],
     ],
