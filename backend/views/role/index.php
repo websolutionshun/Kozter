@@ -105,7 +105,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'class' => 'btn btn-white btn-sm',
                                                 'title' => 'Törlés',
                                                 'data' => [
-                                                    'confirm' => 'Biztosan törli ezt a szerepkört?',
+                                                    'confirm' => 'Biztosan törlöd ezt a szerepkört?',
                                                     'method' => 'post',
                                                 ],
                                             ]) ?>

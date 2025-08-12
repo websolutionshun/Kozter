@@ -157,7 +157,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     Felhasználó törlése', ['delete', 'id' => $model->id], [
                                     'class' => 'btn btn-danger btn-sm',
                                     'data' => [
-                                        'confirm' => 'Biztosan törli ezt a felhasználót?',
+                                        'confirm' => 'Biztosan törlöd ezt a felhasználót?',
                                         'method' => 'post',
                                     ],
                                 ]) ?>

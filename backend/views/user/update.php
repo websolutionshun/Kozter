@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = 'Szerkesztés';
                         <div class="mb-3">
                             <label class="form-label">Új jelszó <small class="text-muted">(opcionális)</small></label>
                             <input type="password" class="form-control" name="new_password" placeholder="Új jelszó">
-                            <small class="form-hint">Csak akkor töltse ki, ha meg szeretné változtatni a jelszót.</small>
+                            <small class="form-hint">Csak akkor töltsd ki, ha meg szeretnéd változtatni a jelszót.</small>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = 'Szerkesztés';
                             </label>
                         <?php endforeach; ?>
                     </div>
-                    <small class="form-hint">Válassza ki a felhasználó szerepkörét.</small>
+                    <small class="form-hint">Válaszd ki a felhasználó szerepkörét.</small>
                 </div>
                 
                 <div class="card-footer text-end">

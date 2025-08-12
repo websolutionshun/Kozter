@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     Tipp
                                 </label>
                                 <small class="form-hint">
-                                    Használjon érthető, egyértelmű nevet a szerepkör számára. Ez fog megjelenni a felhasználói felületen.
+                                    Használj érthető, egyértelmű nevet a szerepkör számára. Ez fog megjelenni a felhasználói felületen.
                                 </small>
                             </div>
                         </div>
@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </svg>
                                 Jogosultságok
                             </h4>
-                            <p class="text-muted mb-4">Válassza ki, mely jogosultságokkal rendelkezzen ez a szerepkör.</p>
+                            <p class="text-muted mb-4">Válaszd ki, mely jogosultságokkal rendelkezzen ez a szerepkör.</p>
 
                             <?php if (!empty($permissions)): ?>
                                 <?php
@@ -140,7 +140,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <h4 class="alert-title">Fontos tudnivalók</h4>
                                     <div class="text-muted">
                                         A jogosultságok meghatározzák, hogy a szerepkörrel rendelkező felhasználók mit tehetnek a rendszerben. 
-                                        Csak a szükséges jogosultságokat adja meg a biztonsági kockázatok minimalizálása érdekében.
+                                        Csak a szükséges jogosultságokat add meg a biztonsági kockázatok minimalizálása érdekében.
                                     </div>
                                 </div>
 

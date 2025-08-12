@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body border-bottom py-3">
                     <div class="d-flex">
                         <div class="text-muted">
-                            Mutasson:
+                            Mutass:
                             <div class="mx-2 d-inline-block">
                                 <select class="form-select form-select-sm" id="pageSize" onchange="changePageSize()">
                                     <option value="10">10</option>
@@ -122,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'class' => 'btn btn-white btn-sm',
                                                 'title' => 'Törlés',
                                                 'data' => [
-                                                    'confirm' => 'Biztosan törli ezt a felhasználót?',
+                                                    'confirm' => 'Biztosan törlöd ezt a felhasználót?',
                                                     'method' => 'post',
                                                 ],
                                             ]) ?>

@@ -19,7 +19,7 @@ $this->title = 'Admin Regisztráció';
         <div class="card card-md">
             <div class="card-body">
                 <h2 class="h2 text-center mb-4">Admin Felhasználó Létrehozása</h2>
-                <p class="text-center text-muted mb-4">Hozzon létre egy új admin felhasználót a rendszerhez</p>
+                <p class="text-center text-muted mb-4">Hozz létre egy új admin felhasználót a rendszerhez</p>
                 
                 <?php $form = ActiveForm::begin(['id' => 'admin-register-form']); ?>
                     

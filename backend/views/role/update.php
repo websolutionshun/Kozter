@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = 'Szerkesztés';
                             <h4 class="alert-title">Alapértelmezett szerepkör</h4>
                             <div class="text-muted">
                                 Ez egy alapértelmezett szerepkör. A módosítások hatással lehetnek a rendszer működésére.
-                                Kérjük, körültekintően járjon el a változtatások során.
+                                Kérjük, körültekintően járj el a változtatások során.
                             </div>
                         </div>
                     <?php endif; ?>
@@ -130,7 +130,7 @@ $this->params['breadcrumbs'][] = 'Szerkesztés';
                                     </button>
                                 </div>
                             </div>
-                            <p class="text-muted mb-4">Módosítsa a szerepkörhöz tartozó jogosultságokat.</p>
+                            <p class="text-muted mb-4">Módosítsd a szerepkörhöz tartozó jogosultságokat.</p>
 
                             <?php if (!empty($permissions)): ?>
                                 <?php

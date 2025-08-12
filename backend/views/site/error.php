@@ -21,7 +21,7 @@ $this->title = $name;
                 A fenti hiba történt, miközben a webszerver feldolgozta a kérését.
             </p>
             <p class="empty-subtitle text-muted">
-                Kérjük, vegye fel velünk a kapcsolatot, ha úgy gondolja, hogy ez szerveroldali hiba. Köszönjük.
+                Kérjük, vedd fel velünk a kapcsolatot, ha úgy gondolod, hogy ez szerveroldali hiba. Köszönjük.
             </p>
             <div class="empty-action">
                 <a href="<?= Yii::$app->homeUrl ?>" class="btn btn-primary">

@@ -18,7 +18,7 @@ $this->title = 'Bejelentkezés';
         </div>
         <div class="card card-md">
             <div class="card-body">
-                <h2 class="h2 text-center mb-4">Jelentkezzen be a fiókjába</h2>
+                <h2 class="h2 text-center mb-4">Jelentkezz be a fiókodba</h2>
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                     <div class="mb-3">
                         <?= $form->field($model, 'email')->textInput([
@@ -39,7 +39,7 @@ $this->title = 'Bejelentkezés';
                                 'class' => 'form-check-input',
                                 'template' => '{input}'
                             ])->label(false) ?>
-                            <span class="form-check-label">Emlékezzen rám</span>
+                            <span class="form-check-label">Emlékezz rám</span>
                         </label>
                     </div>
                     <div class="form-footer">

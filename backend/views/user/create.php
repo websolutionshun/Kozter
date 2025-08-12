@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </label>
                         <?php endforeach; ?>
                     </div>
-                    <small class="form-hint">Válassza ki a felhasználó szerepkörét.</small>
+                    <small class="form-hint">Válaszd ki a felhasználó szerepkörét.</small>
                 </div>
                 
                 <div class="card-footer text-end">
