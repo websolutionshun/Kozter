@@ -314,6 +314,59 @@ AppAsset::register($this);
                             </div>
                         <?php endif; ?>
                     </div>
+                    <div class="collapse navbar-collapse" id="navbar-menu">
+                        <!-- BEGIN NAVBAR MENU -->
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="./">
+                                    <span
+                                        class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler.io/icons/icon/home -->
+                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg></span>
+                                    <span class="nav-link-title"> Éles weboldal </span>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside" role="button" aria-expanded="false">
+                                    <span
+                                        class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler.io/icons/icon/package -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                                            <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5"></path>
+                                            <path d="M12 12l8 -4.5"></path>
+                                            <path d="M12 12l0 9"></path>
+                                            <path d="M12 12l-8 -4.5"></path>
+                                            <path d="M16 5.25l-8 4.5"></path>
+                                        </svg></span>
+                                    <span class="nav-link-title"> Fejlesztői központ </span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-menu-columns">
+                                        <div class="dropdown-menu-column">
+                                            <a class="dropdown-item" href="./accordion.html">
+                                                Accordion
+                                                <span
+                                                    class="badge badge-sm bg-green-lt text-uppercase ms-auto">New</span>
+                                            </a>
+                                            <a class="dropdown-item" href="./alerts.html"> Alerts </a>
+                                        </div>
+                                        <div class="dropdown-menu-column">
+                                            <a class="dropdown-item" href="./markdown.html"> Markdown </a>
+                                            <a class="dropdown-item" href="./navigation.html"> Navigation </a>
+                                            <a class="dropdown-item" href="./offcanvas.html"> Offcanvas </a>
+                                            <a class="dropdown-item" href="./pagination.html"> Pagination </a>
+                                            <a class="dropdown-item" href="./placeholder.html"> Placeholder </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+
+
+                        </ul>
+                        <!-- END NAVBAR MENU -->
+                    </div>
                 </div>
             </header>
             <!-- Page header -->
