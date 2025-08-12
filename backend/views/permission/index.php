@@ -20,23 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Jogosultságok kezelése</h3>
-                    <div class="card-actions">
-                        <div class="btn-list">
-                            <button type="button" class="btn btn-secondary" onclick="selectAllPermissions()">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="9,11 12,14 22,4"/>
-                                    <path d="M21 12v7a2 2 0 0 1 -2 2H5a2 2 0 0 1 -2 -2V5a2 2 0 0 1 2 -2h11"/>
-                                </svg>
-                                Mind kijelölés
-                            </button>
-                            <button type="button" class="btn btn-secondary" onclick="deselectAllPermissions()">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                                </svg>
-                                Mind törlés
-                            </button>
-                        </div>
-                    </div>
+
                 </div>
                 
                 <div class="table-responsive">
@@ -221,33 +205,5 @@ function toggleRoleAllPermissions(roleId, masterCheckbox) {
     });
 }
 
-function selectAllPermissions() {
-    const allCheckboxes = document.querySelectorAll('.permission-checkbox');
-    
-    allCheckboxes.forEach(checkbox => {
-        if (!checkbox.checked) {
-            checkbox.checked = true;
-            togglePermission(checkbox.dataset.roleId, checkbox.dataset.permissionId, checkbox);
-        }
-    });
-    
-    document.querySelectorAll('.role-master-checkbox').forEach(master => {
-        master.checked = true;
-    });
-}
 
-function deselectAllPermissions() {
-    const allCheckboxes = document.querySelectorAll('.permission-checkbox');
-    
-    allCheckboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            checkbox.checked = false;
-            togglePermission(checkbox.dataset.roleId, checkbox.dataset.permissionId, checkbox);
-        }
-    });
-    
-    document.querySelectorAll('.role-master-checkbox').forEach(master => {
-        master.checked = false;
-    });
-}
 </script> 
