@@ -63,11 +63,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 
                 <div class="mb-3">
-                    <label class="form-label">Szerepkörök</label>
+                    <label class="form-label">Szerepkör</label>
                     <div class="form-selectgroup form-selectgroup-boxes">
                         <?php foreach ($roles as $role): ?>
                             <label class="form-selectgroup-item">
-                                <input type="checkbox" name="roles[]" value="<?= $role->id ?>" class="form-selectgroup-input" 
+                                <input type="radio" name="role" value="<?= $role->id ?>" class="form-selectgroup-input" 
                                     <?= in_array($role->id, $selectedRoles) ? 'checked' : '' ?>>
                                 <span class="form-selectgroup-label">
                                     <div>
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </label>
                         <?php endforeach; ?>
                     </div>
-                    <small class="form-hint">Válassza ki a felhasználó szerepköreit.</small>
+                    <small class="form-hint">Válassza ki a felhasználó szerepkörét.</small>
                 </div>
                 
                 <div class="card-footer text-end">

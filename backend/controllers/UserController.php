@@ -100,10 +100,10 @@ class UserController extends Controller
             $model->generateEmailVerificationToken();
             
             if ($model->save()) {
-                // Szerepkörök hozzáadása
-                $selectedRoles = Yii::$app->request->post('roles', []);
-                foreach ($selectedRoles as $roleId) {
-                    $model->addRole($roleId);
+                // Szerepkör hozzáadása
+                $selectedRole = Yii::$app->request->post('role');
+                if (!empty($selectedRole)) {
+                    $model->addRole($selectedRole);
                 }
                 
                 Yii::$app->session->setFlash('success', 'Felhasználó sikeresen létrehozva.');
@@ -143,10 +143,10 @@ class UserController extends Controller
                 // Korábbi szerepkörök törlése
                 UserRole::deleteAll(['user_id' => $model->id]);
                 
-                // Új szerepkörök hozzáadása
-                $newSelectedRoles = Yii::$app->request->post('roles', []);
-                foreach ($newSelectedRoles as $roleId) {
-                    $model->addRole($roleId);
+                // Új szerepkör hozzáadása
+                $newSelectedRole = Yii::$app->request->post('role');
+                if (!empty($newSelectedRole)) {
+                    $model->addRole($newSelectedRole);
                 }
                 
                 Yii::$app->session->setFlash('success', 'Felhasználó sikeresen frissítve.');
