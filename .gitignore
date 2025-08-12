@@ -44,3 +44,7 @@ phpunit.phar
 
 # environment variables
 .env
+
+# htaccess files
+/frontend/web/.htaccess
+/backend/web/.htaccess
