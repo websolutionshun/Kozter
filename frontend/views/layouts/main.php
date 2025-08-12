@@ -21,6 +21,12 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link rel="icon" type="image/png" href="/imgs/icons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/imgs/icons/favicon.svg" />
+    <link rel="shortcut icon" href="/imgs/icons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/imgs/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Köztér" />
+    <link rel="manifest" href="/imgs/icons/site.webmanifest" />
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
