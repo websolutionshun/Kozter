@@ -27,6 +27,12 @@ function isActiveController($controller) {
 }
 ?>
 <?php $this->beginPage() ?>
+<?php
+// Átirányítás bejelentkezési oldalra, ha a felhasználó nincs bejelentkezve
+if (Yii::$app->user->isGuest) {
+    return Yii::$app->response->redirect(['/bejelentkezes']);
+}
+?>
 <!doctype html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 
