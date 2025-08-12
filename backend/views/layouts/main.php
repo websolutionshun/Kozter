@@ -135,7 +135,7 @@ AppAsset::register($this);
         <div class="page-wrapper">
             <!-- Header -->
             <header class="navbar navbar-expand-md d-none d-lg-flex d-print-none" data-bs-theme="light">
-                <div class="container-xl">
+                <div class="container-fluid">
                     <!-- BEGIN NAVBAR TOGGLER -->
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu"
                         aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -371,7 +371,7 @@ AppAsset::register($this);
             </header>
             <!-- Page header -->
             <div class="page-header d-print-none">
-                <div class="container-xl">
+                <div class="container-fluid">
                     <div class="row g-2 align-items-center">
                         <div class="col">
                             <h2 class="page-title">
@@ -383,7 +383,7 @@ AppAsset::register($this);
             </div>
             <!-- Page body -->
             <div class="page-body">
-                <div class="container-xl">
+                <div class="container-fluid">
                     <?= Alert::widget() ?>
                     <?= $content ?>
                 </div>
