@@ -48,12 +48,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php foreach ($roles as $role): ?>
                                     <th class="text-center">
                                         <div class="d-flex flex-column align-items-center">
-                                            <div class="font-weight-medium"><?= Html::encode($role->name) ?></div>
+                                            <div class="fw-semibold text-sm mb-1"><?= Html::encode($role->name) ?></div>
                                             <div class="form-check">
                                                 <input class="form-check-input role-master-checkbox" type="checkbox" 
                                                        data-role-id="<?= $role->id ?>" 
                                                        onchange="toggleRoleAllPermissions(<?= $role->id ?>, this)">
-                                                <label class="form-check-label text-muted">Mind</label>
+                                                <label class="form-check-label text-muted small">Mind</label>
                                             </div>
                                         </div>
                                     </th>
@@ -63,23 +63,23 @@ $this->params['breadcrumbs'][] = $this->title;
                         <tbody>
                             <?php foreach ($permissions as $category => $categoryPermissions): ?>
                                 <tr class="table-active">
-                                    <td colspan="<?= count($roles) + 2 ?>" class="text-uppercase text-muted font-weight-medium">
-                                        <strong><?= Html::encode($category) ?></strong>
+                                    <td colspan="<?= count($roles) + 2 ?>" class="text-uppercase text-muted fw-semibold small py-2">
+                                        <?= Html::encode($category) ?>
                                     </td>
                                 </tr>
                                 <?php foreach ($categoryPermissions as $permission): ?>
                                     <tr>
-                                        <td>
+                                        <td class="py-3">
                                             <div>
-                                                <div class="font-weight-medium"><?= Html::encode($permission->description) ?></div>
-                                                <div class="text-muted small"><?= Html::encode($permission->name) ?></div>
+                                                <div class="fw-medium"><?= Html::encode($permission->description) ?></div>
+                                                <div class="text-muted small mt-1"><?= Html::encode($permission->name) ?></div>
                                             </div>
                                         </td>
-                                        <td class="text-center">
-                                            <span class="badge bg-azure"><?= Html::encode($permission->category) ?></span>
+                                        <td class="text-center py-3">
+                                            <span class="badge bg-blue-lt text-blue"><?= Html::encode($permission->category) ?></span>
                                         </td>
                                         <?php foreach ($roles as $role): ?>
-                                            <td class="text-center">
+                                            <td class="text-center py-3">
                                                 <div class="form-check form-switch d-flex justify-content-center">
                                                     <input class="form-check-input permission-checkbox" type="checkbox" 
                                                            data-role-id="<?= $role->id ?>"

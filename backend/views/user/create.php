@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'options' => ['class' => 'card-body'],
                 ]); ?>
                 
-                <div class="row">
+                <div class="row mb-4">
                     <div class="col-md-6">
                         <?= $form->field($model, 'username')->textInput([
                             'class' => 'form-control',
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
                 
-                <div class="row">
+                <div class="row mb-4">
                     <div class="col-md-6">
                         <?= $form->field($model, 'password')->passwordInput([
                             'class' => 'form-control',
@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
                 
-                <div class="mb-3">
+                <div class="mb-4">
                     <label class="form-label">Szerepkör</label>
                     <div class="form-selectgroup form-selectgroup-boxes">
                         <?php foreach ($roles as $role): ?>
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?= in_array($role->id, $selectedRoles) ? 'checked' : '' ?>>
                                 <span class="form-selectgroup-label">
                                     <div>
-                                        <div class="font-weight-medium"><?= Html::encode($role->name) ?></div>
+                                        <div class="fw-medium"><?= Html::encode($role->name) ?></div>
                                         <?php if ($role->description): ?>
                                             <div class="text-muted"><?= Html::encode($role->description) ?></div>
                                         <?php endif; ?>

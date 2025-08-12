@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = 'Szerkesztés';
                         </div>
                     <?php endif; ?>
 
-                    <div class="row">
+                    <div class="row mb-4">
                         <div class="col-md-6">
                             <?= $form->field($model, 'name')->textInput([
                                 'maxlength' => true,
@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = 'Szerkesztés';
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mb-4">
                         <div class="col-12">
                             <?= $form->field($model, 'description')->textarea([
                                 'rows' => 3,

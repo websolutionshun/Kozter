@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="d-flex py-1 align-items-center">
                                         <span class="avatar me-2" style="background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTJaIiBmaWxsPSIjNzQ4OTlCIi8+CjxwYXRoIGQ9Ik0yMCAyMEMyMCAxNi42ODYzIDEzLjMxMzcgMTMgMTIgMTNDMTAuNjg2MyAxMyA0IDE2LjY4NjMgNCAyMEg0LjM0MzI1SDE5LjY1NjdIMjBaIiBmaWxsPSIjNzQ4OTlCIi8+Cjwvc3ZnPgo=)"></span>
                                         <div class="flex-fill">
-                                            <div class="font-weight-medium"><?= Html::encode($model->name) ?></div>
+                                            <div class="fw-medium"><?= Html::encode($model->name) ?></div>
                                         </div>
                                     </div>
                                 </td>
@@ -59,22 +59,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <span class="badge bg-azure"><?= count($model->permissions) ?> db</span>
+                                    <span class="badge bg-blue-lt text-blue"><?= count($model->permissions) ?> db</span>
                                     <?php if (count($model->permissions) > 0): ?>
-                                        <div class="mt-1">
+                                        <div class="mt-2">
                                             <?php $permissions = array_slice($model->permissions, 0, 3); ?>
                                             <?php foreach ($permissions as $permission): ?>
-                                                <span class="badge bg-blue text-blue-fg me-1"><?= Html::encode($permission->name) ?></span>
+                                                <span class="badge bg-gray-lt text-gray me-1 mb-1"><?= Html::encode($permission->name) ?></span>
                                             <?php endforeach; ?>
                                             <?php if (count($model->permissions) > 3): ?>
-                                                <span class="text-muted">+<?= count($model->permissions) - 3 ?> további</span>
+                                                <span class="text-muted small">+<?= count($model->permissions) - 3 ?> további</span>
                                             <?php endif; ?>
                                         </div>
                                     <?php endif; ?>
                                 </td>
                                 <td>
                                     <?php $userCount = count($model->users); ?>
-                                    <span class="badge bg-<?= $userCount > 0 ? 'success' : 'secondary' ?>"><?= $userCount ?> fő</span>
+                                    <span class="badge bg-<?= $userCount > 0 ? 'green-lt text-green' : 'gray-lt text-gray' ?>"><?= $userCount ?> fő</span>
                                 </td>
                                 <td><?= date('Y.m.d H:i', $model->created_at) ?></td>
                                 <td>

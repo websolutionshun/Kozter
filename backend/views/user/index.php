@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="d-flex py-1 align-items-center">
                                         <span class="avatar me-2" style="background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTJaIiBmaWxsPSIjNzQ4OTlCIi8+CjxwYXRoIGQ9Ik0yMCAyMEMyMCAxNi42ODYzIDEzLjMxMzcgMTMgMTIgMTNDMTAuNjg2MyAxMyA0IDE2LjY4NjMgNCAyMEg0LjM0MzI1SDE5LjY1NjdIMjBaIiBmaWxsPSIjNzQ4OTlCIi8+Cjwvc3ZnPgo=)"></span>
                                         <div class="flex-fill">
-                                            <div class="font-weight-medium"><?= Html::encode($model->username) ?></div>
+                                            <div class="fw-medium"><?= Html::encode($model->username) ?></div>
                                         </div>
                                     </div>
                                 </td>
@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td>
                                     <?php if (!empty($model->roles)): ?>
                                         <?php foreach ($model->roles as $role): ?>
-                                            <span class="badge bg-blue text-blue-fg me-1"><?= Html::encode($role->name) ?></span>
+                                            <span class="badge bg-blue-lt text-blue me-1 mb-1"><?= Html::encode($role->name) ?></span>
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <span class="text-muted">Nincs szerepkör</span>
@@ -86,11 +86,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </td>
                                 <td>
                                     <?php if ($model->status == \common\models\User::STATUS_ACTIVE): ?>
-                                        <span class="badge bg-success">Aktív</span>
+                                        <span class="badge bg-green-lt text-green">Aktív</span>
                                     <?php elseif ($model->status == \common\models\User::STATUS_INACTIVE): ?>
-                                        <span class="badge bg-warning">Inaktív</span>
+                                        <span class="badge bg-yellow-lt text-yellow">Inaktív</span>
                                     <?php else: ?>
-                                        <span class="badge bg-danger">Törölve</span>
+                                        <span class="badge bg-red-lt text-red">Törölve</span>
                                     <?php endif; ?>
                                 </td>
                                 <td><?= date('Y.m.d H:i', $model->created_at) ?></td>
