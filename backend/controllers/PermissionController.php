@@ -77,7 +77,9 @@ class PermissionController extends Controller
         
         $roleId = Yii::$app->request->post('role_id');
         $permissionId = Yii::$app->request->post('permission_id');
-        $enabled = Yii::$app->request->post('enabled') == 'true';
+        $enabledValue = Yii::$app->request->post('enabled');
+        
+        $enabled = ($enabledValue === true || $enabledValue === 'true' || $enabledValue === '1' || $enabledValue === 1);
         
         if (!$roleId || !$permissionId) {
             return ['success' => false, 'message' => 'Hiányzó paraméterek.'];
@@ -90,9 +92,10 @@ class PermissionController extends Controller
             return ['success' => false, 'message' => 'Szerepkör vagy jogosultság nem található.'];
         }
         
+        $existing = RolePermission::findOne(['role_id' => $roleId, 'permission_id' => $permissionId]);
+        
         if ($enabled) {
             // Jogosultság hozzáadása
-            $existing = RolePermission::findOne(['role_id' => $roleId, 'permission_id' => $permissionId]);
             if (!$existing) {
                 $rolePermission = new RolePermission();
                 $rolePermission->role_id = $roleId;
@@ -104,16 +107,21 @@ class PermissionController extends Controller
                 } else {
                     return ['success' => false, 'message' => 'Hiba történt a jogosultság hozzáadása során.'];
                 }
+            } else {
+                return ['success' => true, 'message' => 'Jogosultság már hozzá volt adva.'];
             }
         } else {
-            // Jogosultság eltávolítása
-            $deleted = RolePermission::deleteAll(['role_id' => $roleId, 'permission_id' => $permissionId]);
-            if ($deleted > 0) {
-                return ['success' => true, 'message' => 'Jogosultság eltávolítva.'];
+            if ($existing) {
+                $deleted = RolePermission::deleteAll(['role_id' => $roleId, 'permission_id' => $permissionId]);
+                if ($deleted > 0) {
+                    return ['success' => true, 'message' => 'Jogosultság eltávolítva.'];
+                } else {
+                    return ['success' => false, 'message' => 'Hiba történt a jogosultság eltávolítása során.'];
+                }
+            } else {
+                return ['success' => true, 'message' => 'Jogosultság már el volt távolítva.'];
             }
         }
-        
-        return ['success' => true, 'message' => 'Módosítás elvégezve.'];
     }
 
     /**

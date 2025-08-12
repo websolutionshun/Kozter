@@ -11,35 +11,7 @@ use yii\helpers\Url;
 $this->title = 'Jogosultságkezelés';
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerJs("
-function togglePermission(roleId, permissionId, checkbox) {
-    const enabled = checkbox.checked;
-    
-    fetch('" . Url::to(['permission/toggle']) . "', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRF-Token': document.querySelector('meta[name=\"csrf-token\"]').content
-        },
-        body: 'role_id=' + roleId + '&permission_id=' + permissionId + '&enabled=' + enabled
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Sikeres módosítás
-            console.log(data.message);
-        } else {
-            // Hiba esetén visszaállítjuk
-            checkbox.checked = !enabled;
-            alert('Hiba: ' + data.message);
-        }
-    })
-    .catch(error => {
-        checkbox.checked = !enabled;
-        alert('Hiba történt a kérés során.');
-    });
-}
-");
+
 ?>
 
 <div class="permission-index">
@@ -158,49 +130,6 @@ function togglePermission(roleId, permissionId, checkbox) {
 </div>
 
 <script>
-function toggleRoleAllPermissions(roleId, masterCheckbox) {
-    const checked = masterCheckbox.checked;
-    const permissionCheckboxes = document.querySelectorAll(`input[data-role-id="${roleId}"].permission-checkbox`);
-    
-    permissionCheckboxes.forEach(checkbox => {
-        if (checkbox.checked !== checked) {
-            checkbox.checked = checked;
-            togglePermission(roleId, checkbox.dataset.permissionId, checkbox);
-        }
-    });
-}
-
-function selectAllPermissions() {
-    const allCheckboxes = document.querySelectorAll('.permission-checkbox');
-    allCheckboxes.forEach(checkbox => {
-        if (!checkbox.checked) {
-            checkbox.checked = true;
-            togglePermission(checkbox.dataset.roleId, checkbox.dataset.permissionId, checkbox);
-        }
-    });
-    
-    // Master checkboxok is frissítése
-    document.querySelectorAll('.role-master-checkbox').forEach(master => {
-        master.checked = true;
-    });
-}
-
-function deselectAllPermissions() {
-    const allCheckboxes = document.querySelectorAll('.permission-checkbox');
-    allCheckboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            checkbox.checked = false;
-            togglePermission(checkbox.dataset.roleId, checkbox.dataset.permissionId, checkbox);
-        }
-    });
-    
-    // Master checkboxok is frissítése
-    document.querySelectorAll('.role-master-checkbox').forEach(master => {
-        master.checked = false;
-    });
-}
-
-// Master checkbox állapot frissítése amikor egy permission checkbox változik
 document.addEventListener('change', function(e) {
     if (e.target.classList.contains('permission-checkbox')) {
         const roleId = e.target.dataset.roleId;
@@ -215,7 +144,6 @@ document.addEventListener('change', function(e) {
     }
 });
 
-// Kezdeti master checkbox állapot beállítása
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.role-master-checkbox').forEach(master => {
         const roleId = master.dataset.roleId;
@@ -226,4 +154,100 @@ document.addEventListener('DOMContentLoaded', function() {
         master.indeterminate = checkedCount > 0 && checkedCount < roleCheckboxes.length;
     });
 });
+
+function getCsrfToken() {
+    let csrfMeta = document.querySelector('meta[name="csrf-token"]') || 
+                   document.querySelector('meta[name="_csrf"]') ||
+                   document.querySelector('meta[name="_csrf-backend"]') ||
+                   document.querySelector('meta[name="csrf_token"]');
+    
+    if (csrfMeta) {
+        return csrfMeta.content;
+    }
+    
+    let csrfInput = document.querySelector('input[name="_csrf"]') ||
+                    document.querySelector('input[name="_csrf-backend"]') ||
+                    document.querySelector('input[name="YII_CSRF_TOKEN"]');
+    
+    if (csrfInput) {
+        return csrfInput.value;
+    }
+    
+    return null;
+}
+
+function togglePermission(roleId, permissionId, checkbox) {
+    const enabled = checkbox.checked;
+    const csrfToken = getCsrfToken();
+    
+    if (!csrfToken) {
+        checkbox.checked = !enabled;
+        alert('Biztonsági hiba: CSRF token nem található.');
+        return;
+    }
+    
+    const formData = new FormData();
+    formData.append('role_id', roleId);
+    formData.append('permission_id', permissionId);
+    formData.append('enabled', enabled);
+    formData.append('_csrf-backend', csrfToken);
+    
+    fetch('<?= Url::to(['permission/toggle']) ?>', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.success) {
+            checkbox.checked = !enabled;
+            alert('Hiba: ' + data.message);
+        }
+    })
+    .catch(error => {
+        checkbox.checked = !enabled;
+        alert('Hiba történt a kérés során.');
+    });
+}
+
+function toggleRoleAllPermissions(roleId, masterCheckbox) {
+    const checked = masterCheckbox.checked;
+    const permissionCheckboxes = document.querySelectorAll(`input[data-role-id="${roleId}"].permission-checkbox`);
+    
+    permissionCheckboxes.forEach(checkbox => {
+        if (checkbox.checked !== checked) {
+            checkbox.checked = checked;
+            togglePermission(roleId, checkbox.dataset.permissionId, checkbox);
+        }
+    });
+}
+
+function selectAllPermissions() {
+    const allCheckboxes = document.querySelectorAll('.permission-checkbox');
+    
+    allCheckboxes.forEach(checkbox => {
+        if (!checkbox.checked) {
+            checkbox.checked = true;
+            togglePermission(checkbox.dataset.roleId, checkbox.dataset.permissionId, checkbox);
+        }
+    });
+    
+    document.querySelectorAll('.role-master-checkbox').forEach(master => {
+        master.checked = true;
+    });
+}
+
+function deselectAllPermissions() {
+    const allCheckboxes = document.querySelectorAll('.permission-checkbox');
+    
+    allCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            checkbox.checked = false;
+            togglePermission(checkbox.dataset.roleId, checkbox.dataset.permissionId, checkbox);
+        }
+    });
+    
+    document.querySelectorAll('.role-master-checkbox').forEach(master => {
+        master.checked = false;
+    });
+}
 </script> 
