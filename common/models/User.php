@@ -22,12 +22,17 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ *
+ * @property Role[] $roles
+ * @property UserRole[] $userRoles
  */
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+
+    public $password;
 
 
     /**
@@ -56,6 +61,12 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            [['username', 'email'], 'required'],
+            [['username', 'email'], 'string', 'max' => 255],
+            ['username', 'unique'],
+            ['email', 'unique'],
+            ['email', 'email'],
+            ['password', 'string', 'min' => 6],
         ];
     }
 
@@ -220,5 +231,109 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * Gets query for [[Roles]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRoles()
+    {
+        return $this->hasMany(Role::class, ['id' => 'role_id'])
+            ->viaTable('{{%user_roles}}', ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[UserRoles]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserRoles()
+    {
+        return $this->hasMany(UserRole::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * Ellenőrzi, hogy a felhasználónak van-e adott szerepköre
+     *
+     * @param string $roleName
+     * @return bool
+     */
+    public function hasRole($roleName)
+    {
+        return $this->getRoles()
+            ->where(['name' => $roleName])
+            ->exists();
+    }
+
+    /**
+     * Ellenőrzi, hogy a felhasználónak van-e adott jogosultsága
+     *
+     * @param string $permissionName
+     * @return bool
+     */
+    public function hasPermission($permissionName)
+    {
+        return Permission::find()
+            ->innerJoin('{{%role_permissions}}', '{{%permissions}}.id = {{%role_permissions}}.permission_id')
+            ->innerJoin('{{%user_roles}}', '{{%role_permissions}}.role_id = {{%user_roles}}.role_id')
+            ->where(['{{%permissions}}.name' => $permissionName])
+            ->andWhere(['{{%user_roles}}.user_id' => $this->id])
+            ->exists();
+    }
+
+    /**
+     * Szerepkör hozzáadása a felhasználóhoz
+     *
+     * @param int $roleId
+     * @return bool
+     */
+    public function addRole($roleId)
+    {
+        $userRole = new UserRole();
+        $userRole->user_id = $this->id;
+        $userRole->role_id = $roleId;
+        $userRole->created_at = time();
+        
+        return $userRole->save();
+    }
+
+    /**
+     * Szerepkör eltávolítása a felhasználótól
+     *
+     * @param int $roleId
+     * @return int
+     */
+    public function removeRole($roleId)
+    {
+        return UserRole::deleteAll([
+            'user_id' => $this->id,
+            'role_id' => $roleId
+        ]);
+    }
+
+    /**
+     * Összes szerepkör ID lekérése
+     *
+     * @return array
+     */
+    public function getRoleIds()
+    {
+        return $this->getUserRoles()
+            ->select('role_id')
+            ->column();
+    }
+
+    /**
+     * Szerepkörök névként lekérése
+     *
+     * @return array
+     */
+    public function getRoleNames()
+    {
+        return $this->getRoles()
+            ->select('name')
+            ->column();
     }
 }
