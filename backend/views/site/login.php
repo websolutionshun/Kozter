@@ -24,7 +24,8 @@ $this->title = 'Bejelentkezés';
                         <?= $form->field($model, 'email')->textInput([
                             'class' => 'form-control',
                             'placeholder' => 'E-mail cím',
-                            'autofocus' => true
+                            'autofocus' => true,
+                            'id' => 'email-input'
                         ])->label('E-mail cím') ?>
                     </div>
                     <div class="mb-2">
@@ -37,7 +38,8 @@ $this->title = 'Bejelentkezés';
                         <label class="form-check">
                             <?= $form->field($model, 'rememberMe')->checkbox([
                                 'class' => 'form-check-input',
-                                'template' => '{input}'
+                                'template' => '{input}',
+                                'id' => 'remember-me-checkbox'
                             ])->label(false) ?>
                             <span class="form-check-label">Emlékezz rám</span>
                         </label>
@@ -52,7 +54,40 @@ $this->title = 'Bejelentkezés';
             </div>
         </div>
         <div class="text-center text-muted mt-3">
-            Még nincs fiókja? <a href="#" tabindex="-1">Regisztráció</a>
+            Elfelejtette a jelszavát? <a href="<?= \yii\helpers\Url::to(['site/forgot-password']) ?>" tabindex="-1">Jelszó visszaállítás</a>
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const emailInput = document.getElementById('email-input');
+    const rememberCheckbox = document.getElementById('remember-me-checkbox');
+    const loginForm = document.getElementById('login-form');
+    
+    // Betöltés: emlékezett email betöltése
+    const rememberedEmail = localStorage.getItem('kozter_remembered_email');
+    if (rememberedEmail) {
+        emailInput.value = rememberedEmail;
+        rememberCheckbox.checked = true;
+    }
+    
+    // Form submit esemény
+    loginForm.addEventListener('submit', function() {
+        if (rememberCheckbox.checked) {
+            // Email mentése localStorage-ba
+            localStorage.setItem('kozter_remembered_email', emailInput.value);
+        } else {
+            // Email törlése localStorage-ból
+            localStorage.removeItem('kozter_remembered_email');
+        }
+    });
+    
+    // Checkbox változás esemény
+    rememberCheckbox.addEventListener('change', function() {
+        if (!this.checked) {
+            localStorage.removeItem('kozter_remembered_email');
+        }
+    });
+});
+</script>

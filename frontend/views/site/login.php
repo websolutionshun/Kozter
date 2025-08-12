@@ -7,35 +7,73 @@
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 
-$this->title = 'Login';
+$this->title = 'Bejelentkezés';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+    <p>Kérjük, töltse ki az alábbi mezőket a bejelentkezéshez:</p>
 
     <div class="row">
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'email')->textInput([
+                    'autofocus' => true,
+                    'id' => 'email-input'
+                ]) ?>
 
                 <?= $form->field($model, 'password')->passwordInput() ?>
 
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+                <?= $form->field($model, 'rememberMe')->checkbox([
+                    'id' => 'remember-me-checkbox'
+                ]) ?>
 
                 <div class="my-1 mx-0" style="color:#999;">
-                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
+                    Elfelejtette a jelszavát? <?= Html::a('Jelszó visszaállítás', ['site/request-password-reset']) ?>.
                     <br>
-                    Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
+                    Új megerősítő e-mailt szeretne? <?= Html::a('Újraküldés', ['site/resend-verification-email']) ?>
                 </div>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton('Bejelentkezés', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const emailInput = document.getElementById('email-input');
+    const rememberCheckbox = document.getElementById('remember-me-checkbox');
+    const loginForm = document.getElementById('login-form');
+    
+    // Betöltés: emlékezett email betöltése
+    const rememberedEmail = localStorage.getItem('kozter_remembered_email');
+    if (rememberedEmail) {
+        emailInput.value = rememberedEmail;
+        rememberCheckbox.checked = true;
+    }
+    
+    // Form submit esemény
+    loginForm.addEventListener('submit', function() {
+        if (rememberCheckbox.checked) {
+            // Email mentése localStorage-ba
+            localStorage.setItem('kozter_remembered_email', emailInput.value);
+        } else {
+            // Email törlése localStorage-ból
+            localStorage.removeItem('kozter_remembered_email');
+        }
+    });
+    
+    // Checkbox változás esemény
+    rememberCheckbox.addEventListener('change', function() {
+        if (!this.checked) {
+            localStorage.removeItem('kozter_remembered_email');
+        }
+    });
+});
+</script>

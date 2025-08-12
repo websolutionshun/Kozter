@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\AdminRegistrationForm;
+use backend\models\ForgotPasswordForm;
 use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
@@ -25,7 +26,7 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'admin-register'],
+                        'actions' => ['login', 'error', 'admin-register', 'forgot-password'],
                         'allow' => true,
                     ],
                     [
@@ -114,6 +115,31 @@ class SiteController extends Controller
         }
 
         return $this->render('admin-register', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Elfelejtett jelszó action.
+     *
+     * @return string|Response
+     */
+    public function actionForgotPassword()
+    {
+        $this->layout = 'blank';
+
+        $model = new ForgotPasswordForm();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {
+                Yii::$app->session->setFlash('success', 'Jelszó visszaállítási linket küldtünk az e-mail címére. Kérjük, ellenőrizze a postafiókját.');
+                return $this->redirect(['login']);
+            } else {
+                Yii::$app->session->setFlash('error', 'Sajnos nem sikerült elküldeni az e-mailt. Kérjük, próbálja újra később.');
+            }
+        }
+
+        return $this->render('forgot-password', [
             'model' => $model,
         ]);
     }
