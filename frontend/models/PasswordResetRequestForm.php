@@ -23,47 +23,48 @@ class PasswordResetRequestForm extends Model
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'exist',
-                'targetClass' => '\common\models\User',
-                'filter' => ['status' => User::STATUS_ACTIVE],
-                'message' => 'There is no user with this email address.'
-            ],
+            // Email létezés ellenőrzés eltávolítva (biztonsági okokból)
         ];
     }
 
     /**
-     * Sends an email with a link, for resetting the password.
-     *
-     * @return bool whether the email was send
+     * Jelszó visszaállítási email küldése
+     * Biztonsági okokból mindig sikert jelez (email enumeration védelem)
      */
     public function sendEmail()
     {
-        /* @var $user User */
+        usleep(rand(100000, 300000)); // Timing attack védelem
+        
         $user = User::findOne([
             'status' => User::STATUS_ACTIVE,
             'email' => $this->email,
         ]);
 
-        if (!$user) {
-            return false;
-        }
-        
-        if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
-            $user->generatePasswordResetToken();
-            if (!$user->save()) {
-                return false;
+        if ($user) {
+            if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
+                $user->generatePasswordResetToken();
+                if (!$user->save()) {
+                    return true;
+                }
+            }
+
+            try {
+                $htmlContent = Yii::$app->view->renderFile(
+                    Yii::getAlias('@common/mail/passwordResetToken-html.php'),
+                    ['user' => $user]
+                );
+
+                Yii::$app->phpmailer->sendEmail(
+                    $this->email,
+                    'Jelszó visszaállítás - ' . Yii::$app->name,
+                    $htmlContent,
+                    true
+                );
+            } catch (\Exception $e) {
+                // Email hiba nem befolyásolja a visszatérési értéket
             }
         }
-
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
-            ->setSubject('Password reset for ' . Yii::$app->name)
-            ->send();
+        
+        return true; // Mindig sikert jelzünk
     }
 }

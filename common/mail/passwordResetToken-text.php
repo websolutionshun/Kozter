@@ -1,23 +1,38 @@
 <?php
 
+use yii\helpers\Html;
+
 /** @var yii\web\View $this */
 /** @var common\models\User $user */
 
 $resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/reset-password', 'token' => $user->password_reset_token]);
+$appName = Html::encode(Yii::$app->name);
+$username = Html::encode($user->username);
 ?>
-Kedves <?= $user->username ?>!
+=========================================
+JELSZÓ VISSZAÁLLÍTÁS
+=========================================
 
-Jelszó visszaállítási kérést kaptunk a fiókjához.
+Kedves <?= $username ?>!
 
-Kattints az alábbi linkre a jelszó visszaállításához:
+Jelszó visszaállítási kérést kaptunk a fiókjához. Ha te voltál, használd az alábbi linket egy új jelszó beállításához:
+
+🔗 JELSZÓ VISSZAÁLLÍTÁSA:
 <?= $resetLink ?>
 
-FONTOS BIZTONSÁGI INFORMÁCIÓK:
-- Ez a link 1 órán belül lejár
-- A link csak egyszer használható  
-- Ha nem te kérted a jelszó visszaállítást, figyelmen kívül hagyhatod ezt az emailt
+
+🛡️ BIZTONSÁGI INFORMÁCIÓK:
+=========================================
+⏰ Ez a link 1 órán belül lejár
+🔒 A link csak egyszer használható  
+❌ Ha nem te kérted, figyelmen kívül hagyhatod ezt az emailt
+
 
 Ha problémád van, vagy nem te kérted ezt a jelszó visszaállítást, kérjük, vedd fel velünk a kapcsolatot.
 
 Üdvözlettel,
-<?= Yii::$app->name ?> csapata
+<?= $appName ?> csapata
+
+=========================================
+Ez egy automatikus email. Kérjük, ne válaszolj erre az üzenetre.
+© <?= date('Y') ?> <?= $appName ?>. Minden jog fenntartva.

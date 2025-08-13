@@ -26,7 +26,7 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'admin-register', 'forgot-password'],
+                        'actions' => ['login', 'error', 'admin-register', 'forgot-password', 'reset-password'],
                         'allow' => true,
                     ],
                     [
@@ -132,7 +132,7 @@ class SiteController extends Controller
         
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Jelszó visszaállítási linket küldtünk az e-mail címére. Kérjük, ellenőrizze a postafiókját.');
+                Yii::$app->session->setFlash('success', 'Jelszó visszaállítási linket küldtünk az e-mail címedre, amennyiben létező email címet adtál meg. Ellenőrizd a postafiókodat.');
                 return $this->redirect(['login']);
             } else {
                 Yii::$app->session->setFlash('error', 'Sajnos nem sikerült elküldeni az e-mailt. Kérjük, próbálja újra később.');
@@ -140,6 +140,33 @@ class SiteController extends Controller
         }
 
         return $this->render('forgot-password', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Jelszó visszaállítás token alapján
+     *
+     * @param string $token
+     * @return string|Response
+     */
+    public function actionResetPassword($token)
+    {
+        try {
+            $model = new \frontend\models\ResetPasswordForm($token);
+        } catch (\yii\base\InvalidArgumentException $e) {
+            Yii::$app->session->setFlash('error', 'Érvénytelen vagy lejárt jelszó visszaállítási link.');
+            return $this->redirect(['login']);
+        }
+
+        $this->layout = 'blank';
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            Yii::$app->session->setFlash('success', 'Új jelszó sikeresen beállítva. Most már bejelentkezhet az új jelszavával.');
+            return $this->redirect(['login']);
+        }
+
+        return $this->render('reset-password', [
             'model' => $model,
         ]);
     }

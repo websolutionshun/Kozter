@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'name' => $params['projectName'] ?? 'Közter', // Alkalmazás név .env fájlból
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -60,11 +61,21 @@ return [
                 'jogosultsagok/<id:\d+>/szerkesztes' => 'permission/update',
                 'jogosultsagok/<id:\d+>/torles' => 'permission/delete',
                 
+                'kategoriak' => 'category/index',
+                'kategoriak/letrehozas' => 'category/create',
+                'kategoriak/<id:\d+>' => 'category/view',
+                'kategoriak/<id:\d+>/szerkesztes' => 'category/update',
+                'kategoriak/<id:\d+>/torles' => 'category/delete',
+                'kategoriak/tomeges-torles' => 'category/bulk-delete',
+                'kategoriak/gyors-szerkesztes/<id:\d+>' => 'category/quick-edit',
+                'kategoriak/allapot-valtas/<id:\d+>' => 'category/toggle-status',
+                
                 'fooldal' => 'site/index',
                 'bejelentkezes' => 'site/login',
                 'kijelentkezes' => 'site/logout',
                 'admin-regisztracio' => 'site/admin-register',
                 'elfelejtett-jelszo' => 'site/forgot-password',
+                'jelszo-uj/<token>' => 'site/reset-password',
             ],
         ],
     ],

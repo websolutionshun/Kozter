@@ -9,6 +9,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-console',
+    'name' => $params['projectName'] ?? 'Közter', // Alkalmazás név .env fájlból
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'console\controllers',
@@ -29,6 +30,15 @@ return [
                     'class' => \yii\log\FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
+            ],
+        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'baseUrl' => 'http://kozter-admin.test',
+            'hostInfo' => 'http://kozter-admin.test',
+            'rules' => [
+                'jelszo-uj/<token>' => 'site/reset-password',
             ],
         ],
     ],

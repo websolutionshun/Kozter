@@ -2,13 +2,13 @@
 
 /** @var yii\web\View $this */
 /** @var yii\widgets\ActiveForm $form */
-/** @var \backend\models\ForgotPasswordForm $model */
+/** @var \frontend\models\ResetPasswordForm $model */
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\widgets\Alert;
 
-$this->title = 'Elfelejtett jelszó';
+$this->title = 'Jelszó visszaállítás';
 ?>
 <div class="page page-center">
     <div class="container container-tight py-4">
@@ -19,31 +19,31 @@ $this->title = 'Elfelejtett jelszó';
         </div>
         <div class="card card-md">
             <div class="card-body">
-                <h2 class="h2 text-center mb-4">Jelszó visszaállítás</h2>
+                <h2 class="h2 text-center mb-4">Új jelszó beállítása</h2>
                 <?= Alert::widget() ?>
                 <p class="text-muted mb-4">
-                    Add meg az e-mail címed, és küldünk egy linket a jelszó visszaállításához.
+                    Kérjük, adja meg az új jelszavát. A jelszónak legalább 8 karakter hosszúnak kell lennie.
                 </p>
                 
-                <?php $form = ActiveForm::begin(['id' => 'forgot-password-form']); ?>
+                <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
                     <div class="mb-3">
-                        <?= $form->field($model, 'email')->textInput([
+                        <?= $form->field($model, 'password')->passwordInput([
                             'class' => 'form-control',
-                            'placeholder' => 'E-mail cím',
+                            'placeholder' => 'Új jelszó',
                             'autofocus' => true
-                        ])->label('E-mail cím') ?>
+                        ])->label('Új jelszó') ?>
                     </div>
                     <div class="form-footer">
-                        <?= Html::submitButton('Jelszó visszaállítási link küldése', [
+                        <?= Html::submitButton('Jelszó beállítása', [
                             'class' => 'btn btn-primary w-100',
-                            'name' => 'forgot-password-button'
+                            'name' => 'reset-password-button'
                         ]) ?>
                     </div>
                 <?php ActiveForm::end(); ?>
             </div>
         </div>
         <div class="text-center text-muted mt-3">
-            Mégis bejelentkezés? <a href="<?= \yii\helpers\Url::to(['/bejelentkezes']) ?>" tabindex="-1">Vissza a bejelentkezéshez</a>
+            Visszatérés a <a href="<?= \yii\helpers\Url::to(['/bejelentkezes']) ?>">bejelentkezéshez</a>
         </div>
     </div>
-</div> 
+</div>

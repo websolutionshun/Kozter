@@ -6,6 +6,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\widgets\Alert;
 
 $this->title = 'Bejelentkezés';
 ?>
@@ -19,6 +20,7 @@ $this->title = 'Bejelentkezés';
         <div class="card card-md">
             <div class="card-body">
                 <h2 class="h2 text-center mb-4">Jelentkezz be a fiókodba</h2>
+                <?= Alert::widget() ?>
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                     <div class="mb-3">
                         <?= $form->field($model, 'email')->textInput([
@@ -51,7 +53,7 @@ $this->title = 'Bejelentkezés';
             </div>
         </div>
         <div class="text-center text-muted mt-3">
-            Elfelejtette a jelszavát? <a href="<?= \yii\helpers\Url::to(['/elfelejtett-jelszo']) ?>" tabindex="-1">Jelszó visszaállítás</a>
+            Elfelejtetted a jelszavad? <a href="<?= \yii\helpers\Url::to(['/elfelejtett-jelszo']) ?>" tabindex="-1">Jelszó visszaállítás</a>
         </div>
     </div>
 </div>

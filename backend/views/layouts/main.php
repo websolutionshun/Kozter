@@ -16,6 +16,7 @@ function isActiveRoute($route) {
     if ($route === '/felhasznalok' && $currentRoute === '/user/index') return 'active';
     if ($route === '/szerepkorok' && $currentRoute === '/role/index') return 'active';
     if ($route === '/jogosultsagok' && $currentRoute === '/permission/index') return 'active';
+    if ($route === '/kategoriak' && $currentRoute === '/category/index') return 'active';
     if ($route === '/fooldal' && $currentRoute === '/site/index') return 'active';
     return $currentRoute === $route ? 'active' : '';
 }
@@ -30,7 +31,24 @@ function isActiveController($controller) {
 <?php
 // Átirányítás bejelentkezési oldalra, ha a felhasználó nincs bejelentkezve
 if (Yii::$app->user->isGuest) {
-    return Yii::$app->response->redirect(['/bejelentkezes']);
+    // Jelszó visszaállítási és egyéb kivételes útvonalak ellenőrzése
+    $currentRoute = '/' . Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
+    
+    // Kivételek listája - ezekre az útvonalakra nem irányítunk át bejelentkezésre
+    $allowedGuestRoutes = [
+        '/site/reset-password',        // Jelszó visszaállítás
+        // További bővítési lehetőségek:
+        // '/site/verify-email',       // Email megerősítés
+        // '/site/signup',             // Regisztráció (ha engedélyezve)
+        // '/site/forgot-password',    // Elfelejtett jelszó (már kezelve AccessControl-ban)
+        // '/site/terms',              // Felhasználási feltételek
+        // '/site/privacy',            // Adatvédelmi szabályzat
+        // '/api/webhook',             // API webhook végpontok
+    ];
+    
+    if (!in_array($currentRoute, $allowedGuestRoutes)) {
+        return Yii::$app->response->redirect(['/bejelentkezes']);
+    }
 }
 ?>
 <!doctype html>
@@ -99,6 +117,7 @@ if (Yii::$app->user->isGuest) {
                         <?php if (!Yii::$app->user->isGuest): ?>
                             <?php 
                             $userModulesActive = in_array(Yii::$app->controller->id, ['user', 'role', 'permission']);
+                            $contentModulesActive = in_array(Yii::$app->controller->id, ['category']);
                             ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle <?= $userModulesActive ? 'active' : '' ?>" href="#navbar-users" data-bs-toggle="dropdown"
@@ -133,6 +152,21 @@ if (Yii::$app->user->isGuest) {
                                     </span>
                                     Jogosultságkezelés', ['/jogosultsagok'], ['class' => 'dropdown-item ' . isActiveRoute('/jogosultsagok'), 'style' => isActiveRoute('/jogosultsagok') ? 'color: #FFF !important;' : '']) ?>
                                 </div>
+                            </li>
+
+                            <li class="nav-item">
+                                <?= Html::a('
+                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M9 4h6l3 7h-12l3 -7z"/>
+                                            <path d="M9 4v10a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2v-10"/>
+                                            <path d="M15 4v10a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-10"/>
+                                        </svg>
+                                    </span>
+                                    <span class="nav-link-title">
+                                        Kategóriák kezelése
+                                    </span>', ['/kategoriak'], ['class' => 'nav-link ' . isActiveRoute('/kategoriak')]) ?>
                             </li>
 
                             <li class="nav-item">
