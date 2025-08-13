@@ -13,7 +13,78 @@ use common\models\Category;
 $this->title = 'Kategóriák kezelése';
 $this->params['breadcrumbs'][] = 'Kategóriák';
 
-// JavaScript a WordPress stílusú működéshez
+// Globális függvények definiálása a kategóriák kezeléséhez
+$this->registerJs("
+// Quick edit
+window.quickEdit = function(id) {
+    var row = $('#category-' + id);
+    var name = row.find('.category-name').text();
+    var slug = row.find('.category-slug').text();
+    
+    row.find('.category-name').html('<input type=\"text\" class=\"form-control form-control-sm\" id=\"quick-name-' + id + '\" value=\"' + name + '\">');
+    row.find('.category-slug').html('<input type=\"text\" class=\"form-control form-control-sm\" id=\"quick-slug-' + id + '\" value=\"' + slug + '\">');
+    row.find('.quick-edit-btn').hide();
+    row.find('.quick-save-btn, .quick-cancel-btn').show();
+};
+
+window.cancelQuickEdit = function(id) {
+    location.reload(); // Egyszerű megoldás
+};
+
+window.saveQuickEdit = function(id) {
+    var name = $('#quick-name-' + id).val();
+    var slug = $('#quick-slug-' + id).val();
+    
+    $.ajax({
+        url: '" . Url::to(['category/quick-edit', 'id' => '']) . "' + id,
+        type: 'POST',
+        data: {
+            name: name,
+            slug: slug,
+            '_csrf': '" . Yii::$app->request->csrfToken . "'
+        },
+        dataType: 'json',
+        success: function(data) {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Hiba: ' + (data.message || 'Ismeretlen hiba történt'));
+                console.error('Validation errors:', data.errors);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', xhr.responseText);
+            alert('Hiba a mentés során: ' + error);
+        }
+    });
+};
+
+// Toggle status
+window.toggleStatus = function(id) {
+    $.ajax({
+        url: '" . Url::to(['category/toggle-status', 'id' => '']) . "' + id,
+        type: 'POST',
+        data: {
+            '_csrf': '" . Yii::$app->request->csrfToken . "'
+        },
+        dataType: 'json',
+        success: function(data) {
+            if (data.success) {
+                var statusCell = $('#category-' + id).find('.status-cell');
+                statusCell.html('<span class=\"badge bg-' + (data.status == 1 ? 'green-lt text-green' : 'gray-lt text-gray') + '\">' + data.statusName + '</span>');
+            } else {
+                alert('Hiba: ' + (data.message || 'Ismeretlen hiba történt'));
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', xhr.responseText);
+            alert('Hiba az állapot módosítása során: ' + error);
+        }
+    });
+};
+", yii\web\View::POS_HEAD);
+
+// Event handlers a DOM ready után
 $this->registerJs("
 // Bulk actions
 $('#bulk-action-form').on('submit', function(e) {
@@ -46,55 +117,24 @@ $('#select-all').change(function() {
     $('input.select-row').prop('checked', $(this).prop('checked'));
 });
 
-// Quick edit
-function quickEdit(id) {
-    var row = $('#category-' + id);
-    var name = row.find('.category-name').text();
-    var slug = row.find('.category-slug').text();
-    
-    row.find('.category-name').html('<input type=\"text\" class=\"form-control form-control-sm\" id=\"quick-name-' + id + '\" value=\"' + name + '\">');
-    row.find('.category-slug').html('<input type=\"text\" class=\"form-control form-control-sm\" id=\"quick-slug-' + id + '\" value=\"' + slug + '\">');
-    row.find('.quick-edit-btn').hide();
-    row.find('.quick-save-btn, .quick-cancel-btn').show();
-}
-
-function cancelQuickEdit(id) {
-    location.reload(); // Egyszerű megoldás
-}
-
-function saveQuickEdit(id) {
-    var name = $('#quick-name-' + id).val();
-    var slug = $('#quick-slug-' + id).val();
-    
-    $.post('" . Url::to(['category/quick-edit']) . "', {
-        id: id,
-        name: name,
-        slug: slug,
-        _csrf: '" . Yii::$app->request->csrfToken . "'
-    }).done(function(data) {
-        if (data.success) {
-            location.reload();
-        } else {
-            alert('Hiba: ' + data.message);
-        }
-    });
-}
-
-// Toggle status
-function toggleStatus(id) {
-    $.post('" . Url::to(['category/toggle-status']) . "', {
-        id: id,
-        _csrf: '" . Yii::$app->request->csrfToken . "'
-    }).done(function(data) {
-        if (data.success) {
-            var statusCell = $('#category-' + id).find('.status-cell');
-            statusCell.html('<span class=\"badge bg-' + (data.status == 1 ? 'green-lt text-green' : 'gray-lt text-gray') + '\">' + data.statusName + '</span>');
-        } else {
-            alert('Hiba: ' + data.message);
-        }
-    });
-}
-");
+// Auto-generate slug from name in quick add
+$('#quick-name').on('keyup', function() {
+    var name = $(this).val();
+    var slug = name.toLowerCase()
+        .replace(/[áàâä]/g, 'a')
+        .replace(/[éèêë]/g, 'e')
+        .replace(/[íìîï]/g, 'i')
+        .replace(/[óòôö]/g, 'o')
+        .replace(/[úùûü]/g, 'u')
+        .replace(/[ő]/g, 'o')
+        .replace(/[ű]/g, 'u')
+        .replace(/[ç]/g, 'c')
+        .replace(/[ñ]/g, 'n')
+        .replace(/[^a-z0-9]/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+});
+", yii\web\View::POS_READY);
 ?>
 
 <div class="category-index">

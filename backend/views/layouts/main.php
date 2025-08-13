@@ -13,11 +13,13 @@ AppAsset::register($this);
 // Function to check if current route is active
 function isActiveRoute($route) {
     $currentRoute = '/' . Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
-    // Magyar URL-ek ellenőrzése
-    if ($route === '/felhasznalok' && $currentRoute === '/user/index') return 'active';
-    if ($route === '/szerepkorok' && $currentRoute === '/role/index') return 'active';
-    if ($route === '/jogosultsagok' && $currentRoute === '/permission/index') return 'active';
-    if ($route === '/kategoriak' && $currentRoute === '/category/index') return 'active';
+    $currentController = Yii::$app->controller->id;
+    
+    // Magyar URL-ek ellenőrzése - controller szintű aktiválás minden aloldalra
+    if ($route === '/felhasznalok' && $currentController === 'user') return 'active';
+    if ($route === '/szerepkorok' && $currentController === 'role') return 'active';
+    if ($route === '/jogosultsagok' && $currentController === 'permission') return 'active';
+    if ($route === '/kategoriak' && $currentController === 'category') return 'active';
     if ($route === '/fooldal' && $currentRoute === '/site/index') return 'active';
     return $currentRoute === $route ? 'active' : '';
 }

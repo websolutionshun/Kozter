@@ -41,6 +41,8 @@ class CategoryController extends Controller
                                 case 'create':
                                     return $user->hasPermission('category_create') || $user->hasPermission('admin_panel');
                                 case 'update':
+                                case 'quick-edit':
+                                case 'toggle-status':
                                     return $user->hasPermission('category_edit') || $user->hasPermission('admin_panel');
                                 case 'delete':
                                 case 'bulk-delete':

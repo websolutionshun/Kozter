@@ -17,3 +17,4 @@ http://kozter-admin.test #admin
 - "tisztítsd a kódot!" prompt esetén vizsgáld felül az általad írt kódot a következő kritériumok alapján: a fölösleges logolási részeket töröld, akár php log, akár javascript alapú logról van szó. Töröld a teszt részeket, amikre már nem lesz szükség. Ezen kívül pedig ellenőrizd, hogy van-e olyan rész túl lett bonyolítva ezáltal egyszerűsíthető, vagy olyan kódrész ami használhatatlan, esetlegesen duplikált.
 # tartalmi kiegészítések
 - az összes leírás amit készítesz, mindig tegeződve íródjon és magyar nyelven
+- a "/backend/views" mappán belüli view fájloknál mindig figyelj arra, hogy az egyes badge részek ne legyenek nagyon kontrasztosak, olvashatatlanok. használd azt a módszert, amit már a többi oldalon is alkalmaztál, hogy halványabb színekkel jelenjenek meg.
