@@ -19,11 +19,12 @@
 .breadcrumb-item + .breadcrumb-item::before {
     content: "/";
     color: #6c757d;
-    margin: 0 0.5rem;
+    margin: 0 0.25rem;
 }
 
 .breadcrumb-item.active .breadcrumb-item-label {
-    color: #6c757d;
+    color: #000000;
+    font-weight: 500;
 }
 
 .breadcrumb-link {

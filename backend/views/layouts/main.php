@@ -439,7 +439,7 @@ if (Yii::$app->user->isGuest) {
                             <?php if (isset($this->params['breadcrumbs']) && !empty($this->params['breadcrumbs'])): ?>
                                 <?= Breadcrumb::widget([
                                     'items' => $this->params['breadcrumbs'],
-                                    'options' => ['class' => 'mb-2'],
+                                    'options' => ['class' => 'mb-1'],
                                     'listOptions' => ['class' => 'breadcrumb mb-0']
                                 ]) ?>
                             <?php endif; ?>

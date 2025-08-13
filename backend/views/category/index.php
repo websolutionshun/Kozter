@@ -31,7 +31,7 @@ $('#bulk-action-form').on('submit', function(e) {
             return false;
         }
         
-        var form = $('<form method=\"post\" action=\"' + '" . Url::to(['bulk-delete']) . "' + '\"></form>');
+        var form = $('<form method=\"post\" action=\"' + '" . Url::to(['category/bulk-delete']) . "' + '\"></form>');
         selected.each(function() {
             form.append('<input type=\"hidden\" name=\"selection[]\" value=\"' + $(this).val() + '\">');
         });
@@ -66,7 +66,7 @@ function saveQuickEdit(id) {
     var name = $('#quick-name-' + id).val();
     var slug = $('#quick-slug-' + id).val();
     
-    $.post('" . Url::to(['quick-edit']) . "', {
+    $.post('" . Url::to(['category/quick-edit']) . "', {
         id: id,
         name: name,
         slug: slug,
@@ -82,13 +82,13 @@ function saveQuickEdit(id) {
 
 // Toggle status
 function toggleStatus(id) {
-    $.post('" . Url::to(['toggle-status']) . "', {
+    $.post('" . Url::to(['category/toggle-status']) . "', {
         id: id,
         _csrf: '" . Yii::$app->request->csrfToken . "'
     }).done(function(data) {
         if (data.success) {
             var statusCell = $('#category-' + id).find('.status-cell');
-            statusCell.html('<span class=\"badge bg-' + (data.status == 1 ? 'success' : 'secondary') + '\">' + data.statusName + '</span>');
+            statusCell.html('<span class=\"badge bg-' + (data.status == 1 ? 'green-lt text-green' : 'gray-lt text-gray') + '\">' + data.statusName + '</span>');
         } else {
             alert('Hiba: ' + data.message);
         }
@@ -160,13 +160,13 @@ function toggleStatus(id) {
                                     </td>
                                     <td class="status-cell">
                                         <a href="javascript:void(0)" onclick="toggleStatus(<?= $model->id ?>)" class="text-decoration-none">
-                                            <span class="badge bg-<?= $model->status == Category::STATUS_ACTIVE ? 'success' : 'secondary' ?>">
+                                            <span class="badge bg-<?= $model->status == Category::STATUS_ACTIVE ? 'green-lt text-green' : 'gray-lt text-gray' ?>">
                                                 <?= $model->getStatusName() ?>
                                             </span>
                                         </a>
                                     </td>
                                     <td class="text-center">
-                                        <span class="badge bg-light text-dark"><?= $model->count ?></span>
+                                        <span class="badge bg-blue-lt text-blue"><?= $model->count ?></span>
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group">

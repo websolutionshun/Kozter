@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = 'Szerkesztés: ' . $model->name;
                         <div class="datagrid-item">
                             <div class="datagrid-title">Elemek száma</div>
                             <div class="datagrid-content">
-                                <span class="badge bg-primary"><?= $model->count ?></span>
+                                <span class="badge bg-blue-lt text-blue"><?= $model->count ?></span>
                             </div>
                         </div>
                         <?php if ($model->parent): ?>
@@ -158,7 +158,7 @@ $this->params['breadcrumbs'][] = 'Szerkesztés: ' . $model->name;
                                     ]) ?>
                                 </div>
                                 <div class="col-auto">
-                                    <span class="badge bg-<?= $child->status == Category::STATUS_ACTIVE ? 'success' : 'secondary' ?>">
+                                    <span class="badge bg-<?= $child->status == Category::STATUS_ACTIVE ? 'green-lt text-green' : 'gray-lt text-gray' ?>">
                                         <?= $child->getStatusName() ?>
                                     </span>
                                 </div>
@@ -237,7 +237,7 @@ $('#category-slug').on('keyup', function() {
 
 // Toggle status function
 function toggleStatus(id) {
-    $.post('" . \yii\helpers\Url::to(['toggle-status']) . "', {
+    $.post('" . \yii\helpers\Url::to(['category/toggle-status']) . "', {
         id: id,
         _csrf: '" . Yii::$app->request->csrfToken . "'
     }).done(function(data) {

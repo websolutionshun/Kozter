@@ -58,11 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="datagrid-title">Állapot</div>
                             <div class="datagrid-content">
                                 <?php if ($model->status == \common\models\User::STATUS_ACTIVE): ?>
-                                    <span class="badge bg-success">Aktív</span>
+                                    <span class="badge bg-green-lt text-green">Aktív</span>
                                 <?php elseif ($model->status == \common\models\User::STATUS_INACTIVE): ?>
-                                    <span class="badge bg-warning">Inaktív</span>
+                                    <span class="badge bg-yellow-lt text-yellow">Inaktív</span>
                                 <?php else: ?>
-                                    <span class="badge bg-danger">Törölve</span>
+                                    <span class="badge bg-red-lt text-red">Törölve</span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -92,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="list-group-item">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
-                                            <span class="badge bg-blue"><?= Html::encode($role->name) ?></span>
+                                            <span class="badge bg-blue-lt text-blue"><?= Html::encode($role->name) ?></span>
                                         </div>
                                         <div class="col text-truncate">
                                             <div class="text-reset d-block"><?= Html::encode($role->name) ?></div>
