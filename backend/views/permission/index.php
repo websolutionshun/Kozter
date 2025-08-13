@@ -53,17 +53,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </tr>
                                 <?php foreach ($categoryPermissions as $permission): ?>
                                     <tr>
-                                        <td class="py-3">
+                                        <td class="py-1">
                                             <div>
                                                 <div class="fw-medium"><?= Html::encode($permission->description) ?></div>
                                                 <div class="text-muted small mt-1"><?= Html::encode($permission->name) ?></div>
                                             </div>
                                         </td>
-                                        <td class="text-center py-3">
+                                        <td class="text-center py-1">
                                             <span class="badge bg-blue-lt text-blue"><?= Html::encode($permission->category) ?></span>
                                         </td>
                                         <?php foreach ($roles as $role): ?>
-                                            <td class="text-center py-3">
+                                            <td class="text-center py-1">
                                                 <div class="form-check form-switch d-flex justify-content-center">
                                                     <input class="form-check-input permission-checkbox" type="checkbox" 
                                                            data-role-id="<?= $role->id ?>"
