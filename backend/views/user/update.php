@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 /* @var $selectedRoles array */
 
 $this->title = 'Szerkesztés: ' . $model->username;
-$this->params['breadcrumbs'][] = ['label' => 'Felhasználókezelés', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Felhasználók', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Szerkesztés';
 ?>

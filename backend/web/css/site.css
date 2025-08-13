@@ -2,3 +2,41 @@
     color: #e74c3c;
     margin-top: 5px;
 }
+
+/* Breadcrumb stílusok */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
+    color: #6c757d;
+    margin: 0 0.5rem;
+}
+
+.breadcrumb-item.active .breadcrumb-item-label {
+    color: #6c757d;
+}
+
+.breadcrumb-link {
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out;
+}
+
+.breadcrumb-link:hover {
+    color: #004499;
+    text-decoration: underline;
+}
+
+.breadcrumb-item .icon {
+    margin-right: 0.25rem;
+}

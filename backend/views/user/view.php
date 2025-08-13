@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\User */
 
 $this->title = $model->username;
-$this->params['breadcrumbs'][] = ['label' => 'Felhasználókezelés', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Felhasználók', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

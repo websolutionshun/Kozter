@@ -11,8 +11,7 @@ use common\models\Category;
 
 $this->title = 'Kategória szerkesztése: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Kategóriák', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Szerkesztés';
+$this->params['breadcrumbs'][] = 'Szerkesztés: ' . $model->name;
 ?>
 
 <div class="category-update">

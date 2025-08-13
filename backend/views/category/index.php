@@ -11,7 +11,7 @@ use common\models\Category;
 /* @var $parentCategories array */
 
 $this->title = 'Kategóriák kezelése';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = 'Kategóriák';
 
 // JavaScript a WordPress stílusú működéshez
 $this->registerJs("

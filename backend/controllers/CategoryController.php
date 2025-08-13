@@ -127,11 +127,16 @@ class CategoryController extends Controller
         $excludeIds = $this->getDescendantIds($id);
         $excludeIds[] = $id;
         
-        $parentCategories = [null => 'Nincs (főkategória)'] + Category::find()
-            ->where(['not in', 'id', $excludeIds])
-            ->orderBy('name')
-            ->indexBy('id')
-            ->column();
+        // Hierarchikus lista létrehozása a kizárt ID-k nélkül
+        $allCategories = Category::getHierarchicalList();
+        $filteredCategories = [];
+        foreach ($allCategories as $categoryId => $categoryName) {
+            if (!in_array($categoryId, $excludeIds)) {
+                $filteredCategories[$categoryId] = $categoryName;
+            }
+        }
+        
+        $parentCategories = [null => 'Nincs (főkategória)'] + $filteredCategories;
 
         return $this->render('update', [
             'model' => $model,

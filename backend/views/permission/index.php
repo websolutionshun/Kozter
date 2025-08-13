@@ -9,7 +9,7 @@ use yii\helpers\Url;
 /* @var $rolePermissions array */
 
 $this->title = 'Jogosultságkezelés';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = 'Jogosultságok';
 
 
 ?>

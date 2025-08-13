@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 /* @var $selectedRoles array */
 
 $this->title = 'Új felhasználó';
-$this->params['breadcrumbs'][] = ['label' => 'Felhasználókezelés', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Felhasználók', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

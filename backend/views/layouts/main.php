@@ -5,6 +5,7 @@
 
 use backend\assets\AppAsset;
 use common\widgets\Alert;
+use common\widgets\Breadcrumb;
 use yii\helpers\Html;
 
 AppAsset::register($this);
@@ -355,7 +356,7 @@ if (Yii::$app->user->isGuest) {
                                     <span class="avatar avatar-sm"
                                         style="background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTJaIiBmaWxsPSIjNzQ4OTlCIi8+CjxwYXRoIGQ9Ik0yMCAyMEMyMCAxNi42ODYzIDEzLjMxMzcgMTMgMTIgMTNDMTAuNjg2MyAxMyA0IDE2LjY4NjMgNCAyMEg0LjM0MzI1SDE5LjY1NjdIMjBaIiBmaWxsPSIjNzQ4OTlCIi8+Cjwvc3ZnPgo=)"></span>
                                     <div class="d-none d-xl-block ps-2">
-                                        <div><?= Html::encode(Yii::$app->user->identity->username) ?></div>
+                                        <div><?= Html::encode(Yii::$app->user->identity ? (Yii::$app->user->identity instanceof \common\models\User ? Yii::$app->user->identity->username : '') : '') ?></div>
                                         <div class="mt-1 small text-secondary">Admin</div>
                                     </div>
                                 </a>
@@ -434,6 +435,15 @@ if (Yii::$app->user->isGuest) {
                 <div class="container-fluid">
                     <div class="row g-2 align-items-center">
                         <div class="col">
+                            <!-- Breadcrumb -->
+                            <?php if (isset($this->params['breadcrumbs']) && !empty($this->params['breadcrumbs'])): ?>
+                                <?= Breadcrumb::widget([
+                                    'items' => $this->params['breadcrumbs'],
+                                    'options' => ['class' => 'mb-2'],
+                                    'listOptions' => ['class' => 'breadcrumb mb-0']
+                                ]) ?>
+                            <?php endif; ?>
+                            
                             <h2 class="page-title">
                                 <?= Html::encode($this->title) ?>
                             </h2>

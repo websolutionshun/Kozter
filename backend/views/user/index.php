@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Felhasználókezelés';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = 'Felhasználók';
 ?>
 
 <div class="user-index">
