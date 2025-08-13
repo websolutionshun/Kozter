@@ -170,11 +170,11 @@ function toggleStatus(id) {
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group">
-                                            <?= Html::a('<i class="ti ti-edit"></i>', ['update', 'id' => $model->id], [
+                                            <?= Html::a('<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/><path d="M16 5l3 3"/></svg>', ['update', 'id' => $model->id], [
                                                 'class' => 'btn btn-sm btn-outline-primary',
                                                 'title' => 'Szerkesztés'
                                             ]) ?>
-                                            <?= Html::a('<i class="ti ti-trash"></i>', ['delete', 'id' => $model->id], [
+                                            <?= Html::a('<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0"/><path d="M10 11l0 6"/><path d="M14 11l0 6"/><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/></svg>', ['delete', 'id' => $model->id], [
                                                 'class' => 'btn btn-sm btn-outline-danger',
                                                 'title' => 'Törlés',
                                                 'data' => [
@@ -190,7 +190,7 @@ function toggleStatus(id) {
                                 <?php if (empty($dataProvider->getModels())): ?>
                                 <tr>
                                     <td colspan="7" class="text-center text-muted py-4">
-                                        <i class="ti ti-folder-x fs-1 mb-2 d-block"></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon fs-1 mb-2 d-block text-muted" width="96" height="96" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"/><path d="M9 13v-6"/><path d="M12 10h-6"/></svg>
                                         Még nincsenek kategóriák.<br>
                                         <?= Html::a('Hozz létre egyet most', ['create'], ['class' => 'btn btn-primary btn-sm mt-2']) ?>
                                     </td>
@@ -211,8 +211,8 @@ function toggleStatus(id) {
                         'linkOptions' => ['class' => 'page-link'],
                         'activePageCssClass' => 'active',
                         'disabledPageCssClass' => 'disabled',
-                        'prevPageLabel' => '<i class="ti ti-chevron-left"></i>',
-                        'nextPageLabel' => '<i class="ti ti-chevron-right"></i>',
+                        'prevPageLabel' => '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15,6 9,12 15,18"/></svg>',
+                        'nextPageLabel' => '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9,6 15,12 9,18"/></svg>',
                     ]) ?>
                 </div>
                 <?php endif; ?>
@@ -249,7 +249,7 @@ function toggleStatus(id) {
                         <input type="hidden" name="Category[status]" value="<?= Category::STATUS_ACTIVE ?>">
                         
                         <button type="submit" class="btn btn-primary w-100">
-                            <i class="ti ti-plus"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14"/><path d="M5 12l14 0"/></svg>
                             Kategória hozzáadása
                         </button>
                     <?= Html::endForm() ?>
