@@ -210,15 +210,31 @@ $this->title = 'Média kezelése';
 #drop-zone {
     transition: all 0.3s ease;
     cursor: pointer;
+    position: relative;
 }
 
 #drop-zone.dragover {
     border-color: #0054a6 !important;
     background-color: #e3f2fd !important;
+    transform: scale(1.02);
 }
 
-#drop-zone:hover {
+#drop-zone:hover:not(.dragover) {
     border-color: #74889b;
+    background-color: #f1f3f4;
+}
+
+#drop-zone.uploading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+#drop-zone .drop-zone-content {
+    transition: opacity 0.2s ease;
+}
+
+#drop-zone.dragover .drop-zone-content {
+    opacity: 0.8;
 }
 </style>
 
@@ -230,6 +246,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const browseBtn = document.getElementById('browse-btn');
     const uploadProgress = document.getElementById('upload-progress');
     const progressBar = uploadProgress.querySelector('.progress-bar');
+    
+    // Tracking variables
+    let isDragging = false;
+    let dragCounter = 0;
     
     // Prevent default drag behaviors
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -249,13 +269,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle dropped files
     dropZone.addEventListener('drop', handleDrop, false);
     
-    // Handle browse button
-    browseBtn.addEventListener('click', () => fileInput.click());
-    dropZone.addEventListener('click', () => fileInput.click());
+    // Handle browse button - explicit browser trigger
+    browseBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        fileInput.click();
+    });
+    
+    // Handle drop zone click - only if not dragging
+    dropZone.addEventListener('click', function(e) {
+        // Only trigger file input if we're not in the middle of a drag operation
+        // and the click didn't come from the browse button
+        if (!isDragging && !e.target.closest('#browse-btn')) {
+            fileInput.click();
+        }
+    });
     
     // Handle file input change
     fileInput.addEventListener('change', function(e) {
         handleFiles(e.target.files);
+    });
+    
+    // Global drag leave handler to reset state when dragging outside the window
+    document.addEventListener('dragleave', function(e) {
+        if (e.clientX <= 0 || e.clientY <= 0 || 
+            e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
+            isDragging = false;
+            dragCounter = 0;
+            dropZone.classList.remove('dragover');
+        }
     });
     
     function preventDefaults(e) {
@@ -263,15 +305,23 @@ document.addEventListener('DOMContentLoaded', function() {
         e.stopPropagation();
     }
     
-    function highlight() {
+    function highlight(e) {
+        dragCounter++;
+        isDragging = true;
         dropZone.classList.add('dragover');
     }
     
-    function unhighlight() {
-        dropZone.classList.remove('dragover');
+    function unhighlight(e) {
+        dragCounter--;
+        if (dragCounter === 0) {
+            isDragging = false;
+            dropZone.classList.remove('dragover');
+        }
     }
     
     function handleDrop(e) {
+        dragCounter = 0;
+        isDragging = false;
         const dt = e.dataTransfer;
         const files = dt.files;
         handleFiles(files);
@@ -279,6 +329,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function handleFiles(files) {
         if (files.length === 0) return;
+        
+        // Reset drag state to be safe
+        setTimeout(() => {
+            isDragging = false;
+            dragCounter = 0;
+            dropZone.classList.remove('dragover');
+        }, 100);
+        
+        // Add uploading state
+        dropZone.classList.add('uploading');
         
         // Show progress
         document.querySelector('.drop-zone-content').style.display = 'none';
@@ -303,6 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         uploadProgress.style.display = 'none';
                         progressBar.style.width = '0%';
                         fileInput.value = '';
+                        dropZone.classList.remove('uploading');
                     }, 1000);
                 }
             });
