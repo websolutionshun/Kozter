@@ -68,14 +68,15 @@ class Media extends ActiveRecord
     public function rules()
     {
         return [
-            [['filename', 'original_name', 'mime_type', 'file_path'], 'required', 'message' => '{attribute} megadása kötelező.'],
+            [['filename', 'original_name', 'mime_type', 'file_path'], 'required', 'message' => '{attribute} megadása kötelező.', 'on' => 'default'],
             [['file_size', 'width', 'height', 'duration', 'status', 'created_at', 'updated_at'], 'integer'],
             [['alt_text', 'description'], 'string'],
             [['filename', 'original_name', 'mime_type', 'file_path'], 'string', 'max' => 255],
             [['media_type'], 'string', 'max' => 50],
             [['status'], 'in', 'range' => [self::STATUS_INACTIVE, self::STATUS_ACTIVE]],
             [['media_type'], 'in', 'range' => [self::TYPE_IMAGE, self::TYPE_VIDEO, self::TYPE_AUDIO, self::TYPE_DOCUMENT, self::TYPE_OTHER]],
-            [['uploadedFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'jpg, jpeg, png, gif, webp, mp4, avi, mov, wmv, pdf, doc, docx'],
+            [['uploadedFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'jpg, jpeg, png, gif, webp, mp4, avi, mov, wmv, pdf, doc, docx, txt', 'maxSize' => 52428800, 'on' => 'upload'], // 50MB
+            [['uploadedFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'jpg, jpeg, png, gif, webp, mp4, avi, mov, wmv, pdf, doc, docx, txt', 'maxSize' => 52428800, 'on' => 'update'],
         ];
     }
 
@@ -214,41 +215,65 @@ class Media extends ActiveRecord
      */
     public function upload()
     {
-        if ($this->validate()) {
-            $uploadPath = Yii::getAlias('@backend/web/uploads/media/');
+        // Beállítjuk az upload scenario-t a fájl validációhoz
+        $this->scenario = 'upload';
+        
+        if (!$this->uploadedFile) {
+            $this->addError('uploadedFile', 'Nincs feltöltendő fájl.');
+            return false;
+        }
+
+        // Fájl validáció először a scenario alapján
+        if (!$this->validate(['uploadedFile'])) {
+            return false;
+        }
+
+        $uploadPath = Yii::getAlias('@frontend/web/uploads/media/');
+        
+        // Mappa létrehozása, ha nem létezik
+        if (!is_dir($uploadPath)) {
+            FileHelper::createDirectory($uploadPath, 0755, true);
+        }
+        
+        // Egyedi fájlnév generálása
+        $filename = uniqid() . '_' . time() . '.' . $this->uploadedFile->extension;
+        $filePath = $uploadPath . $filename;
+        
+        if ($this->uploadedFile->saveAs($filePath)) {
+            $this->filename = $filename;
+            $this->original_name = $this->uploadedFile->baseName . '.' . $this->uploadedFile->extension;
+            $this->mime_type = $this->uploadedFile->type ?: 'application/octet-stream';
+            $this->file_path = 'uploads/media/' . $filename;
+            $this->file_size = $this->uploadedFile->size;
+            $this->media_type = self::detectMediaType($this->uploadedFile->type);
             
-            // Mappa létrehozása, ha nem létezik
-            if (!is_dir($uploadPath)) {
-                FileHelper::createDirectory($uploadPath, 0755, true);
+            // Kép méretek lekérése
+            if ($this->media_type === self::TYPE_IMAGE) {
+                $imageInfo = getimagesize($filePath);
+                if ($imageInfo) {
+                    $this->width = $imageInfo[0];
+                    $this->height = $imageInfo[1];
+                }
             }
             
-            // Egyedi fájlnév generálása
-            $filename = uniqid() . '_' . time() . '.' . $this->uploadedFile->extension;
-            $filePath = $uploadPath . $filename;
+            $this->status = self::STATUS_ACTIVE;
             
-            if ($this->uploadedFile->saveAs($filePath)) {
-                $this->filename = $filename;
-                $this->original_name = $this->uploadedFile->baseName . '.' . $this->uploadedFile->extension;
-                $this->mime_type = $this->uploadedFile->type;
-                $this->file_path = 'uploads/media/' . $filename;
-                $this->file_size = $this->uploadedFile->size;
-                $this->media_type = self::detectMediaType($this->uploadedFile->type);
-                
-                // Kép méretek lekérése
-                if ($this->media_type === self::TYPE_IMAGE) {
-                    $imageInfo = getimagesize($filePath);
-                    if ($imageInfo) {
-                        $this->width = $imageInfo[0];
-                        $this->height = $imageInfo[1];
-                    }
+            // Váltás vissza az alapértelmezett scenario-ra a teljes validációhoz
+            $this->scenario = 'default';
+            
+            // Most validáljuk a modellt a kitöltött adatokkal
+            if ($this->validate()) {
+                return $this->save(false); // false paraméter, mert már validáltuk
+            } else {
+                // Ha a validáció sikertelen, töröljük a fájlt
+                if (file_exists($filePath)) {
+                    unlink($filePath);
                 }
-                
-                $this->status = self::STATUS_ACTIVE;
-                
-                return $this->save();
+                return false;
             }
         }
         
+        $this->addError('uploadedFile', 'Hiba történt a fájl mentése során.');
         return false;
     }
 
@@ -259,7 +284,9 @@ class Media extends ActiveRecord
      */
     public function getFileUrl()
     {
-        return Yii::getAlias('@web') . '/' . $this->file_path;
+        // Frontend URL használata a paraméterekből
+        $frontendUrl = Yii::$app->params['frontendUrl'];
+        return $frontendUrl . '/' . $this->file_path;
     }
 
     /**
@@ -289,7 +316,7 @@ class Media extends ActiveRecord
         }
 
         // Fizikai fájl törlése
-        $filePath = Yii::getAlias('@backend/web/') . $this->file_path;
+        $filePath = Yii::getAlias('@frontend/web/') . $this->file_path;
         if (file_exists($filePath)) {
             unlink($filePath);
         }

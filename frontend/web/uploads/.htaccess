@@ -1,0 +1,34 @@
+# Alapvető biztonság a feltöltött fájlokhoz
+# Tiltjuk a PHP és más szkript fájlok futtatását
+
+<Files "*.php">
+    Require all denied
+</Files>
+
+<Files "*.php3">
+    Require all denied
+</Files>
+
+<Files "*.php4">
+    Require all denied
+</Files>
+
+<Files "*.php5">
+    Require all denied
+</Files>
+
+<Files "*.phtml">
+    Require all denied
+</Files>
+
+<Files "*.asp">
+    Require all denied
+</Files>
+
+<Files "*.aspx">
+    Require all denied
+</Files>
+
+<Files "*.jsp">
+    Require all denied
+</Files>

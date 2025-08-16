@@ -7,4 +7,5 @@ return [
     'user.passwordResetTokenExpire' => env('USER_PASSWORD_RESET_TOKEN_EXPIRE', 3600),
     'user.passwordMinLength' => env('USER_PASSWORD_MIN_LENGTH', 8),
     'projectName' => env('PROJECT_NAME', 'Közter'), // Projekt név .env fájlból
+    'frontendUrl' => env('FRONTEND_URL', 'http://kozter.test'), // Frontend URL
 ];
