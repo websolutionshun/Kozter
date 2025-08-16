@@ -70,6 +70,15 @@ return [
                 'kategoriak/gyors-szerkesztes/<id:\d+>' => 'category/quick-edit',
                 'kategoriak/allapot-valtas/<id:\d+>' => 'category/toggle-status',
                 
+                'cimkek' => 'tag/index',
+                'cimkek/letrehozas' => 'tag/create',
+                'cimkek/<id:\d+>' => 'tag/view',
+                'cimkek/<id:\d+>/szerkesztes' => 'tag/update',
+                'cimkek/<id:\d+>/torles' => 'tag/delete',
+                'cimkek/tomeges-torles' => 'tag/bulk-delete',
+                'cimkek/gyors-szerkesztes/<id:\d+>' => 'tag/quick-edit',
+                'cimkek/allapot-valtas/<id:\d+>' => 'tag/toggle-status',
+                
                 'fooldal' => 'site/index',
                 'bejelentkezes' => 'site/login',
                 'kijelentkezes' => 'site/logout',

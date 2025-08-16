@@ -124,48 +124,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endif; ?>
                 </div>
             </div>
-            
-            <!-- Műveletek kártya -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Műveletek</h3>
-                </div>
-                <div class="card-body">
-                    <div class="list-group list-group-flush">
-                        <div class="list-group-item">
-                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <rect x="3" y="11" width="18" height="10" rx="2"/>
-                                    <circle cx="12" cy="16" r="1"/>
-                                    <path d="M7 11v-4a5 5 0 0 1 10 0v4"/>
-                                </svg>
-                                Jelszó visszaállítása
-                            </button>
-                        </div>
-                        <?php if ($model->id != Yii::$app->user->id): ?>
-                            <div class="list-group-item">
-                                <?= Html::a('
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon text-red" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <line x1="4" y1="7" x2="20" y2="7"/>
-                                        <line x1="10" y1="11" x2="10" y2="17"/>
-                                        <line x1="14" y1="11" x2="14" y2="17"/>
-                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
-                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
-                                    </svg>
-                                    Felhasználó törlése', ['delete', 'id' => $model->id], [
-                                    'class' => 'btn btn-danger btn-sm',
-                                    'data' => [
-                                        'confirm' => 'Biztosan törlöd ezt a felhasználót?',
-                                        'method' => 'post',
-                                    ],
-                                ]) ?>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
