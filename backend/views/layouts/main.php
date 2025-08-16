@@ -21,6 +21,7 @@ function isActiveRoute($route) {
     if ($route === '/jogosultsagok' && $currentController === 'permission') return 'active';
     if ($route === '/kategoriak' && $currentController === 'category') return 'active';
     if ($route === '/cimkek' && $currentController === 'tag') return 'active';
+    if ($route === '/media' && $currentController === 'media') return 'active';
     if ($route === '/fooldal' && $currentRoute === '/site/index') return 'active';
     return $currentRoute === $route ? 'active' : '';
 }
@@ -178,12 +179,28 @@ if (Yii::$app->user->isGuest) {
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M7.859 6h8.282l.412 .412l.117 .117l.126 .16l.161 .251l.064 .139l.36 1.444l.42 1.68c.221 .884 .476 1.91 .715 2.871c.024 .097 .047 .194 .07 .29l.049 .208l.014 .074l.004 .039l-.001 .01l0 .01l-.009 .077l-.029 .176l-.032 .148l-.035 .134l-.045 .142l-.063 .155l-.073 .138l-.084 .131l-.09 .123l-.102 .118l-.105 .105l-.118 .102l-.123 .09l-.131 .084l-.138 .073l-.155 .063l-.142 .045l-.134 .035l-.148 .032l-.176 .029l-.077 .009l-.01 0l-.01 -.001l-.039 -.004l-.074 -.014l-.208 -.049c-.096 -.023 -.193 -.046 -.29 -.07c-.961 -.239 -1.987 -.494 -2.871 -.715l-1.68 -.42l-1.444 -.36l-.139 -.064l-.251 -.161l-.16 -.126l-.117 -.117l-.412 -.412z"/>
+                                            <path d="M7.859 6h8.282l.412 .412l.117 .117l.126 .16l.161 .251l.064 .139l.36 1.444l.42 1.68c.221 .884 .476 1.91 .715 2.871c.024 .097 .047 .194 .07 .29l.049 .208l.014 .074l.004 .039l-.001 .01l0 .01l-.009 .077l-.029 .176l-.032 .148l-.035 .134l-.045 .142l-.063 .155l-.073 .138l-.084 .131l-.09 .123l-.102 .118l-.105 .105l-.118 .102l-.123 .09l-.131 .084l-.138 .073l-.155 .063l-.142 .045l-.134 .035l-.148 .032l-.176 .029l-.077 .009l-.010 0l-.010 -.001l-.039 -.004l-.074 -.014l-.208 -.049c-.096 -.023 -.193 -.046 -.29 -.07c-.961 -.239 -1.987 -.494 -2.871 -.715l-1.68 -.42l-1.444 -.36l-.139 -.064l-.251 -.161l-.16 -.126l-.117 -.117l-.412 -.412z"/>
                                         </svg>
                                     </span>
                                     <span class="nav-link-title">
                                         Címkék kezelése
                                     </span>', ['/cimkek'], ['class' => 'nav-link ' . isActiveRoute('/cimkek')]) ?>
+                            </li>
+
+                            <li class="nav-item">
+                                <?= Html::a('
+                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M15 8h.01"/>
+                                            <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z"/>
+                                            <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5"/>
+                                            <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3"/>
+                                        </svg>
+                                    </span>
+                                    <span class="nav-link-title">
+                                        Média kezelése
+                                    </span>', ['/media'], ['class' => 'nav-link ' . isActiveRoute('/media')]) ?>
                             </li>
 
                             <li class="nav-item">
@@ -346,18 +363,9 @@ if (Yii::$app->user->isGuest) {
                                                         <div class="h4">Jogosultságok</div>', ['/jogosultsagok'], ['class' => 'text-center text-decoration-none ' . (isActiveController('permission') ? 'text-primary' : 'text-muted')]) ?>
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="#" class="text-center text-muted text-decoration-none">
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                            class="icon mb-2 text-muted" width="24" height="24"
-                                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                            <path
-                                                                d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
-                                                            <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                                                        </svg>
-                                                        <div class="h4">Beállítások</div>
-                                                    </a>
+                                                    <?= Html::a('
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8h.01"/><path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z"/><path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5"/><path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3"/></svg>
+                                                        <div class="h4">Média</div>', ['/media'], ['class' => 'text-center text-decoration-none ' . (isActiveController('media') ? 'text-primary' : 'text-muted')]) ?>
                                                 </div>
                                             </div>
                                         </div>

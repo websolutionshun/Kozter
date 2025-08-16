@@ -79,6 +79,14 @@ return [
                 'cimkek/gyors-szerkesztes/<id:\d+>' => 'tag/quick-edit',
                 'cimkek/allapot-valtas/<id:\d+>' => 'tag/toggle-status',
                 
+                'media' => 'media/index',
+                'media/feltoltes' => 'media/create',
+                'media/<id:\d+>' => 'media/view',
+                'media/<id:\d+>/szerkesztes' => 'media/update',
+                'media/<id:\d+>/torles' => 'media/delete',
+                'media/tomeges-torles' => 'media/bulk-delete',
+                'media/ajax-feltoltes' => 'media/ajax-upload',
+                
                 'fooldal' => 'site/index',
                 'bejelentkezes' => 'site/login',
                 'kijelentkezes' => 'site/logout',

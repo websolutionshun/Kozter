@@ -14,12 +14,12 @@
 # Admin felület:
 Wordpress alap funkciók felépítése:
 - Bejegyzések
-- Kategóriák
-- Címkék
-- Felhasználók
-    - Felhasználók kezelése
-    - Szerepkörök kezelése
-    - Jogosultságok kezelése
+- Kategóriák [KÉSZ]
+- Címkék [KÉSZ]
+- Felhasználók [KÉSZ]
+    - Felhasználók kezelése [KÉSZ]
+    - Szerepkörök kezelése [KÉSZ]
+    - Jogosultságok kezelése [KÉSZ]
 - Média kezelése
 - Rendszerbeállítások
 - Profilbeállítások
