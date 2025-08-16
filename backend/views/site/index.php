@@ -1,94 +1,115 @@
 <?php
 
 /** @var yii\web\View $this */
+/** @var array $userStats */
+/** @var array $categoryStats */
+/** @var array $tagStats */
+/** @var array $mediaStats */
+
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = 'Adminisztrációs Panel';
+
+// Segédfüggvény a fájlméret formázásához
+function formatFileSize($bytes) {
+    if (!$bytes) return '0 B';
+    $units = ['B', 'KB', 'MB', 'GB'];
+    for ($i = 0; $bytes > 1024 && $i < count($units) - 1; $i++) {
+        $bytes /= 1024;
+    }
+    return round($bytes, 2) . ' ' . $units[$i];
+}
 ?>
 <div class="row row-deck row-cards">
     <div class="col-12">
         <div class="row row-cards">
+            <!-- Felhasználók statisztika -->
             <div class="col-sm-6 col-lg-3">
                 <div class="card card-sm">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-auto">
                                 <span class="bg-primary text-white avatar">
-                                    <!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.7 8a3 3 0 0 0 -2.7 -2h-4a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-4a3 3 0 0 1 -2.7 -2"/><path d="M12 3v3m0 12v3"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/></svg>
                                 </span>
                             </div>
                             <div class="col">
                                 <div class="font-weight-medium">
-                                    132 Értékesítés
+                                    <?= Html::a($userStats['total'] . ' Felhasználó', ['/user/index'], ['class' => 'text-decoration-none']) ?>
                                 </div>
                                 <div class="text-muted">
-                                    12 függőben lévő fizetés
+                                    <span class="badge bg-success-lt me-1"><?= $userStats['active'] ?> aktív</span>
+                                    <span class="badge bg-warning-lt"><?= $userStats['recent'] ?> új (7 nap)</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Kategóriák statisztika -->
             <div class="col-sm-6 col-lg-3">
                 <div class="card card-sm">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-auto">
                                 <span class="bg-green text-white avatar">
-                                    <!-- Download SVG icon from http://tabler-icons.io/i/shopping-cart -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M17 17h-11v-14h-2"/><path d="M6 5l14 1l-1 7h-13"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9.5 2a1.5 1.5 0 0 1 1.5 1.5v6a1.5 1.5 0 0 1 -1.5 1.5h-6a1.5 1.5 0 0 1 -1.5 -1.5v-6a1.5 1.5 0 0 1 1.5 -1.5h6"/><path d="M20.5 13a1.5 1.5 0 0 1 1.5 1.5v6a1.5 1.5 0 0 1 -1.5 1.5h-6a1.5 1.5 0 0 1 -1.5 -1.5v-6a1.5 1.5 0 0 1 1.5 -1.5h6"/><path d="M9.5 13a1.5 1.5 0 0 1 1.5 1.5v6a1.5 1.5 0 0 1 -1.5 1.5h-6a1.5 1.5 0 0 1 -1.5 -1.5v-6a1.5 1.5 0 0 1 1.5 -1.5h6"/><path d="M20.5 2a1.5 1.5 0 0 1 1.5 1.5v6a1.5 1.5 0 0 1 -1.5 1.5h-6a1.5 1.5 0 0 1 -1.5 -1.5v-6a1.5 1.5 0 0 1 1.5 -1.5h6"/></svg>
                                 </span>
                             </div>
                             <div class="col">
                                 <div class="font-weight-medium">
-                                    78 Rendelés
+                                    <?= Html::a($categoryStats['total'] . ' Kategória', ['/category/index'], ['class' => 'text-decoration-none']) ?>
                                 </div>
                                 <div class="text-muted">
-                                    32 kiszállítva
+                                    <span class="badge bg-success-lt me-1"><?= $categoryStats['active'] ?> aktív</span>
+                                    <span class="badge bg-warning-lt"><?= $categoryStats['recent'] ?> új (7 nap)</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Címkék statisztika -->
             <div class="col-sm-6 col-lg-3">
                 <div class="card card-sm">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-auto">
-                                <span class="bg-twitter text-white avatar">
-                                    <!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c0 -.249 1.51 -2.772 1.818 -4.013z"/></svg>
+                                <span class="bg-azure text-white avatar">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l5.592 -5.592a2.41 2.41 0 0 0 0 -3.408l-7.71 -7.71a2 2 0 0 0 -1.414 -.586h-5.172a3 3 0 0 0 -3 3z"/></svg>
                                 </span>
                             </div>
                             <div class="col">
                                 <div class="font-weight-medium">
-                                    623 Megosztás
+                                    <?= Html::a($tagStats['total'] . ' Címke', ['/tag/index'], ['class' => 'text-decoration-none']) ?>
                                 </div>
                                 <div class="text-muted">
-                                    16 ma
+                                    <span class="badge bg-success-lt me-1"><?= $tagStats['active'] ?> aktív</span>
+                                    <span class="badge bg-warning-lt"><?= $tagStats['recent'] ?> új (7 nap)</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Média statisztika -->
             <div class="col-sm-6 col-lg-3">
                 <div class="card card-sm">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-auto">
-                                <span class="bg-facebook text-white avatar">
-                                    <!-- Download SVG icon from http://tabler-icons.io/i/brand-facebook -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3"/></svg>
+                                <span class="bg-orange text-white avatar">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8h.01"/><path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z"/><path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5"/><path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3"/></svg>
                                 </span>
                             </div>
                             <div class="col">
                                 <div class="font-weight-medium">
-                                    132 Kedvelés
+                                    <?= Html::a($mediaStats['total'] . ' Média', ['/media/index'], ['class' => 'text-decoration-none']) ?>
                                 </div>
                                 <div class="text-muted">
-                                    21 ma
+                                    <span class="badge bg-success-lt me-1"><?= $mediaStats['images'] ?> kép</span>
+                                    <span class="badge bg-info-lt"><?= formatFileSize($mediaStats['totalSize']) ?></span>
                                 </div>
                             </div>
                         </div>
@@ -98,140 +119,74 @@ $this->title = 'Adminisztrációs Panel';
         </div>
     </div>
 
+    <!-- További részletes statisztikák -->
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Leggyakrabban Meglátogatott Oldalak</h3>
+                <h3 class="card-title">Gyors hozzáférés</h3>
+                <div class="card-actions">
+                    <span class="text-muted">Kattints a kártyákra a részletes információkért</span>
+                </div>
             </div>
-            <div class="card-body border-bottom py-3">
-                <div class="d-flex">
-                    <div class="text-muted">
-                        Keresés:
-                        <div class="ms-2 d-inline-block">
-                            <input type="text" class="form-control form-control-sm" aria-label="Oldal keresése">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card card-link card-link-pop">
+                            <div class="card-body text-center">
+                                <div class="card-title mb-3">
+                                    <span class="avatar avatar-lg bg-primary-lt mb-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l3.09 6.26l6.91 1.01l-5 4.87l1.18 6.88l-6.18 -3.25l-6.18 3.25l1.18 -6.88l-5 -4.87l6.91 -1.01z"/></svg>
+                                    </span>
+                                    <br>
+                                    <?= Html::a('Új felhasználó', ['/user/create'], ['class' => 'btn btn-primary btn-sm stretched-link']) ?>
+                                </div>
+                                <div class="text-muted">Gyorsan adj hozzá új felhasználót a rendszerhez</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card card-link card-link-pop">
+                            <div class="card-body text-center">
+                                <div class="card-title mb-3">
+                                    <span class="avatar avatar-lg bg-success-lt mb-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14"/><path d="M5 12l14 0"/></svg>
+                                    </span>
+                                    <br>
+                                    <?= Html::a('Új kategória', ['/category/create'], ['class' => 'btn btn-success btn-sm stretched-link']) ?>
+                                </div>
+                                <div class="text-muted">Hozz létre új kategóriát a tartalom szervezéséhez</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card card-link card-link-pop">
+                            <div class="card-body text-center">
+                                <div class="card-title mb-3">
+                                    <span class="avatar avatar-lg bg-azure-lt mb-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14"/><path d="M5 12l14 0"/></svg>
+                                    </span>
+                                    <br>
+                                    <?= Html::a('Új címke', ['/tag/create'], ['class' => 'btn btn-azure btn-sm stretched-link']) ?>
+                                </div>
+                                <div class="text-muted">Adj hozzá új címkét a tartalom címkézéséhez</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card card-link card-link-pop">
+                            <div class="card-body text-center">
+                                <div class="card-title mb-3">
+                                    <span class="avatar avatar-lg bg-orange-lt mb-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/><path d="M12 17v-6"/><path d="M9.5 14.5l2.5 2.5l2.5 -2.5"/></svg>
+                                    </span>
+                                    <br>
+                                    <?= Html::a('Média feltöltés', ['/media/create'], ['class' => 'btn btn-orange btn-sm stretched-link']) ?>
+                                </div>
+                                <div class="text-muted">Tölts fel új médiafájlokat a rendszerbe</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table card-table table-vcenter text-nowrap datatable">
-                    <thead>
-                        <tr>
-                            <th class="w-1">No.</th>
-                            <th>Oldal név</th>
-                            <th>Látogatók</th>
-                            <th>Egyedi</th>
-                            <th>Visszapattanási arány</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="text-muted">001401</span></td>
-                            <td><a href="#" class="text-reset" tabindex="-1">/</a></td>
-                            <td>
-                                4,896
-                            </td>
-                            <td class="text-muted">
-                                3,654
-                            </td>
-                            <td>
-                                82.54%
-                            </td>
-                            <td class="text-end">
-                                <span class="dropdown">
-                                    <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">Műveletek</button>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">
-                                            Művelet
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            Másik művelet
-                                        </a>
-                                    </div>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><span class="text-muted">001402</span></td>
-                            <td><a href="#" class="text-reset" tabindex="-1">/form-elements.html</a></td>
-                            <td>
-                                3,652
-                            </td>
-                            <td class="text-muted">
-                                3,215
-                            </td>
-                            <td>
-                                76.29%
-                            </td>
-                            <td class="text-end">
-                                <span class="dropdown">
-                                    <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">Műveletek</button>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">
-                                            Művelet
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            Másik művelet
-                                        </a>
-                                    </div>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><span class="text-muted">001403</span></td>
-                            <td><a href="#" class="text-reset" tabindex="-1">/index.html</a></td>
-                            <td>
-                                3,256
-                            </td>
-                            <td class="text-muted">
-                                2,865
-                            </td>
-                            <td>
-                                72.65%
-                            </td>
-                            <td class="text-end">
-                                <span class="dropdown">
-                                    <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">Műveletek</button>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">
-                                            Művelet
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            Másik művelet
-                                        </a>
-                                    </div>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><span class="text-muted">001404</span></td>
-                            <td><a href="#" class="text-reset" tabindex="-1">/icons.html</a></td>
-                            <td>
-                                986
-                            </td>
-                            <td class="text-muted">
-                                865
-                            </td>
-                            <td>
-                                44.89%
-                            </td>
-                            <td class="text-end">
-                                <span class="dropdown">
-                                    <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">Műveletek</button>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">
-                                            Művelet
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            Másik művelet
-                                        </a>
-                                    </div>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

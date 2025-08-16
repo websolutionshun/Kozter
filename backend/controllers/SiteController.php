@@ -64,7 +64,42 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        // Statisztikai adatok gyűjtése
+        $userStats = [
+            'total' => \common\models\User::find()->count(),
+            'active' => \common\models\User::find()->where(['status' => \common\models\User::STATUS_ACTIVE])->count(),
+            'inactive' => \common\models\User::find()->where(['status' => \common\models\User::STATUS_INACTIVE])->count(),
+            'recent' => \common\models\User::find()->where(['>=', 'created_at', time() - 86400 * 7])->count(), // utolsó 7 nap
+        ];
+
+        $categoryStats = [
+            'total' => \common\models\Category::find()->count(),
+            'active' => \common\models\Category::find()->where(['status' => \common\models\Category::STATUS_ACTIVE])->count(),
+            'inactive' => \common\models\Category::find()->where(['status' => \common\models\Category::STATUS_INACTIVE])->count(),
+            'recent' => \common\models\Category::find()->where(['>=', 'created_at', time() - 86400 * 7])->count(),
+        ];
+
+        $tagStats = [
+            'total' => \common\models\Tag::find()->count(),
+            'active' => \common\models\Tag::find()->where(['status' => \common\models\Tag::STATUS_ACTIVE])->count(),
+            'inactive' => \common\models\Tag::find()->where(['status' => \common\models\Tag::STATUS_INACTIVE])->count(),
+            'recent' => \common\models\Tag::find()->where(['>=', 'created_at', time() - 86400 * 7])->count(),
+        ];
+
+        $mediaStats = [
+            'total' => \common\models\Media::find()->count(),
+            'active' => \common\models\Media::find()->where(['status' => \common\models\Media::STATUS_ACTIVE])->count(),
+            'images' => \common\models\Media::find()->where(['media_type' => \common\models\Media::TYPE_IMAGE])->count(),
+            'totalSize' => \common\models\Media::find()->sum('file_size') ?: 0,
+            'recent' => \common\models\Media::find()->where(['>=', 'created_at', time() - 86400 * 7])->count(),
+        ];
+
+        return $this->render('index', [
+            'userStats' => $userStats,
+            'categoryStats' => $categoryStats,
+            'tagStats' => $tagStats,
+            'mediaStats' => $mediaStats,
+        ]);
     }
 
     /**
