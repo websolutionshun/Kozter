@@ -41,7 +41,8 @@ $this->title = $model->original_name;
     <div class="page-body">
         <div class="container-fluid">
             <div class="row row-deck row-cards">
-                <div class="col-lg-8">
+                <!-- Média előnézet és műveletek oszlop -->
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Média előnézet</h3>
@@ -79,6 +80,45 @@ $this->title = $model->original_name;
                                 </div>
                             <?php endif; ?>
                         </div>
+                        <!-- Műveletek a kártya aljában -->
+                        <div class="card-body border-top">
+                            <div class="d-grid gap-2">
+                                <?= Html::a('
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/>
+                                        <path d="M7 11l5 5l5 -5"/>
+                                        <path d="M12 4l0 12"/>
+                                    </svg>
+                                    Letöltés
+                                ', $model->getFileUrl(), [
+                                    'class' => 'btn btn-outline-primary',
+                                    'download' => $model->original_name
+                                ]) ?>
+                                
+                                <button type="button" class="btn btn-outline-secondary" onclick="copyToClipboard('<?= $model->getFileUrl() ?>')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/>
+                                        <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/>
+                                    </svg>
+                                    URL másolása
+                                </button>
+                                
+                                <?= Html::a('
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+                                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
+                                    </svg>
+                                    Új ablakban
+                                ', $model->getFileUrl(), [
+                                    'class' => 'btn btn-outline-info',
+                                    'target' => '_blank'
+                                ]) ?>
+                            </div>
+                        </div>
+                        
                         <?php if ($model->description): ?>
                         <div class="card-footer">
                             <div class="text-muted">
@@ -88,9 +128,24 @@ $this->title = $model->original_name;
                         </div>
                         <?php endif; ?>
                     </div>
+                    
+                    <?php if ($model->alt_text): ?>
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h3 class="card-title">SEO információk</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">Alt szöveg</label>
+                                <div class="text-muted"><?= Html::encode($model->alt_text) ?></div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 
-                <div class="col-lg-4">
+                <!-- Fájl információk oszlop -->
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Fájl információk</h3>
@@ -164,64 +219,6 @@ $this->title = $model->original_name;
                                 ],
                             ],
                         ]) ?>
-                    </div>
-                    
-                    <?php if ($model->alt_text): ?>
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            <h3 class="card-title">SEO információk</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <label class="form-label">Alt szöveg</label>
-                                <div class="text-muted"><?= Html::encode($model->alt_text) ?></div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-                    
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            <h3 class="card-title">Műveletek</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-grid gap-2">
-                                <?= Html::a('
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/>
-                                        <path d="M7 11l5 5l5 -5"/>
-                                        <path d="M12 4l0 12"/>
-                                    </svg>
-                                    Letöltés
-                                ', $model->getFileUrl(), [
-                                    'class' => 'btn btn-outline-primary',
-                                    'download' => $model->original_name
-                                ]) ?>
-                                
-                                <button type="button" class="btn btn-outline-secondary" onclick="copyToClipboard('<?= $model->getFileUrl() ?>')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/>
-                                        <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/>
-                                    </svg>
-                                    URL másolása
-                                </button>
-                                
-                                <?= Html::a('
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-                                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
-                                    </svg>
-                                    Új ablakban
-                                ', $model->getFileUrl(), [
-                                    'class' => 'btn btn-outline-info',
-                                    'target' => '_blank'
-                                ]) ?>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
