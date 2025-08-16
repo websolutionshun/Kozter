@@ -46,11 +46,11 @@ class Role extends ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name'], 'required', 'message' => '{attribute} megadása kötelező.'],
             [['description'], 'string'],
             [['created_at', 'updated_at'], 'integer'],
-            [['name'], 'string', 'max' => 50],
-            [['name'], 'unique'],
+            [['name'], 'string', 'max' => 50, 'tooLong' => '{attribute} túl hosszú (maximum {max} karakter).'],
+            [['name'], 'unique', 'message' => 'Ez a szerepkör név már létezik.'],
         ];
     }
 

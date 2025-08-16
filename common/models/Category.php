@@ -60,13 +60,13 @@ class Category extends ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name'], 'required', 'message' => '{attribute} megadása kötelező.'],
             [['description'], 'string'],
             [['parent_id', 'count', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'slug'], 'string', 'max' => 255],
-            [['slug'], 'unique'],
+            [['name', 'slug'], 'string', 'max' => 255, 'tooLong' => '{attribute} túl hosszú (maximum {max} karakter).'],
+            [['slug'], 'unique', 'message' => 'Ez az URL név már használatban van.'],
             [['status'], 'in', 'range' => [self::STATUS_INACTIVE, self::STATUS_ACTIVE]],
-            [['parent_id'], 'exist', 'targetClass' => self::class, 'targetAttribute' => 'id'],
+            [['parent_id'], 'exist', 'targetClass' => self::class, 'targetAttribute' => 'id', 'message' => 'A kiválasztott szülő kategória nem létezik.'],
             // Validáció, hogy ne lehessen saját magának szülője
             [['parent_id'], 'validateParent'],
         ];

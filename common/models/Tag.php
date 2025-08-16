@@ -56,13 +56,13 @@ class Tag extends ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name'], 'required', 'message' => '{attribute} megadása kötelező.'],
             [['description'], 'string'],
             [['count', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'slug'], 'string', 'max' => 255],
-            [['color'], 'string', 'max' => 7],
+            [['name', 'slug'], 'string', 'max' => 255, 'tooLong' => '{attribute} túl hosszú (maximum {max} karakter).'],
+            [['color'], 'string', 'max' => 7, 'tooLong' => '{attribute} túl hosszú (maximum {max} karakter).'],
             [['color'], 'match', 'pattern' => '/^#[0-9A-Fa-f]{6}$/', 'message' => 'A szín helyes hex formátumban kell legyen (pl. #FF5733)'],
-            [['slug'], 'unique'],
+            [['slug'], 'unique', 'message' => 'Ez az URL név már használatban van.'],
             [['status'], 'in', 'range' => [self::STATUS_INACTIVE, self::STATUS_ACTIVE]],
         ];
     }

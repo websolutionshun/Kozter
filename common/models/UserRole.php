@@ -32,11 +32,11 @@ class UserRole extends ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'role_id'], 'required'],
+            [['user_id', 'role_id'], 'required', 'message' => '{attribute} megadása kötelező.'],
             [['user_id', 'role_id', 'created_at'], 'integer'],
-            [['user_id', 'role_id'], 'unique', 'targetAttribute' => ['user_id', 'role_id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
-            [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Role::class, 'targetAttribute' => ['role_id' => 'id']],
+            [['user_id', 'role_id'], 'unique', 'targetAttribute' => ['user_id', 'role_id'], 'message' => 'Ez a felhasználó már rendelkezik ezzel a szerepkörrel.'],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id'], 'message' => 'A kiválasztott felhasználó nem létezik.'],
+            [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Role::class, 'targetAttribute' => ['role_id' => 'id'], 'message' => 'A kiválasztott szerepkör nem létezik.'],
         ];
     }
 

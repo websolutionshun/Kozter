@@ -61,12 +61,32 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
-            [['username', 'email'], 'required'],
-            [['username', 'email'], 'string', 'max' => 255],
-            ['username', 'unique'],
-            ['email', 'unique'],
-            ['email', 'email'],
-            ['password', 'string', 'min' => 6],
+            [['username', 'email'], 'required', 'message' => '{attribute} megadása kötelező.'],
+            [['username', 'email'], 'string', 'max' => 255, 'tooLong' => '{attribute} túl hosszú (maximum {max} karakter).'],
+            ['username', 'unique', 'message' => 'Ez a felhasználónév már foglalt.'],
+            ['email', 'unique', 'message' => 'Ez az e-mail cím már használatban van.'],
+            ['email', 'email', 'message' => 'Érvényes e-mail címet adj meg.'],
+            ['password', 'string', 'min' => 6, 'tooShort' => 'A jelszónak legalább {min} karakter hosszúnak kell lennie.'],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Felhasználónév',
+            'email' => 'E-mail cím',
+            'password' => 'Jelszó',
+            'password_hash' => 'Jelszó hash',
+            'password_reset_token' => 'Jelszó visszaállítási token',
+            'verification_token' => 'Hitelesítési token',
+            'auth_key' => 'Hitelesítési kulcs',
+            'status' => 'Állapot',
+            'created_at' => 'Létrehozva',
+            'updated_at' => 'Frissítve',
         ];
     }
 

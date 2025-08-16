@@ -24,11 +24,11 @@ class ContactForm extends Model
     {
         return [
             // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
+            [['name', 'email', 'subject', 'body'], 'required', 'message' => '{attribute} megadása kötelező.'],
             // email has to be a valid email address
-            ['email', 'email'],
+            ['email', 'email', 'message' => 'Érvényes e-mail címet adj meg.'],
             // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
+            ['verifyCode', 'captcha', 'message' => 'Hibás ellenőrző kód.'],
         ];
     }
 
@@ -38,7 +38,11 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            'verifyCode' => 'Verification Code',
+            'name' => 'Név',
+            'email' => 'E-mail cím',
+            'subject' => 'Tárgy',
+            'body' => 'Üzenet',
+            'verifyCode' => 'Ellenőrző kód',
         ];
     }
 

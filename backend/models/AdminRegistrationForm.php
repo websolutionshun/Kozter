@@ -24,24 +24,24 @@ class AdminRegistrationForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
+            ['username', 'required', 'message' => '{attribute} megadása kötelező.'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ez a felhasználónév már foglalt.'],
-            ['username', 'string', 'min' => 3, 'max' => 60],
+            ['username', 'string', 'min' => 3, 'max' => 60, 'tooShort' => '{attribute} túl rövid (minimum {min} karakter).', 'tooLong' => '{attribute} túl hosszú (maximum {max} karakter).'],
             ['username', 'validateUsername'],
 
             ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'string', 'max' => 255],
+            ['email', 'required', 'message' => '{attribute} megadása kötelező.'],
+            ['email', 'email', 'message' => 'Érvényes e-mail címet adj meg.'],
+            ['email', 'string', 'max' => 255, 'tooLong' => '{attribute} túl hosszú (maximum {max} karakter).'],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ez az e-mail cím már használatban van.'],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength'] ?? 6],
+            ['password', 'required', 'message' => '{attribute} megadása kötelező.'],
+            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength'] ?? 6, 'tooShort' => '{attribute} túl rövid (minimum {min} karakter).'],
 
-            ['password_repeat', 'required'],
+            ['password_repeat', 'required', 'message' => '{attribute} megadása kötelező.'],
             ['password_repeat', 'compare', 'compareAttribute' => 'password', 'message' => 'A jelszavak nem egyeznek.'],
 
-            ['admin_key', 'required'],
+            ['admin_key', 'required', 'message' => '{attribute} megadása kötelező.'],
             ['admin_key', 'validateAdminKey'],
         ];
     }

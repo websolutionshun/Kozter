@@ -19,22 +19,34 @@ class SignupForm extends Model
     /**
      * {@inheritdoc}
      */
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Felhasználónév',
+            'email' => 'E-mail cím',
+            'password' => 'Jelszó',
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'required', 'message' => '{attribute} megadása kötelező.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ez a felhasználónév már foglalt.'],
+            ['username', 'string', 'min' => 2, 'max' => 255, 'tooShort' => '{attribute} túl rövid (minimum {min} karakter).', 'tooLong' => '{attribute} túl hosszú (maximum {max} karakter).'],
 
             ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'required', 'message' => '{attribute} megadása kötelező.'],
+            ['email', 'email', 'message' => 'Érvényes e-mail címet adj meg.'],
+            ['email', 'string', 'max' => 255, 'tooLong' => '{attribute} túl hosszú (maximum {max} karakter).'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ez az e-mail cím már használatban van.'],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['password', 'required', 'message' => '{attribute} megadása kötelező.'],
+            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength'], 'tooShort' => '{attribute} túl rövid (minimum {min} karakter).'],
         ];
     }
 
