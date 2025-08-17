@@ -52,18 +52,15 @@ class m250817_064927_create_posts_table extends Migration
             'CASCADE'
         );
 
-        // Media tábla ellenőrzése és foreign key hozzáadása, ha létezik
-        $tableSchema = $this->db->getTableSchema('{{%media}}');
-        if ($tableSchema !== null) {
-            $this->addForeignKey(
-                'fk-posts-featured_image_id',
-                '{{%posts}}',
-                'featured_image_id',
-                '{{%media}}',
-                'id',
-                'SET NULL'
-            );
-        }
+        // Foreign key a media táblához
+        $this->addForeignKey(
+            'fk-posts-featured_image_id',
+            '{{%posts}}',
+            'featured_image_id',
+            '{{%media}}',
+            'id',
+            'SET NULL'
+        );
     }
 
     /**

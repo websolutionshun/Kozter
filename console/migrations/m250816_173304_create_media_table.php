@@ -28,7 +28,7 @@ class m250816_173304_create_media_table extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(1)->comment('Állapot (0=inaktív, 1=aktív)'),
             'created_at' => $this->integer()->notNull()->comment('Létrehozás időbélyege'),
             'updated_at' => $this->integer()->notNull()->comment('Módosítás időbélyege'),
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         // Indexek létrehozása
         $this->createIndex('idx-media-media_type', '{{%media}}', 'media_type');
