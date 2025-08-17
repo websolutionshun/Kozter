@@ -21,6 +21,16 @@ $this->registerJsFile('https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckedito
 
 // Custom JavaScript
 $this->registerJs('
+console.log("JavaScript loaded!");
+
+// DOM betöltődés ellenőrzése
+$(document).ready(function() {
+    console.log("DOM ready!");
+    console.log("Publish button exists:", $("#publish-btn").length > 0);
+    console.log("Draft button exists:", $("#draft-btn").length > 0);
+    console.log("Preview button exists:", $("#preview-btn").length > 0);
+});
+
 // CKEditor inicializálása
 ClassicEditor
     .create(document.querySelector("#post-content"), {
@@ -77,9 +87,13 @@ $("#post-title").on("keyup", function() {
 });
 
 // Publikálás gomb funkció
-$("#publish-btn").click(function() {
+$(document).on("click", "#publish-btn", function(e) {
+    console.log("Publish button clicked!");
+    e.preventDefault();
+    
     // Form validáció ellenőrzése
     var title = $("#post-title").val();
+    console.log("Title value:", title);
     if (!title.trim()) {
         alert("A cím megadása kötelező!");
         return false;
@@ -87,38 +101,105 @@ $("#publish-btn").click(function() {
     
     // CKEditor tartalom szinkronizálása
     if (window.editor) {
+        console.log("Syncing CKEditor content...");
         $("#post-content").val(window.editor.getData());
+    } else {
+        console.log("CKEditor not found!");
     }
     
+    console.log("Setting status to published...");
     $("#post-status").val(1); // STATUS_PUBLISHED
-    $("#post-form").submit();
+    
+    console.log("Form element:", $("#post-form"));
+    console.log("Form length:", $("#post-form").length);
+    console.log("Form action:", $("#post-form").attr("action"));
+    console.log("Form method:", $("#post-form").attr("method"));
+    
+    // Ellenőrizzük a kötelező mezőket
+    console.log("Status field value:", $("#post-status").val());
+    console.log("Author ID field value:", $("#post-author_id").val());
+    
+    // Listázzuk az összes form mezőt debug céljából
+    $("#post-form").find("input, textarea, select").each(function() {
+        console.log("Form field:", this.name, "value:", $(this).val(), "required:", $(this).prop("required"));
+    });
+    
+    console.log("Attempting to submit form...");
+    var form = $("#post-form")[0];
+    if (form) {
+        console.log("Form found, submitting...");
+        
+        // Próbáljuk meg mindkét módszerrel
+        try {
+            // Első próbálkozás: jQuery submit
+            $("#post-form").submit();
+        } catch (e) {
+            console.error("jQuery submit failed:", e);
+            
+            // Második próbálkozás: natív submit
+            try {
+                form.submit();
+            } catch (e2) {
+                console.error("Native submit failed:", e2);
+                
+                // Harmadik próbálkozás: Ajax
+                console.log("Trying AJAX submit...");
+                $.ajax({
+                    url: form.action || "",
+                    method: form.method || "POST",
+                    data: $(form).serialize(),
+                    success: function(response) {
+                        console.log("AJAX success:", response);
+                        window.location.href = "/bejegyzesek";
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX error:", error);
+                    }
+                });
+            }
+        }
+    } else {
+        console.error("Form not found!");
+    }
 });
 
 // Vázlat mentés gomb funkció
-$("#draft-btn").click(function() {
+$(document).on("click", "#draft-btn", function(e) {
+    console.log("Draft button clicked!");
+    e.preventDefault();
+    
     // CKEditor tartalom szinkronizálása
     if (window.editor) {
+        console.log("Syncing CKEditor content for draft...");
         $("#post-content").val(window.editor.getData());
     }
+    
+    console.log("Setting status to draft...");
     $("#post-status").val(0); // STATUS_DRAFT
+    
+    console.log("Submitting form as draft...");
     $("#post-form").submit();
 });
 
 // Előnézet gomb funkció
-$("#preview-btn").click(function() {
+$(document).on("click", "#preview-btn", function(e) {
+    console.log("Preview button clicked!");
+    e.preventDefault();
     // Itt később implementálhatjuk az előnézet funkciót
     alert("Előnézet funkció hamarosan!");
 });
 
 // Média kiválasztó
-$(".media-item").click(function() {
+$(document).on("click", ".media-item", function() {
+    console.log("Media item clicked!");
     $(".media-item").removeClass("selected");
     $(this).addClass("selected");
     $("#post-featured_image_id").val($(this).data("id"));
 });
 
 // Láthatóság beállítás
-$("#post-visibility").change(function() {
+$(document).on("change", "#post-visibility", function() {
+    console.log("Visibility changed to:", $(this).val());
     if ($(this).val() == 2) { // VISIBILITY_PASSWORD
         $("#password-field").show();
     } else {
@@ -156,7 +237,13 @@ $this->registerCss("
 ?>
 
 <div class="post-create">
-    <?php $form = ActiveForm::begin(['id' => 'post-form']); ?>
+    <?php $form = ActiveForm::begin([
+        'id' => 'post-form',
+        'enableClientValidation' => false,
+        'validateOnSubmit' => false,
+        'validateOnChange' => false,
+        'validateOnBlur' => false,
+    ]); ?>
     
     <div class="row">
         <!-- Fő tartalom terület -->
@@ -310,6 +397,11 @@ $this->registerCss("
                         <button type="button" id="preview-btn" class="btn btn-outline-secondary btn-sm">Előnézet</button>
                         <button type="button" id="draft-btn" class="btn btn-outline-primary btn-sm">Mentés vázlatként</button>
                         <button type="button" id="publish-btn" class="btn btn-primary btn-sm">Közzététel</button>
+                    </div>
+                    
+                    <!-- Debug információ -->
+                    <div class="mt-2">
+                        <small class="text-muted">Debug: A gombok ID-i: preview-btn, draft-btn, publish-btn</small>
                     </div>
                 </div>
             </div>

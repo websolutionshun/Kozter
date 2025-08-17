@@ -147,6 +147,10 @@ class PostController extends Controller
         $model->seo_robots = 'index,follow';
 
         if ($model->load(Yii::$app->request->post())) {
+            // Debug információ
+            Yii::error('POST adatok: ' . print_r(Yii::$app->request->post(), true));
+            Yii::error('Model status: ' . $model->status);
+            
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 // Publikálás dátumának beállítása
@@ -166,7 +170,7 @@ class PostController extends Controller
                     return $this->redirect(['index']);
                 } else {
                     $transaction->rollBack();
-                    Yii::$app->session->setFlash('error', 'Hiba a bejegyzés mentése során.');
+                    Yii::$app->session->setFlash('error', 'Hiba a bejegyzés mentése során: ' . print_r($model->errors, true));
                 }
             } catch (\Exception $e) {
                 $transaction->rollBack();
