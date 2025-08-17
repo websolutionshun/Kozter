@@ -11,32 +11,6 @@ $this->title = $model->original_name;
 ?>
 
 <div class="media-view">
-    <div class="page-header d-print-none">
-        <div class="container-fluid">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <div class="page-pretitle">
-                        Média részletei
-                    </div>
-                    <h2 class="page-title">
-                        <?= Html::encode($this->title) ?>
-                    </h2>
-                </div>
-                <div class="col-auto ms-auto d-print-none">
-                    <div class="btn-list">
-                        <?= Html::a('Szerkesztés', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                        <?= Html::a('Törlés', ['delete', 'id' => $model->id], [
-                            'class' => 'btn btn-outline-danger',
-                            'data' => [
-                                'confirm' => 'Biztosan törölni szeretnéd ezt a médiát?',
-                                'method' => 'post',
-                            ],
-                        ]) ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="page-body">
         <div class="container-fluid">

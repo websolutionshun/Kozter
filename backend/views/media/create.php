@@ -10,20 +10,6 @@ $this->title = 'Média feltöltése';
 ?>
 
 <div class="media-create">
-    <div class="page-header d-print-none">
-        <div class="container-fluid">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <div class="page-pretitle">
-                        Tartalom kezelése
-                    </div>
-                    <h2 class="page-title">
-                        <?= Html::encode($this->title) ?>
-                    </h2>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="page-body">
         <div class="container-fluid">

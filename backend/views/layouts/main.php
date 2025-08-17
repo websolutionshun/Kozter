@@ -472,6 +472,24 @@ if (Yii::$app->user->isGuest) {
                                 <?= Html::encode($this->title) ?>
                             </h2>
                         </div>
+                        <?php if (Yii::$app->controller->id === 'media'): ?>
+                        <div class="col-auto ms-auto d-print-none">
+                            <div class="btn-list">
+                                <?php if (Yii::$app->controller->action->id === 'index'): ?>
+                                    <?= Html::a('<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14"/><path d="M5 12l14 0"/></svg> Új média feltöltése', ['media/create'], ['class' => 'btn btn-primary']) ?>
+                                <?php elseif (Yii::$app->controller->action->id === 'view'): ?>
+                                    <?= Html::a('Szerkesztés', ['media/update', 'id' => Yii::$app->request->get('id')], ['class' => 'btn btn-primary']) ?>
+                                    <?= Html::a('Törlés', ['media/delete', 'id' => Yii::$app->request->get('id')], [
+                                        'class' => 'btn btn-outline-danger',
+                                        'data' => [
+                                            'confirm' => 'Biztosan törölni szeretnéd ezt a médiát?',
+                                            'method' => 'post',
+                                        ],
+                                    ]) ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
