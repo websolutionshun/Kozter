@@ -19,9 +19,11 @@ function isActiveRoute($route) {
     if ($route === '/felhasznalok' && $currentController === 'user') return 'active';
     if ($route === '/szerepkorok' && $currentController === 'role') return 'active';
     if ($route === '/jogosultsagok' && $currentController === 'permission') return 'active';
+    if ($route === '/bejegyzesek' && $currentController === 'post') return 'active';
     if ($route === '/kategoriak' && $currentController === 'category') return 'active';
     if ($route === '/cimkek' && $currentController === 'tag') return 'active';
-    if ($route === '/media' && $currentController === 'media') return 'active';
+    if ($route === '/mediatar' && $currentController === 'media') return 'active';
+    if ($route === '/rendszerlogok' && $currentController === 'log') return 'active';
     if ($route === '/fooldal' && $currentRoute === '/site/index') return 'active';
     return $currentRoute === $route ? 'active' : '';
 }
@@ -122,7 +124,7 @@ if (Yii::$app->user->isGuest) {
                         <?php if (!Yii::$app->user->isGuest): ?>
                             <?php 
                             $userModulesActive = in_array(Yii::$app->controller->id, ['user', 'role', 'permission']);
-                            $contentModulesActive = in_array(Yii::$app->controller->id, ['category']);
+                            $contentModulesActive = in_array(Yii::$app->controller->id, ['post', 'category', 'tag', 'media']);
                             ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle <?= $userModulesActive ? 'active' : '' ?>" href="#navbar-users" data-bs-toggle="dropdown"
@@ -157,6 +159,23 @@ if (Yii::$app->user->isGuest) {
                                     </span>
                                     Jogosultságkezelés', ['/jogosultsagok'], ['class' => 'dropdown-item ' . isActiveRoute('/jogosultsagok'), 'style' => isActiveRoute('/jogosultsagok') ? 'color: #FFF !important;' : '']) ?>
                                 </div>
+                            </li>
+
+                            <li class="nav-item">
+                                <?= Html::a('
+                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+                                            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/>
+                                            <path d="M9 9l1 0"/>
+                                            <path d="M9 13l6 0"/>
+                                            <path d="M9 17l6 0"/>
+                                        </svg>
+                                    </span>
+                                    <span class="nav-link-title">
+                                        Bejegyzések kezelése
+                                    </span>', ['/bejegyzesek'], ['class' => 'nav-link ' . isActiveRoute('/bejegyzesek')]) ?>
                             </li>
 
                             <li class="nav-item">
@@ -199,8 +218,23 @@ if (Yii::$app->user->isGuest) {
                                         </svg>
                                     </span>
                                     <span class="nav-link-title">
-                                        Média kezelése
-                                    </span>', ['/media'], ['class' => 'nav-link ' . isActiveRoute('/media')]) ?>
+                                        Médiatár
+                                    </span>', ['/mediatar'], ['class' => 'nav-link ' . isActiveRoute('/mediatar')]) ?>
+                            </li>
+
+                            <li class="nav-item">
+                                <?= Html::a('
+                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"/>
+                                            <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"/>
+                                            <path d="M16 5l3 3"/>
+                                        </svg>
+                                    </span>
+                                    <span class="nav-link-title">
+                                        Rendszerlogok
+                                    </span>', ['/rendszerlogok'], ['class' => 'nav-link ' . isActiveRoute('/rendszerlogok')]) ?>
                             </li>
 
                             <li class="nav-item">
@@ -364,8 +398,18 @@ if (Yii::$app->user->isGuest) {
                                                 </div>
                                                 <div class="col-6">
                                                     <?= Html::a('
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/><path d="M9 9l1 0"/><path d="M9 13l6 0"/><path d="M9 17l6 0"/></svg>
+                                                        <div class="h4">Bejegyzések</div>', ['/bejegyzesek'], ['class' => 'text-center text-decoration-none ' . (isActiveController('post') ? 'text-primary' : 'text-muted')]) ?>
+                                                </div>
+                                                <div class="col-6">
+                                                    <?= Html::a('
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8h.01"/><path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z"/><path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5"/><path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3"/></svg>
-                                                        <div class="h4">Média</div>', ['/media'], ['class' => 'text-center text-decoration-none ' . (isActiveController('media') ? 'text-primary' : 'text-muted')]) ?>
+                                                        <div class="h4">Médiatár</div>', ['/mediatar'], ['class' => 'text-center text-decoration-none ' . (isActiveController('media') ? 'text-primary' : 'text-muted')]) ?>
+                                                </div>
+                                                <div class="col-6">
+                                                    <?= Html::a('
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"/><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"/><path d="M16 5l3 3"/></svg>
+                                                        <div class="h4">Rendszerlogok</div>', ['/rendszerlogok'], ['class' => 'text-center text-decoration-none ' . (isActiveController('log') ? 'text-primary' : 'text-muted')]) ?>
                                                 </div>
                                             </div>
                                         </div>
