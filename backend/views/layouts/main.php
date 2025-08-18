@@ -24,6 +24,8 @@ function isActiveRoute($route) {
     if ($route === '/cimkek' && $currentController === 'tag') return 'active';
     if ($route === '/mediatar' && $currentController === 'media') return 'active';
     if ($route === '/rendszerlogok' && $currentController === 'log') return 'active';
+    if ($route === '/sitemap' && $currentController === 'sitemap') return 'active';
+    if ($route === '/profil' && $currentController === 'profil') return 'active';
     if ($route === '/fooldal' && $currentRoute === '/site/index') return 'active';
     return $currentRoute === $route ? 'active' : '';
 }
@@ -96,10 +98,10 @@ if (Yii::$app->user->isGuest) {
                             <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                                 aria-label="Open user menu">
                                 <span class="avatar avatar-sm"
-                                    style="background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTJaIiBmaWxsPSIjNzQ4OTlCIi8+CjxwYXRoIGQ9Ik0yMCAyMEMyMCAxNi42ODYzIDEzLjMxMzcgMTMgMTIgMTNDMTAuNjg2MyAxMyA0IDE2LjY4NjMgNCAyMEg0LjM0MzI1SDE5LjY1NjdIMjBaIiBmaWxsPSIjNzQ4OTlCIi8+Cjwvc3ZnPgo=)"></span>
+                                    style="<?= (Yii::$app->user->identity && Yii::$app->user->identity instanceof \common\models\User && Yii::$app->user->identity->getProfileImageUrl()) ? 'background-image: url('.Html::encode(Yii::$app->user->identity->getProfileImageUrl()).')' : 'background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTJaIiBmaWxsPSIjNzQ4OTlCIi8+CjxwYXRoIGQ9Ik0yMCAyMEMyMCAxNi42ODYzIDEzLjMxMzcgMTMgMTIgMTNDMTAuNjg2MyAxMyA0IDE2LjY4NjMgNCAyMEg0LjM0MzI1SDE5LjY1NjdIMjBaIiBmaWxsPSIjNzQ4OTlCIi8+Cjwvc3ZnPgo=)' ?>"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                <a href="#" class="dropdown-item">Profil</a>
+                                <?= Html::a('Profil', ['/profil'], ['class' => 'dropdown-item']) ?>
                                 <div class="dropdown-divider"></div>
                                 <?= Html::beginForm(['/kijelentkezes'], 'post', ['class' => 'd-inline']) ?>
                                 <?= Html::submitButton('Kijelentkezés', ['class' => 'dropdown-item']) ?>
@@ -236,6 +238,25 @@ if (Yii::$app->user->isGuest) {
                                         Rendszerlogok
                                     </span>', ['/rendszerlogok'], ['class' => 'nav-link ' . isActiveRoute('/rendszerlogok')]) ?>
                             </li>
+
+                            <?php if (Yii::$app->user->identity && Yii::$app->user->identity instanceof \common\models\User && Yii::$app->user->identity->hasPermission('sitemap_view')): ?>
+                            <li class="nav-item">
+                                <?= Html::a('
+                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M3 7v4a1 1 0 0 0 1 1h3"/>
+                                            <path d="M7 7v10"/>
+                                            <path d="M10 8v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1 -1v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1z"/>
+                                            <path d="M17 7v4a1 1 0 0 0 1 1h3"/>
+                                            <path d="M21 7v10"/>
+                                        </svg>
+                                    </span>
+                                    <span class="nav-link-title">
+                                        Sitemap kezelő
+                                    </span>', ['/sitemap'], ['class' => 'nav-link ' . isActiveRoute('/sitemap')]) ?>
+                            </li>
+                            <?php endif; ?>
 
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
@@ -422,14 +443,14 @@ if (Yii::$app->user->isGuest) {
                                 <a href="#" class="nav-link d-flex lh-1 p-0 px-2" data-bs-toggle="dropdown"
                                     aria-label="Open user menu">
                                     <span class="avatar avatar-sm"
-                                        style="background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTJaIiBmaWxsPSIjNzQ4OTlCIi8+CjxwYXRoIGQ9Ik0yMCAyMEMyMCAxNi42ODYzIDEzLjMxMzcgMTMgMTIgMTNDMTAuNjg2MyAxMyA0IDE2LjY4NjMgNCAyMEg0LjM0MzI1SDE5LjY1NjdIMjBaIiBmaWxsPSIjNzQ4OTlCIi8+Cjwvc3ZnPgo=)"></span>
+                                        style="<?= (Yii::$app->user->identity && Yii::$app->user->identity instanceof \common\models\User && Yii::$app->user->identity->getProfileImageUrl()) ? 'background-image: url('.Html::encode(Yii::$app->user->identity->getProfileImageUrl()).')' : 'background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTJaIiBmaWxsPSIjNzQ4OTlCIi8+CjxwYXRoIGQ9Ik0yMCAyMEMyMCAxNi42ODYzIDEzLjMxMzcgMTMgMTIgMTNDMTAuNjg2MyAxMyA0IDE2LjY4NjMgNCAyMEg0LjM0MzI1SDE5LjY1NjdIMjBaIiBmaWxsPSIjNzQ4OTlCIi8+Cjwvc3ZnPgo=)' ?>"></span>
                                     <div class="d-none d-xl-block ps-2">
                                         <div><?= Html::encode(Yii::$app->user->identity ? (Yii::$app->user->identity instanceof \common\models\User ? Yii::$app->user->identity->username : '') : '') ?></div>
                                         <div class="mt-1 small text-secondary">Admin</div>
                                     </div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <a href="#" class="dropdown-item">Profil</a>
+                                    <?= Html::a('Profil', ['/profil'], ['class' => 'dropdown-item']) ?>
                                     <a href="#" class="dropdown-item">Beállítások</a>
                                     <div class="dropdown-divider"></div>
                                     <?= Html::beginForm(['/kijelentkezes'], 'post', ['class' => 'd-inline w-100']) ?>

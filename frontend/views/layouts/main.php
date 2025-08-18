@@ -5,10 +5,9 @@
 
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
-use yii\bootstrap5\Breadcrumbs;
-use yii\bootstrap5\Html;
-use yii\bootstrap5\Nav;
-use yii\bootstrap5\NavBar;
+use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -27,60 +26,333 @@ AppAsset::register($this);
     <link rel="apple-touch-icon" sizes="180x180" href="/imgs/icons/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Köztér" />
     <link rel="manifest" href="/imgs/icons/site.webmanifest" />
+    
+    <!-- Google Fonts - Kozter.com stílusú betűtípus -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Kozter színvilág CSS -->
+    <style>
+        :root {
+            --kozter-yellow: #FFD700;
+            --kozter-yellow-light: #FFF89A;
+            --kozter-yellow-dark: #E6C200;
+            --kozter-blue: #1E3A8A;
+            --kozter-blue-light: #3B82F6;
+            --kozter-blue-dark: #1E40AF;
+            --kozter-green: #059669;
+            --kozter-green-light: #10B981;
+            --kozter-gray: #6B7280;
+            --kozter-gray-light: #F3F4F6;
+            --kozter-gray-dark: #374151;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #FAFAFA;
+            color: var(--kozter-gray-dark);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-weight: 700;
+            color: var(--kozter-blue-dark);
+        }
+        
+        .navbar-kozter {
+            background: linear-gradient(135deg, var(--kozter-yellow) 0%, var(--kozter-yellow-light) 100%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 3px solid var(--kozter-blue);
+        }
+        
+        .navbar-kozter .navbar-brand {
+            font-family: 'Merriweather', Georgia, serif;
+            font-weight: 700;
+            color: var(--kozter-blue-dark) !important;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-kozter .nav-link {
+            color: var(--kozter-blue-dark) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar-kozter .nav-link:hover {
+            color: var(--kozter-blue) !important;
+        }
+        
+        .featured-card {
+            background: linear-gradient(135deg, var(--kozter-blue) 0%, var(--kozter-blue-dark) 100%);
+            color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
+        }
+        
+        .category-section {
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid var(--kozter-yellow);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .category-title {
+            color: var(--kozter-blue-dark);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--kozter-yellow-light);
+        }
+        
+        .post-card {
+            background: white;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .post-title {
+            color: var(--kozter-blue-dark);
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        .post-title:hover {
+            color: var(--kozter-blue);
+            text-decoration: none;
+        }
+        
+        .post-excerpt {
+            color: var(--kozter-gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .post-meta {
+            color: var(--kozter-gray);
+            font-size: 0.8rem;
+        }
+        
+        .btn-kozter {
+            background: linear-gradient(135deg, var(--kozter-yellow) 0%, var(--kozter-yellow-dark) 100%);
+            border: none;
+            color: var(--kozter-blue-dark);
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-kozter:hover {
+            background: linear-gradient(135deg, var(--kozter-yellow-dark) 0%, var(--kozter-yellow) 100%);
+            color: var(--kozter-blue);
+            transform: translateY(-1px);
+        }
+        
+        .footer-kozter {
+            background: var(--kozter-gray-dark);
+            color: white;
+        }
+        
+        .footer-kozter a {
+            color: var(--kozter-yellow-light);
+        }
+        
+        .footer-kozter a:hover {
+            color: var(--kozter-yellow);
+        }
+        
+        /* Responsive fejlesztések */
+        @media (max-width: 768px) {
+            .featured-card {
+                text-align: center;
+            }
+            
+            .category-section {
+                margin-bottom: 2rem;
+            }
+            
+            .post-card {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        /* Dropdown menük styling */
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--kozter-yellow-light);
+            color: var(--kozter-blue-dark);
+        }
+        
+        /* Post content styling */
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .post-content h2, .post-content h3, .post-content h4 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .post-content p {
+            margin-bottom: 1.2rem;
+        }
+        
+        .post-content blockquote {
+            border-left: 4px solid var(--kozter-yellow);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            background-color: var(--kozter-gray-light);
+            padding: 1rem;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
 <header>
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-    }
-
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
-        'items' => $menuItems,
-    ]);
-    if (Yii::$app->user->isGuest) {
-        echo Html::tag('div',Html::a('Login',['/site/login'],['class' => ['btn btn-link login text-decoration-none']]),['class' => ['d-flex']]);
-    } else {
-        echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout text-decoration-none']
-            )
-            . Html::endForm();
-    }
-    NavBar::end();
-    ?>
+    <nav class="navbar navbar-expand-lg navbar-kozter">
+        <div class="container">
+            <?= Html::a('KözTér', Yii::$app->homeUrl, ['class' => 'navbar-brand']) ?>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="color: var(--kozter-blue-dark);">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <?= Html::a('Főoldal', ['/site/index'], ['class' => 'nav-link']) ?>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Támogass
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><?= Html::a('Támogatás módjai', ['/site/support'], ['class' => 'dropdown-item']) ?></li>
+                            <li><?= Html::a('Patrons', ['/site/patrons'], ['class' => 'dropdown-item']) ?></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Műsoraink
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><?= Html::a('Podcastok', ['/site/podcasts'], ['class' => 'dropdown-item']) ?></li>
+                            <li><?= Html::a('Videók', ['/site/videos'], ['class' => 'dropdown-item']) ?></li>
+                            <li><?= Html::a('Élő adások', ['/site/live'], ['class' => 'dropdown-item']) ?></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <?= Html::a('Bejegyzések', ['/post/index'], ['class' => 'nav-link']) ?>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            A drága olvasónak
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><?= Html::a('Kapcsolat', ['/site/contact'], ['class' => 'dropdown-item']) ?></li>
+                            <li><?= Html::a('GYIK', ['/site/faq'], ['class' => 'dropdown-item']) ?></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <?= Html::a('A drága sajtónak', ['/site/press'], ['class' => 'nav-link']) ?>
+                    </li>
+                    <li class="nav-item">
+                        <?= Html::a('Rólunk', ['/site/about'], ['class' => 'nav-link']) ?>
+                    </li>
+                </ul>
+                
+                <div class="d-flex">
+                    <?php if (Yii::$app->user->isGuest): ?>
+                        <?= Html::a('Bejelentkezés', ['/site/login'], ['class' => 'btn btn-kozter me-2']) ?>
+                        <?= Html::a('Regisztráció', ['/site/signup'], ['class' => 'btn btn-outline-primary']) ?>
+                    <?php else: ?>
+                        <div class="dropdown">
+                            <button class="btn btn-kozter dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <?= Html::encode(Yii::$app->user->identity->username ?? 'Felhasználó') ?>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><?= Html::a('Profil', ['/site/profile'], ['class' => 'dropdown-item']) ?></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <?= Html::beginForm(['/site/logout'], 'post') ?>
+                                    <?= Html::submitButton('Kijelentkezés', ['class' => 'dropdown-item']) ?>
+                                    <?= Html::endForm() ?>
+                                </li>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </nav>
 </header>
 
-<main role="main" class="flex-shrink-0">
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+<main role="main" class="flex-shrink-0" style="padding-top: 20px;">
+    <div class="container-fluid">
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </main>
 
-<footer class="footer mt-auto py-3 text-muted">
+<footer class="footer-kozter mt-auto py-4">
     <div class="container">
-        <p class="float-start">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-        <p class="float-end"><?= Yii::powered() ?></p>
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="text-white mb-3">KözTér</h5>
+                <p class="mb-2">Független közéleti platform a szabad véleménynyilvánításért.</p>
+                <div class="social-links">
+                    <a href="#" class="me-3"><i class="fab fa-facebook"></i> Facebook</a>
+                    <a href="#" class="me-3"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#" class="me-3"><i class="fab fa-youtube"></i> YouTube</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h6 class="text-white mb-3">Hasznos linkek</h6>
+                <ul class="list-unstyled">
+                    <li><a href="<?= Url::to(['/site/about']) ?>">Rólunk</a></li>
+                    <li><a href="<?= Url::to(['/site/contact']) ?>">Kapcsolat</a></li>
+                    <li><a href="<?= Url::to(['/site/privacy']) ?>">Adatvédelem</a></li>
+                    <li><a href="<?= Url::to(['/site/terms']) ?>">ÁSZF</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h6 class="text-white mb-3">Támogatás</h6>
+                <ul class="list-unstyled">
+                    <li><a href="<?= Url::to(['/site/support']) ?>">Támogass minket</a></li>
+                    <li><a href="<?= Url::to(['/site/patrons']) ?>">Támogatóink</a></li>
+                    <li><a href="<?= Url::to(['/site/donate']) ?>">Adományozás</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="my-4" style="border-color: #6B7280;">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p class="mb-0">&copy; <?= date('Y') ?> <?= Html::encode(Yii::$app->name) ?>. Minden jog fenntartva.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <p class="mb-0">Fejlesztő: <span class="text-warning">Web Solutions Hungary Kft.</span></p>
+            </div>
+        </div>
     </div>
 </footer>
 

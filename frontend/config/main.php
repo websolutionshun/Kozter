@@ -52,6 +52,11 @@ return [
                 'jelszo-uj/<token>' => 'site/reset-password',
                 'email-ujrakuldese' => 'site/resend-verification-email',
                 'email-megerositese/<token>' => 'site/verify-email',
+                
+                // Bejegyzések
+                'bejegyzesek' => 'post/index',
+                'bejegyzes/<slug>' => 'post/view',
+                'kategoria/<slug>' => 'post/category',
             ],
         ],
     ],

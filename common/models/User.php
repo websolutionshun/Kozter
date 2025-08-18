@@ -21,6 +21,9 @@ use yii\web\IdentityInterface;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $profile_image
+ * @property string $nickname
+ * @property string $bio
  * @property string $password write-only password
  *
  * @property Role[] $roles
@@ -67,6 +70,9 @@ class User extends ActiveRecord implements IdentityInterface
             ['email', 'unique', 'message' => 'Ez az e-mail cím már használatban van.'],
             ['email', 'email', 'message' => 'Érvényes e-mail címet adj meg.'],
             ['password', 'string', 'min' => 6, 'tooShort' => 'A jelszónak legalább {min} karakter hosszúnak kell lennie.'],
+            [['profile_image', 'nickname'], 'string', 'max' => 255],
+            ['nickname', 'string', 'max' => 100],
+            ['bio', 'string'],
         ];
     }
 
@@ -87,6 +93,9 @@ class User extends ActiveRecord implements IdentityInterface
             'status' => 'Állapot',
             'created_at' => 'Létrehozva',
             'updated_at' => 'Frissítve',
+            'profile_image' => 'Profilkép',
+            'nickname' => 'Becenév',
+            'bio' => 'Bemutatkozás',
         ];
     }
 
@@ -355,5 +364,20 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->getRoles()
             ->select('name')
             ->column();
+    }
+
+    /**
+     * Profilkép teljes URL-jének lekérése
+     *
+     * @return string|null
+     */
+    public function getProfileImageUrl()
+    {
+        if (!$this->profile_image) {
+            return null;
+        }
+        
+        $frontendUrl = Yii::$app->params['frontendUrl'];
+        return $frontendUrl . '/' . $this->profile_image;
     }
 }

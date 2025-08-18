@@ -111,14 +111,42 @@ class Permission extends ActiveRecord
      */
     public static function getByCategories()
     {
-        $permissions = static::find()->all();
+        $permissions = static::find()->orderBy('category, name')->all();
         $grouped = [];
+        
+        // Előre definiált kategória sorrend
+        $categoryOrder = [
+            'Felhasználókezelés',
+            'Szerepkörkezelés', 
+            'Jogosultságkezelés',
+            'Kategóriakezelés',
+            'Címkekezelés',
+            'Médiák',
+            'Bejegyzések',
+            'Rendszerlogok',
+            'Rendszer',
+            'Egyéb'
+        ];
         
         foreach ($permissions as $permission) {
             $category = $permission->category ?: 'Egyéb';
             $grouped[$category][] = $permission;
         }
         
-        return $grouped;
+        // Rendezett kategóriák visszaadása
+        $ordered = [];
+        foreach ($categoryOrder as $category) {
+            if (isset($grouped[$category])) {
+                $ordered[$category] = $grouped[$category];
+                unset($grouped[$category]);
+            }
+        }
+        
+        // Maradék kategóriák hozzáadása
+        foreach ($grouped as $category => $permissions) {
+            $ordered[$category] = $permissions;
+        }
+        
+        return $ordered;
     }
 } 

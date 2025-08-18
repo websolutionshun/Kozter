@@ -11,10 +11,13 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\Post;
+use common\models\Category;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\data\ActiveDataProvider;
 
 /**
  * Site controller
@@ -75,7 +78,45 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        // Kiemelt bejegyzés (a legújabb publikált)
+        $featuredPost = Post::getPublished()
+            ->orderBy(['published_at' => SORT_DESC])
+            ->one();
+
+        // Legújabb bejegyzések kategóriánként
+        $categories = Category::getActive()
+            ->orderBy(['name' => SORT_ASC])
+            ->limit(6)
+            ->all();
+
+        $categorizedPosts = [];
+        foreach ($categories as $category) {
+            $posts = Post::getPublished()
+                ->joinWith('categories')
+                ->where(['{{%categories}}.id' => $category->id])
+                ->orderBy(['published_at' => SORT_DESC])
+                ->limit(4)
+                ->all();
+            
+            if (!empty($posts)) {
+                $categorizedPosts[$category->name] = [
+                    'category' => $category,
+                    'posts' => $posts
+                ];
+            }
+        }
+
+        // Legújabb bejegyzések általában
+        $recentPosts = Post::getPublished()
+            ->orderBy(['published_at' => SORT_DESC])
+            ->limit(8)
+            ->all();
+
+        return $this->render('index', [
+            'featuredPost' => $featuredPost,
+            'categorizedPosts' => $categorizedPosts,
+            'recentPosts' => $recentPosts,
+        ]);
     }
 
     /**
