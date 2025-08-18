@@ -24,6 +24,7 @@ function isActiveRoute($route) {
     if ($route === '/cimkek' && $currentController === 'tag') return 'active';
     if ($route === '/mediatar' && $currentController === 'media') return 'active';
     if ($route === '/rendszerlogok' && $currentController === 'log') return 'active';
+    if ($route === '/sitemap' && $currentController === 'sitemap') return 'active';
     if ($route === '/fooldal' && $currentRoute === '/site/index') return 'active';
     return $currentRoute === $route ? 'active' : '';
 }
@@ -236,6 +237,25 @@ if (Yii::$app->user->isGuest) {
                                         Rendszerlogok
                                     </span>', ['/rendszerlogok'], ['class' => 'nav-link ' . isActiveRoute('/rendszerlogok')]) ?>
                             </li>
+
+                            <?php if (Yii::$app->user->identity && Yii::$app->user->identity->hasPermission('sitemap_view')): ?>
+                            <li class="nav-item">
+                                <?= Html::a('
+                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M3 7v4a1 1 0 0 0 1 1h3"/>
+                                            <path d="M7 7v10"/>
+                                            <path d="M10 8v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1 -1v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1z"/>
+                                            <path d="M17 7v4a1 1 0 0 0 1 1h3"/>
+                                            <path d="M21 7v10"/>
+                                        </svg>
+                                    </span>
+                                    <span class="nav-link-title">
+                                        Sitemap kezelő
+                                    </span>', ['/sitemap'], ['class' => 'nav-link ' . isActiveRoute('/sitemap')]) ?>
+                            </li>
+                            <?php endif; ?>
 
                             <li class="nav-item">
                                 <a class="nav-link" href="#">

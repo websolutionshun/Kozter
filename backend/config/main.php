@@ -103,6 +103,10 @@ return [
                 'rendszerlogok/tomeges-torles' => 'log/bulk-delete',
                 'rendszerlogok/regiek-torlese' => 'log/clear-old',
                 
+                'sitemap' => 'sitemap/index',
+                'sitemap/megtekintes' => 'sitemap/view',
+                'sitemap/generalas' => 'sitemap/generate',
+                
                 'fooldal' => 'site/index',
                 'bejelentkezes' => 'site/login',
                 'kijelentkezes' => 'site/logout',

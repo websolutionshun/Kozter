@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "23053fb43b795a3d2bdd811b59c07136",
+    "content-hash": "2ca85bd73d497ac413592c982a5a2a59",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -159,6 +159,56 @@
                 "source": "https://github.com/cebe/markdown"
             },
             "time": "2018-03-26T11:24:36+00:00"
+        },
+        {
+            "name": "demi/sitemap-generator",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/demisang/yii2-sitemap-generator.git",
+                "reference": "5629cecb6d78f4eab59bfd651c25f70821e2f488"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/demisang/yii2-sitemap-generator/zipball/5629cecb6d78f4eab59bfd651c25f70821e2f488",
+                "reference": "5629cecb6d78f4eab59bfd651c25f70821e2f488",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "demi\\sitemap\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Orlov",
+                    "email": "gnasimed@gmail.com",
+                    "homepage": "https://orlov.io/",
+                    "role": "Creator"
+                }
+            ],
+            "description": "Yii2 component for generate sitemap.xml files.",
+            "homepage": "https://github.com/demisang/yii2-sitemap-generator#readme",
+            "keywords": [
+                "Sitemap",
+                "cron",
+                "xml",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/demisang/yii2-sitemap-generator/issues",
+                "source": "https://github.com/demisang/yii2-sitemap-generator"
+            },
+            "time": "2020-06-26T13:23:34+00:00"
         },
         {
             "name": "doctrine/lexer",

@@ -15,18 +15,25 @@ return [
     'controllerNamespace' => 'console\controllers',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'controllerMap' => [
         'fixture' => [
             'class' => \yii\console\controllers\FixtureController::class,
             'namespace' => 'common\fixtures',
-          ],
-          'migrate-tools' => [
-                'class' => 'yii\console\controllers\MigrateController',
-                'migrationPath' => '@console/migrations_tools',
-                'migrationTable' => '{{%migration_tools}}', // Külön tábla a tools migrációkhoz
-            ],
+        ],
+        'migrate-tools' => [
+            'class' => 'yii\console\controllers\MigrateController',
+            'migrationPath' => '@console/migrations_tools',
+            'migrationTable' => '{{%migration_tools}}', // Külön tábla a tools migrációkhoz
+        ],
+        'sitemap' => [
+            'class' => 'demi\sitemap\SitemapController',
+            'modelsPath' => '@console/models/sitemap',
+            'modelsNamespace' => 'console\models\sitemap',
+            'savePathAlias' => '@frontend/web',
+            'sitemapFileName' => 'sitemap.xml',
+        ],
     ],
     'components' => [
         'log' => [
