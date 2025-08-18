@@ -22,6 +22,11 @@ return [
             'class' => \yii\console\controllers\FixtureController::class,
             'namespace' => 'common\fixtures',
           ],
+          'migrate-tools' => [
+                'class' => 'yii\console\controllers\MigrateController',
+                'migrationPath' => '@console/migrations_tools',
+                'migrationTable' => '{{%migration_tools}}', // Külön tábla a tools migrációkhoz
+            ],
     ],
     'components' => [
         'log' => [
