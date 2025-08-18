@@ -49,6 +49,10 @@ return [
                 'felhasznalok/<id:\d+>/szerkesztes' => 'user/update',
                 'felhasznalok/<id:\d+>/torles' => 'user/delete',
                 
+                'profil' => 'profil/index',
+                'profil/szerkesztes' => 'profil/szerkesztes',
+                'profil/profilkep-torles' => 'profil/profilkep-torles',
+                
                 'szerepkorok' => 'role/index',
                 'szerepkorok/letrehozas' => 'role/create',
                 'szerepkorok/<id:\d+>' => 'role/view',
