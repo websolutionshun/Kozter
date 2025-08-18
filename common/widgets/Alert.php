@@ -3,6 +3,8 @@
 namespace common\widgets;
 
 use Yii;
+use yii\base\Widget;
+use yii\helpers\Html;
 
 /**
  * Alert widget renders a message from session flash. All flash messages are displayed
@@ -23,13 +25,13 @@ use Yii;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @author Alexander Makarov <sam@rmcreative.ru>
  */
-class Alert extends \yii\bootstrap5\Widget
+class Alert extends Widget
 {
     /**
      * @var array the alert types configuration for the flash messages.
      * This array is setup as $key => $value, where:
      * - key: the name of the session flash variable
-     * - value: the bootstrap alert type (i.e. danger, success, info, warning)
+     * - value: the alert CSS class type (compatible with Tabler and Bootstrap)
      */
     public $alertTypes = [
         'error'   => 'alert-danger',
@@ -38,11 +40,15 @@ class Alert extends \yii\bootstrap5\Widget
         'info'    => 'alert-info',
         'warning' => 'alert-warning'
     ];
+    
     /**
      * @var array the options for rendering the close button tag.
-     * Array will be passed to [[\yii\bootstrap\Alert::closeButton]].
      */
-    public $closeButton = [];
+    public $closeButton = [
+        'class' => 'btn-close',
+        'data-bs-dismiss' => 'alert',
+        'aria-label' => 'Close'
+    ];
 
 
     /**
@@ -52,7 +58,6 @@ class Alert extends \yii\bootstrap5\Widget
     {
         $session = Yii::$app->session;
         $flashes = $session->getAllFlashes();
-        $appendClass = isset($this->options['class']) ? ' ' . $this->options['class'] : '';
 
         foreach ($flashes as $type => $flash) {
             if (!isset($this->alertTypes[$type])) {
@@ -60,14 +65,26 @@ class Alert extends \yii\bootstrap5\Widget
             }
 
             foreach ((array) $flash as $i => $message) {
-                echo \yii\bootstrap5\Alert::widget([
-                    'body' => $message,
-                    'closeButton' => $this->closeButton,
-                    'options' => array_merge($this->options, [
-                        'id' => $this->getId() . '-' . $type . '-' . $i,
-                        'class' => $this->alertTypes[$type] . $appendClass,
-                    ]),
+                $alertId = $this->getId() . '-' . $type . '-' . $i;
+                $alertClass = 'alert alert-dismissible ' . $this->alertTypes[$type];
+                
+                echo Html::beginTag('div', [
+                    'id' => $alertId,
+                    'class' => $alertClass,
+                    'role' => 'alert'
                 ]);
+                
+                echo Html::encode($message);
+                
+                // Close button
+                echo Html::button('', array_merge([
+                    'type' => 'button',
+                    'class' => 'btn-close',
+                    'data-bs-dismiss' => 'alert',
+                    'aria-label' => 'Close'
+                ], $this->closeButton));
+                
+                echo Html::endTag('div');
             }
 
             $session->removeFlash($type);
