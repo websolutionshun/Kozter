@@ -51,3 +51,6 @@ phpunit.phar
 
 # uploads
 /frontend/web/uploads/media
+
+# sitemap
+/frontend/web/sitemap.xml
