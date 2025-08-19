@@ -19,6 +19,9 @@ use yii\behaviors\SluggableBehavior;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ *
+ * @property Post[] $posts
+ * @property PostTag[] $postTags
  */
 class Tag extends ActiveRecord
 {
@@ -155,12 +158,34 @@ class Tag extends ActiveRecord
     }
 
     /**
+     * Gets query for [[PostTags]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPostTags()
+    {
+        return $this->hasMany(PostTag::class, ['tag_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Posts]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPosts()
+    {
+        return $this->hasMany(Post::class, ['id' => 'post_id'])->viaTable('{{%post_tags}}', ['tag_id' => 'id']);
+    }
+
+    /**
      * Elemek számának frissítése
      */
     public function updateCount()
     {
-        // Itt később lehet implementálni a kapcsolódó elemek számának frissítését
-        // pl. cikkekhez vagy más tartalmakhoz kapcsolt címkék száma
+        // Kapcsolódó bejegyzések számának frissítése
+        $count = $this->getPosts()->count();
+        $this->count = $count;
+        $this->save(false, ['count']);
         return true;
     }
 }

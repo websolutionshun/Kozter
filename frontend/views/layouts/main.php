@@ -223,6 +223,403 @@ AppAsset::register($this);
             padding: 1rem;
             border-radius: 4px;
         }
+        
+        /* TELEX-STÍLUSÚ 3 OSZLOPOS LAYOUT */
+        .homepage-telex {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .telex-layout {
+            gap: 20px;
+        }
+        
+        /* BAL OSZLOP - Fő hírek */
+        .main-column {
+            border-right: 1px solid #E5E7EB;
+            padding-right: 20px;
+        }
+        
+        .featured-main {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .featured-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--kozter-blue-dark);
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+        
+        .featured-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .featured-title a:hover {
+            color: var(--kozter-blue);
+        }
+        
+        .featured-excerpt {
+            color: var(--kozter-gray);
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        
+        .category-badge {
+            background: var(--kozter-yellow);
+            color: var(--kozter-blue-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        
+        .secondary-featured {
+            background: white;
+            border-radius: 6px;
+            padding: 1rem;
+            border: 1px solid #F3F4F6;
+        }
+        
+        .secondary-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--kozter-blue-dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        
+        .secondary-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .secondary-title a:hover {
+            color: var(--kozter-blue);
+        }
+        
+        .secondary-excerpt {
+            color: var(--kozter-gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .more-news {
+            margin-top: 2rem;
+        }
+        
+        .section-title {
+            color: var(--kozter-blue-dark);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--kozter-yellow);
+        }
+        
+        .news-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        
+        .news-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--kozter-blue-dark);
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+        
+        .news-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .news-title a:hover {
+            color: var(--kozter-blue);
+        }
+        
+        /* KÖZÉPSŐ OSZLOP - Kategóriák */
+        .category-column {
+            border-right: 1px solid #E5E7EB;
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+        
+        .category-section-telex {
+            margin-bottom: 2rem;
+        }
+        
+        .category-title-telex {
+            color: var(--kozter-blue-dark);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .category-title-telex a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .category-title-telex a:hover {
+            color: var(--kozter-yellow-dark);
+        }
+        
+        .category-featured {
+            background: white;
+            border-radius: 6px;
+            padding: 1rem;
+            border: 1px solid #F3F4F6;
+        }
+        
+        .category-post-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--kozter-blue-dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        
+        .category-post-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .category-post-title a:hover {
+            color: var(--kozter-blue);
+        }
+        
+        .category-excerpt {
+            color: var(--kozter-gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #F9FAFB;
+        }
+        
+        .category-item:last-child {
+            border-bottom: none;
+        }
+        
+        .category-item-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--kozter-blue-dark);
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+        
+        .category-item-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .category-item-title a:hover {
+            color: var(--kozter-blue);
+        }
+        
+        .category-divider {
+            border-color: var(--kozter-yellow-light);
+            border-width: 2px;
+            margin: 2rem 0;
+        }
+        
+        /* JOBB OSZLOP - Sidebar */
+        .sidebar-column {
+            padding-left: 20px;
+        }
+        
+        .sidebar-title {
+            color: var(--kozter-blue-dark);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .popular-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        
+        .popular-item:last-child {
+            border-bottom: none;
+        }
+        
+        .popular-number {
+            background: var(--kozter-yellow);
+            color: var(--kozter-blue-dark);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+        
+        .popular-content {
+            flex: 1;
+        }
+        
+        .popular-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--kozter-blue-dark);
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+        
+        .popular-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .popular-title a:hover {
+            color: var(--kozter-blue);
+        }
+        
+        .tag-item, .popular-overall-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #F9FAFB;
+        }
+        
+        .tag-item:last-child, .popular-overall-item:last-child {
+            border-bottom: none;
+        }
+        
+        .tag-post-title, .popular-overall-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--kozter-blue-dark);
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+        
+        .tag-post-title a, .popular-overall-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .tag-post-title a:hover, .popular-overall-title a:hover {
+            color: var(--kozter-blue);
+        }
+        
+        .support-card {
+            background: linear-gradient(135deg, var(--kozter-yellow-light) 0%, var(--kozter-yellow) 100%);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .support-title {
+            color: var(--kozter-blue-dark);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        
+        .support-text {
+            color: var(--kozter-blue-dark);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .quick-links-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .quick-links-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        
+        .quick-links-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .quick-links-list a {
+            color: var(--kozter-blue-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .quick-links-list a:hover {
+            color: var(--kozter-blue);
+        }
+        
+        /* Meta információk */
+        .post-meta-main {
+            color: var(--kozter-gray);
+            font-size: 0.8rem;
+        }
+        
+        .post-meta-small {
+            color: var(--kozter-gray);
+            font-size: 0.75rem;
+        }
+        
+        .post-meta-tiny {
+            color: var(--kozter-gray);
+            font-size: 0.7rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .main-column, .category-column {
+                border-right: none;
+                padding-right: 15px;
+                margin-bottom: 2rem;
+            }
+            
+            .sidebar-column {
+                padding-left: 15px;
+            }
+            
+            .telex-layout {
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .homepage-telex {
+                font-size: 13px;
+            }
+            
+            .featured-title {
+                font-size: 1.3rem;
+            }
+            
+            .secondary-title, .category-post-title {
+                font-size: 0.95rem;
+            }
+        }
     </style>
 </head>
 <body class="d-flex flex-column h-100">

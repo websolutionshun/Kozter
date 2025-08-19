@@ -51,7 +51,7 @@ if ($model->seo_keywords) {
                     
                     <?php if ($model->featuredImage): ?>
                         <div class="text-center mb-4">
-                            <img src="<?= Html::encode($model->featuredImage->path) ?>" 
+                            <img src="<?= Html::encode($model->featuredImage->getFileUrl()) ?>" 
                                  alt="<?= Html::encode($model->title) ?>" 
                                  class="img-fluid rounded">
                         </div>

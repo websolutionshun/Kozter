@@ -111,6 +111,18 @@ $('#bulk-action-form').on('submit', function(e) {
         form.append('" . Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) . "');
         $('body').append(form);
         form.submit();
+    } else if (action === 'publish') {
+        if (!confirm('Biztosan közzé szeretnéd tenni a kiválasztott bejegyzéseket?')) {
+            return false;
+        }
+        
+        var form = $('<form method=\"post\" action=\"' + '" . Url::to(['post/bulk-publish']) . "' + '\"></form>');
+        selected.each(function() {
+            form.append('<input type=\"hidden\" name=\"selection[]\" value=\"' + $(this).val() + '\">');
+        });
+        form.append('" . Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) . "');
+        $('body').append(form);
+        form.submit();
     }
 });
 
@@ -137,6 +149,72 @@ $('#post-title').on('keyup', function() {
         .replace(/^-|-$/g, '');
     $('#post-slug').val(slug);
 });
+
+// Teszt bejegyzés generálása
+$('#generate-test-post').on('click', function() {
+    var btn = $(this);
+    var originalText = btn.html();
+    
+    // Loading állapot
+    btn.prop('disabled', true).html('<div class=\"spinner-border spinner-border-sm me-2\" role=\"status\"></div>Generálás...');
+    
+    $.ajax({
+        url: '" . Url::to(['post/generate-test-post']) . "',
+        type: 'POST',
+        data: {
+            '_csrf': '" . Yii::$app->request->csrfToken . "'
+        },
+        dataType: 'json',
+        success: function(data) {
+            if (data.success) {
+                // Sikeres generálás
+                btn.removeClass('btn-outline-secondary').addClass('btn-outline-success');
+                btn.html('<svg xmlns=\"http://www.w3.org/2000/svg\" class=\"icon\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" stroke-width=\"2\" stroke=\"currentColor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M5 12l5 5l10 -10\"/></svg> Létrehozva!');
+                
+                // Flash üzenet megjelenítése
+                if (data.message) {
+                    // Tabler toast megjelenítése
+                    var toast = $('<div class=\"toast show align-items-center text-white bg-success border-0 position-fixed\" style=\"top: 20px; right: 20px; z-index: 1055;\" role=\"alert\">' +
+                        '<div class=\"d-flex\">' +
+                            '<div class=\"toast-body\">' + data.message + '</div>' +
+                            '<button type=\"button\" class=\"btn-close btn-close-white me-2 m-auto\" data-bs-dismiss=\"toast\"></button>' +
+                        '</div>' +
+                    '</div>');
+                    $('body').append(toast);
+                    
+                    // 3 másodperc múlva eltűnik
+                    setTimeout(function() {
+                        toast.remove();
+                    }, 3000);
+                }
+                
+                // Oldal frissítése 2 másodperc múlva
+                setTimeout(function() {
+                    location.reload();
+                }, 2000);
+            } else {
+                // Hiba esetén
+                btn.removeClass('btn-outline-secondary').addClass('btn-outline-danger');
+                btn.html('<svg xmlns=\"http://www.w3.org/2000/svg\" class=\"icon\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" stroke-width=\"2\" stroke=\"currentColor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M18 6l-12 12\"/><path d=\"M6 6l12 12\"/></svg> Hiba!');
+                alert('Hiba: ' + (data.message || 'Ismeretlen hiba történt'));
+            }
+        },
+        error: function(xhr, status, error) {
+            btn.removeClass('btn-outline-secondary').addClass('btn-outline-danger');
+            btn.html('<svg xmlns=\"http://www.w3.org/2000/svg\" class=\"icon\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" stroke-width=\"2\" stroke=\"currentColor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M18 6l-12 12\"/><path d=\"M6 6l12 12\"/></svg> Hiba!');
+            alert('Hiba a teszt bejegyzés generálása során: ' + error);
+        },
+        complete: function() {
+            // 3 másodperc múlva visszaállítjuk az eredeti állapotot
+            setTimeout(function() {
+                btn.prop('disabled', false)
+                   .removeClass('btn-outline-success btn-outline-danger')
+                   .addClass('btn-outline-secondary')
+                   .html(originalText);
+            }, 3000);
+        }
+    });
+});
 ", yii\web\View::POS_READY);
 ?>
 
@@ -149,7 +227,11 @@ $('#post-title').on('keyup', function() {
                         Bejegyzések
                         <span class="badge bg-blue-lt text-blue ms-2"><?= $dataProvider->totalCount ?></span>
                     </h3>
-                    <div>
+                    <div class="d-flex gap-2">
+                        <button id="generate-test-post" class="btn btn-outline-secondary btn-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 19.5v-15a2.5 2.5 0 0 1 2.5 -2.5h11a2.5 2.5 0 0 1 2.5 2.5v15a2.5 2.5 0 0 1 -2.5 2.5h-11a2.5 2.5 0 0 1 -2.5 -2.5z"/><path d="M9 10h6"/><path d="M9 14h6"/><path d="M9 18h6"/></svg>
+                            Teszt bejegyzés
+                        </button>
                         <?= Html::a('<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14"/><path d="M5 12l14 0"/></svg> Új bejegyzés', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
                     </div>
                 </div>
@@ -189,6 +271,7 @@ $('#post-title').on('keyup', function() {
                         <?= Html::beginForm('', 'post', ['id' => 'bulk-action-form', 'class' => 'd-flex align-items-center gap-2']) ?>
                             <select name="action" id="bulk-action-selector" class="form-select form-select-sm" style="width: auto;">
                                 <option value="">Tömeges műveletek</option>
+                                <option value="publish">Kijelöltek közzététele</option>
                                 <option value="delete">Törlés</option>
                             </select>
                             <button type="submit" class="btn btn-sm btn-outline-secondary">Alkalmaz</button>

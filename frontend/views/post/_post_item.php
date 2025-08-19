@@ -18,7 +18,7 @@ use yii\helpers\Html;
     
     <?php if ($model->featuredImage): ?>
         <div class="mb-3">
-            <img src="<?= Html::encode($model->featuredImage->path) ?>" 
+            <img src="<?= Html::encode($model->featuredImage->getFileUrl()) ?>" 
                  alt="<?= Html::encode($model->title) ?>" 
                  class="img-fluid rounded">
         </div>

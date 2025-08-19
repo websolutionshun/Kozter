@@ -278,6 +278,16 @@ class Media extends ActiveRecord
     }
 
     /**
+     * Fájl útvonal lekérése (kompatibilitás érdekében)
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->file_path;
+    }
+
+    /**
      * Teljes fájl URL lekérése
      *
      * @return string
@@ -285,8 +295,13 @@ class Media extends ActiveRecord
     public function getFileUrl()
     {
         // Frontend URL használata a paraméterekből
-        $frontendUrl = Yii::$app->params['frontendUrl'];
-        return $frontendUrl . '/' . $this->file_path;
+        $frontendUrl = Yii::$app->params['frontendUrl'] ?? '';
+        if ($frontendUrl) {
+            return $frontendUrl . '/' . $this->file_path;
+        }
+        
+        // Ha nincs beállítva a frontendUrl, akkor relatív útvonal
+        return '/' . $this->file_path;
     }
 
     /**

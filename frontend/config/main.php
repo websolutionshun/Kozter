@@ -57,6 +57,10 @@ return [
                 'bejegyzesek' => 'post/index',
                 'bejegyzes/<slug>' => 'post/view',
                 'kategoria/<slug>' => 'post/category',
+                
+                // AJAX endpoints
+                'ajax/load-more-posts' => 'ajax/load-more-posts',
+                'ajax/refresh-category' => 'ajax/refresh-category',
             ],
         ],
     ],
