@@ -112,8 +112,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'attribute' => 'status',
                                 'value' => function ($model) {
-                                    $statusClass = $model->status == Post::STATUS_PUBLISHED ? 'success' : 
-                                                  ($model->status == Post::STATUS_DRAFT ? 'secondary' : 'danger');
+                                    $statusClass = $model->status == Post::STATUS_PUBLISHED ? 'green-lt text-green' : 
+                                                  ($model->status == Post::STATUS_DRAFT ? 'gray-lt text-gray' : 'red-lt text-red');
                                     return '<span class="badge bg-' . $statusClass . '">' . $model->getStatusName() . '</span>';
                                 },
                                 'format' => 'raw',
@@ -121,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'attribute' => 'visibility',
                                 'value' => function ($model) {
-                                    $visibilityClass = $model->visibility == Post::VISIBILITY_PUBLIC ? 'success' : 'warning';
+                                    $visibilityClass = $model->visibility == Post::VISIBILITY_PUBLIC ? 'green-lt text-green' : 'orange-lt text-orange';
                                     return '<span class="badge bg-' . $visibilityClass . '">' . $model->getVisibilityName() . '</span>';
                                 },
                                 'format' => 'raw',
@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'attribute' => 'comment_status',
                                 'value' => function ($model) {
-                                    $commentClass = $model->comment_status == Post::COMMENT_ENABLED ? 'success' : 'secondary';
+                                    $commentClass = $model->comment_status == Post::COMMENT_ENABLED ? 'green-lt text-green' : 'gray-lt text-gray';
                                     return '<span class="badge bg-' . $commentClass . '">' . $model->getCommentStatusName() . '</span>';
                                 },
                                 'format' => 'raw',
