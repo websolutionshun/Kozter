@@ -402,15 +402,19 @@ $this->title = 'KözTér - Főoldal';
 }
 
 /* Badge színek finomítása (kevésbé kontrasztos, olvasható) */
-.badge.bg-primary-soft { background-color: #e9f2ff !important; color: #1e40af !important; }
+/* .badge.bg-primary-soft { background-color: #e9f2ff !important; color: #1e40af !important; }
 .badge.bg-secondary-soft { background-color: #f5f6f7 !important; color: #334155 !important; }
-.badge.bg-danger-soft { background-color: #ffecec !important; color: #7f1d1d !important; }
+.badge.bg-danger-soft { background-color: #ffecec !important; color: #7f1d1d !important; } */
 
 .badge {
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     font-weight: 500;
+    background-color: #000000 !important;
+    color: #ffc82e !important;
+    border: none;
+    text-transform: uppercase;
 }
 
 /* POST EXCERPT STÍLUSOK */

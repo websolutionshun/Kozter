@@ -749,7 +749,7 @@ AppAsset::register($this);
         <div class="container-fluid py-3">
             <form action="<?= Url::to(['/post/index']) ?>" method="get" class="d-flex justify-content-center gap-2">
                 <input type="text" name="q" class="form-control w-50" placeholder="Keresés a cikkek között...">
-                <button class="btn btn-kozter btn-search" type="submit"><i class="fa-solid fa-magnifying-glass me-1"></i>Keresés</button>
+                <button class="btn support-btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass me-1"></i>Keresés</button>
             </form>
         </div>
     </div>
