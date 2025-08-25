@@ -118,3 +118,66 @@ a.desc:after {
 h1, h2, h3, h4, h5, h6, li {
     font-family: "Bungee", arial, sans-serif;
 }
+
+/* Kör alakú scroll jelző gomb (jobb alsó sarok) */
+.scroll-progress-btn {
+    position: fixed;
+    right: 18px;
+    bottom: 45px;
+    /* bottom: 18px; */
+    width: 56px;
+    height: 56px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    z-index: 999;
+    transition: transform .2s ease, opacity .2s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+.scroll-progress-btn.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+.scroll-progress-btn:active { transform: scale(0.98); }
+.scroll-progress-btn svg { width: 42px; height: 42px; }
+
+/* Külső világosabb zöld kör (track) */
+.scroll-progress-track {
+    fill: none;
+    stroke: #7ad1c2;
+    stroke-width: 4;
+    opacity: .6;
+}
+
+/* Belső keskeny, sötétebb zöld sáv: aktuális pozíció */
+.scroll-progress-bar {
+    fill: none;
+    stroke: #098c80;
+    stroke-width: 4;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    stroke-dasharray: 138.2; /* 2 * PI * r (r=22) */
+    stroke-dashoffset: 138.2;
+    transition: stroke-dashoffset .1s linear;
+}
+
+/* Fel nyíl középen */
+.scroll-progress-arrow {
+    fill: none;
+    stroke: #046c62;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-progress-btn { transition: none; }
+    .scroll-progress-bar { transition: none; }
+}

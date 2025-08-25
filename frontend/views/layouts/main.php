@@ -821,6 +821,14 @@ AppAsset::register($this);
 </footer>
 
 <?php $this->endBody() ?>
+<!-- Scroll gomb jobb alsó sarokban, kör progresszel -->
+<button id="scrollProgressBtn" class="scroll-progress-btn" aria-label="Ugrás az oldal tetejére">
+    <svg viewBox="0 0 50 50" aria-hidden="true" focusable="false">
+        <circle class="scroll-progress-track" cx="25" cy="25" r="22"></circle>
+        <circle class="scroll-progress-bar" cx="25" cy="25" r="22"></circle>
+        <polyline class="scroll-progress-arrow" points="18,28 25,21 32,28"></polyline>
+    </svg>
+</button>
 <script>
     // Dátum + névnap (egyszerű placeholder névnap szöveggel)
     (function(){
@@ -838,6 +846,36 @@ AppAsset::register($this);
     (function(){
         const t = document.getElementById('weather-temp');
         if (t) t.textContent = '12°C';
+    })();
+    // Scroll progress kör és felgörgetés
+    (function(){
+        const btn = document.getElementById('scrollProgressBtn');
+        if (!btn) return;
+        const bar = btn.querySelector('.scroll-progress-bar');
+        const circumference = 2 * Math.PI * 22; // r=22
+
+        function update() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+            const winHeight = window.innerHeight || document.documentElement.clientHeight;
+            const maxScroll = Math.max(docHeight - winHeight, 0);
+            const ratio = maxScroll > 0 ? Math.min(scrollTop / maxScroll, 1) : 0;
+            const offset = circumference * (1 - ratio);
+            bar.style.strokeDasharray = String(circumference);
+            bar.style.strokeDashoffset = String(offset);
+            // gomb megjelenítése csak ha van hova görgetni és már lejjebb vagyunk
+            if (scrollTop > 80) btn.classList.add('show'); else btn.classList.remove('show');
+        }
+
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+        document.addEventListener('DOMContentLoaded', update);
+        update();
+
+        btn.addEventListener('click', function(e){
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     })();
  </script>
 </body>
