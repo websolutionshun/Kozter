@@ -363,9 +363,10 @@ $this->title = 'KözTér - Főoldal';
 
 /* LEAD ARTIKEL STÍLUSOK */
 .lead-article {
-    background: #f8f9fa;
     border-radius: 8px;
     margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #74C9BE;
 }
 
 .lead-title a {

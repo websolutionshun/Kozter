@@ -50,7 +50,7 @@ AppAsset::register($this);
         
         body {
             font-family: 'Encode Sans Expanded', Arial, sans-serif;
-            background-color: #FAFAFA;
+            background-color: #FFC82E;
             color: var(--kozter-gray-dark);
             line-height: 1.6;
         }
@@ -703,7 +703,7 @@ AppAsset::register($this);
                         </div>
             <div class="logo-center text-center flex-grow-1">
                 <a href="<?= Url::to(['/site/index']) ?>" aria-label="KözTér - nyitóoldal">
-                    <img src="/imgs/kozter_logo.png" alt="KözTér" style="height:72px;" />
+                    <img src="/imgs/kozter_logo_yellow.png" alt="KözTér" style="height:72px;" />
                 </a>
                 </div>
             <div class="text-end">
