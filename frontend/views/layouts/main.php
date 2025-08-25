@@ -713,6 +713,7 @@ AppAsset::register($this);
                 <?= Html::a('A drága olvasónak', ['/site/support']) ?>
                 <?= Html::a('A drága sajtónak', ['/site/contact']) ?>
                 <?= Html::a('Rólunk', ['/site/about']) ?>
+                <?= Html::a('Választási térkép', ['/site/election-map']) ?>
             </div>
             <div class="weather text-nowrap">
                 <i class="fa-solid fa-cloud-sun header-icon me-1"></i>
@@ -795,6 +796,7 @@ AppAsset::register($this);
                     <a href="<?= Url::to(['/site/support']) ?>">A drága olvasónak</a>
                     <a href="<?= Url::to(['/site/contact']) ?>">A drága sajtónak</a>
                     <a href="<?= Url::to(['/site/about']) ?>">Rólunk</a>
+                    <a href="<?= Url::to(['/site/election-map']) ?>">Választási térkép</a>
                 </nav>
             </div>
             <div class="col-lg-4 offset-lg-2">
