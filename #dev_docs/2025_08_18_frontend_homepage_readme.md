@@ -190,7 +190,7 @@ class AjaxController extends Controller
 :root {
     --kozter-blue: #1E3A8A;
     --kozter-yellow: #FFD700;
-    --kozter-green: #74C9BE;      /* ÚJ: egységesített zöld (kékeszöld) */
+    --kozter-green: #007770;      /* ÚJ: egységesített zöld (kékeszöld) */
     --kozter-light-blue: #74C9BE; /* ÚJ: világoskék alias */
     /* ... további színek */
 }
