@@ -78,7 +78,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        // ÚJ 3 OSZLOPOS TELEX-STÍLUSÚ ELRENDEZÉS
+        // ÚJ 3 OSZLOPOS MAGAZIN-STÍLUSÚ ELRENDEZÉS
         // Összes cikk lekérése időrendben 100-150 darabra optimalizálva
         $allPosts = Post::getPublished()
             ->orderBy(['published_at' => SORT_DESC])

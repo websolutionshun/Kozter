@@ -191,7 +191,7 @@ AppAsset::register($this);
             }
         }
         
-        /* === ÚJSÁGSZERŰ KÉTSOROS FEJLÉC (TELEX-STÍLUS) === */
+        /* === ÚJSÁGSZERŰ KÉTSOROS FEJLÉC (MAGAZIN-STÍLUS) === */
         .site-header .header-top {
             background-color: #0f172a;
             color: #e2e8f0;
@@ -264,13 +264,13 @@ AppAsset::register($this);
             border-radius: 4px;
         }
         
-        /* TELEX-STÍLUSÚ 3 OSZLOPOS LAYOUT */
-        .homepage-telex {
+        /* MAGAZIN-STÍLUSÚ 3 OSZLOPOS LAYOUT */
+        .homepage-kozter {
             font-size: 14px;
             line-height: 1.4;
         }
         
-        .telex-layout {
+        .kozter-layout {
             gap: 20px;
         }
         
@@ -399,11 +399,11 @@ AppAsset::register($this);
             padding-left: 20px;
         }
         
-        .category-section-telex {
+        .category-section-kozter {
             margin-bottom: 2rem;
         }
         
-        .category-title-telex {
+        .category-title-kozter {
             color: var(--kozter-blue-dark);
             font-size: 1.2rem;
             font-weight: 700;
@@ -412,12 +412,12 @@ AppAsset::register($this);
             letter-spacing: 0.5px;
         }
         
-        .category-title-telex a {
+        .category-title-kozter a {
             color: inherit;
             text-decoration: none;
         }
         
-        .category-title-telex a:hover {
+        .category-title-kozter a:hover {
             color: var(--kozter-yellow-dark);
         }
         
@@ -642,13 +642,13 @@ AppAsset::register($this);
                 padding-left: 15px;
             }
             
-            .telex-layout {
+            .kozter-layout {
                 gap: 10px;
             }
         }
         
         @media (max-width: 768px) {
-            .homepage-telex {
+            .homepage-kozter {
                 font-size: 13px;
             }
             
@@ -700,7 +700,9 @@ AppAsset::register($this);
                             </button>
                         </div>
             <div class="logo-center text-center flex-grow-1">
-                <a href="<?= Url::to(['/site/index']) ?>">KözTér</a>
+                <a href="<?= Url::to(['/site/index']) ?>" aria-label="KözTér - nyitóoldal">
+                    <img src="/imgs/kozter_logo.png" alt="KözTér" style="height:72px;" />
+                </a>
                 </div>
             <div class="text-end">
                 <button class="btn support-btn" type="button" data-bs-toggle="collapse" data-bs-target="#headerSearch" aria-expanded="false" aria-controls="headerSearch">Támogatás</button>

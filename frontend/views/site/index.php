@@ -20,8 +20,8 @@ $this->title = 'KözTér - Főoldal';
 <div class="homepage-3columns">
     <div class="container">
 
-        <!-- ÚJ 3 OSZLOPOS TELEX-STÍLUSÚ LAYOUT -->
-        <div class="row telex-3col-layout">
+        <!-- ÚJ 3 OSZLOPOS KOZTER-STÍLUSÚ LAYOUT -->
+        <div class="row kozter-3col-layout">
             
             <!-- 1. OSZLOP (BAL) - 4 cikk -->
             <div class="col-lg-3 column-1">
@@ -304,18 +304,18 @@ $this->title = 'KözTér - Főoldal';
 <!-- Font Awesome ikonok -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-<!-- Új 3 oszlopos Telex-stílusú CSS -->
+<!-- Új 3 oszlopos Magazin-stílusú CSS -->
 <style>
-/* 3 OSZLOPOS TELEX LAYOUT */
+/* 3 OSZLOPOS KOZTER LAYOUT */
 .homepage-3columns {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.telex-3col-layout {
+.kozter-3col-layout {
     margin: 0 -15px;
 }
 
-.telex-3col-layout .col-lg-4 {
+.kozter-3col-layout .col-lg-4 {
     padding: 0 15px;
 }
 
@@ -565,7 +565,7 @@ $this->title = 'KözTér - Főoldal';
 
 /* RESZPONZÍV DESIGN */
 @media (max-width: 991px) {
-    .telex-3col-layout .col-lg-4 {
+    .kozter-3col-layout .col-lg-4 {
         margin-bottom: 2rem;
     }
     
@@ -583,24 +583,24 @@ $this->title = 'KözTér - Főoldal';
     }
     
     /* Tablet és mobil sorrend: ha nem 3 oszlopos a layout, a 2. oszlop legyen az első */
-    .telex-3col-layout .column-2 { order: 1; }
-    .telex-3col-layout .column-1 { order: 2; }
-    .telex-3col-layout .column-3 { order: 3; }
+    .kozter-3col-layout .column-2 { order: 1; }
+    .kozter-3col-layout .column-1 { order: 2; }
+    .kozter-3col-layout .column-3 { order: 3; }
 }
 
 @media (max-width: 767px) {
-    .telex-3col-layout {
+    .kozter-3col-layout {
         margin: 0;
     }
     
-    .telex-3col-layout .col-lg-4 {
+    .kozter-3col-layout .col-lg-4 {
         padding: 0 10px;
     }
     
     /* Mobil sorrend: 2. oszlop legyen az első */
-    .telex-3col-layout .column-2 { order: 1; }
-    .telex-3col-layout .column-1 { order: 2; }
-    .telex-3col-layout .column-3 { order: 3; }
+    .kozter-3col-layout .column-2 { order: 1; }
+    .kozter-3col-layout .column-1 { order: 2; }
+    .kozter-3col-layout .column-3 { order: 3; }
     
     .post-compact {
         flex-direction: column;
@@ -637,7 +637,7 @@ img:not(.lazy) {
 }
 
 /* TELJESÍTMÉNY OPTIMALIZÁLÁS NAGY ADATBÁZISHOZ */
-.telex-3col-layout {
+.kozter-3col-layout {
     contain: layout style;
 }
 
