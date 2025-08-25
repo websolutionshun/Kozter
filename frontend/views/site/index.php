@@ -581,6 +581,11 @@ $this->title = 'KözTér - Főoldal';
         width: 60px !important;
         height: 45px !important;
     }
+    
+    /* Tablet és mobil sorrend: ha nem 3 oszlopos a layout, a 2. oszlop legyen az első */
+    .telex-3col-layout .column-2 { order: 1; }
+    .telex-3col-layout .column-1 { order: 2; }
+    .telex-3col-layout .column-3 { order: 3; }
 }
 
 @media (max-width: 767px) {
@@ -591,6 +596,11 @@ $this->title = 'KözTér - Főoldal';
     .telex-3col-layout .col-lg-4 {
         padding: 0 10px;
     }
+    
+    /* Mobil sorrend: 2. oszlop legyen az első */
+    .telex-3col-layout .column-2 { order: 1; }
+    .telex-3col-layout .column-1 { order: 2; }
+    .telex-3col-layout .column-3 { order: 3; }
     
     .post-compact {
         flex-direction: column;

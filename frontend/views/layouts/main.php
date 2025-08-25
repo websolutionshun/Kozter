@@ -56,9 +56,13 @@ AppAsset::register($this);
         }
         
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Encode Sans Expanded', Arial, sans-serif;
+            font-family: 'Bungee', Arial, sans-serif;
             font-weight: 700;
             color: var(--kozter-blue-dark);
+        }
+
+        li {
+            font-family: 'Bungee', Arial, sans-serif;
         }
         
         .navbar-kozter {

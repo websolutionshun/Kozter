@@ -41,3 +41,8 @@
 .breadcrumb-item .icon {
     margin-right: 0.25rem;
 }
+
+/* Headings and list items font */
+h1, h2, h3, h4, h5, h6, li {
+    font-family: "Bungee", arial, sans-serif;
+}
