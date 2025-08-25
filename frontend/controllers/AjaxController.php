@@ -209,7 +209,7 @@ class AjaxController extends Controller
         $html = '<article class="column-post mb-4">';
         
         if ($post->featuredImage) {
-            $html .= '<div class="post-image mb-3">';
+            $html .= '<div class="post-image mb-2">';
             $html .= '<img src="' . Html::encode($post->featuredImage->getFileUrl()) . '" ';
             $html .= 'alt="' . Html::encode($post->title) . '" class="img-fluid rounded">';
             $html .= '</div>';

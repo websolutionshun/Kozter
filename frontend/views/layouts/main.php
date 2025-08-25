@@ -250,7 +250,6 @@ AppAsset::register($this);
         }
         
         .post-content h2, .post-content h3, .post-content h4 {
-            margin-top: 2rem;
             margin-bottom: 1rem;
         }
         

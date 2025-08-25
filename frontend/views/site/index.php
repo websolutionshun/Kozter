@@ -31,7 +31,7 @@ $this->title = 'KözTér - Főoldal';
                             <?php if ($index === 0): ?>
                                 <!-- Első cikk kiemelt formátumban -->
                                 <?php if ($post->featuredImage): ?>
-                                    <div class="post-image mb-3">
+                                    <div class="post-image mb-2">
                                         <img src="<?= Html::encode($post->featuredImage->getFileUrl()) ?>" 
                                              alt="<?= Html::encode($post->title) ?>" 
                                      class="img-fluid rounded">
@@ -173,7 +173,7 @@ $this->title = 'KözTér - Főoldal';
                             <?php if ($index === 0): ?>
                                 <!-- Első cikk kiemelt formátumban -->
                                         <?php if ($post->featuredImage): ?>
-                                    <div class="post-image mb-3">
+                                    <div class="post-image mb-2">
                                                 <img src="<?= Html::encode($post->featuredImage->getFileUrl()) ?>" 
                                                      alt="<?= Html::encode($post->title) ?>" 
                                                      class="img-fluid rounded" style="width: 100%; height: 220px; object-fit: cover;">
