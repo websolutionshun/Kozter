@@ -219,7 +219,7 @@ AppAsset::register($this);
         }
         .site-header .header-icon { color: var(--kozter-green); }
         .site-header .header-icon:hover { color: var(--kozter-yellow); }
-        .site-header .support-btn { background-color: var(--kozter-yellow); color: #111827; border: 0; font-weight: 700; }
+        .site-header .support-btn { background-color: var(--kozter-yellow); color: #111827; border: 0; font-weight: 700; font-size: 14px; }
         .site-header .support-btn:hover { background-color: var(--kozter-yellow-dark); color: #0f172a; }
         /* Keresősáv a header alatt */
         .header-search-wrap { background-color: #0b1220; border-bottom: 1px solid #1f2937; }

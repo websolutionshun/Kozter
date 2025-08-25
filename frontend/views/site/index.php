@@ -325,7 +325,7 @@ $this->title = 'KözTér - Főoldal';
 }
 
 .column-post {
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid #ffc218;
     padding-bottom: 0.5rem;
 }
 
@@ -350,7 +350,7 @@ $this->title = 'KözTér - Főoldal';
 }
 
 .post-title-small a {
-    color: #495057;
+    color:#000;
     text-decoration: none;
     font-weight: 500;
     font-size: 0.9rem;
@@ -397,7 +397,7 @@ $this->title = 'KözTér - Főoldal';
 
 .bg-secondary-soft {
     background-color: #f1f3f5 !important;
-    color: #495057 !important;
+    color:#000 !important;
     border: 1px solid #dee2e6;
 }
 
@@ -415,13 +415,13 @@ $this->title = 'KözTér - Főoldal';
 
 /* POST EXCERPT STÍLUSOK */
 .post-excerpt {
-    color: #6c757d;
+    color:#000;
     font-size: 0.9rem;
     line-height: 1.4;
 }
 
 .lead-excerpt {
-    color: #495057;
+    color: #000;
     font-size: 1rem;
     line-height: 1.5;
 }
@@ -463,7 +463,7 @@ $this->title = 'KözTér - Főoldal';
 
 .popular-section,
 .tags-section {
-    background: #f8f9fa;
+    background: var(--kozter-light-blue);
     border-radius: 8px;
     padding: 1rem;
 }
@@ -491,7 +491,7 @@ $this->title = 'KözTér - Főoldal';
 
 .popular-title a,
 .tag-post-title a {
-    color: #495057;
+    color: #000;
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 500;
@@ -522,7 +522,7 @@ $this->title = 'KözTér - Főoldal';
 }
 
 .support-title {
-    color: #495057;
+    color: #000;
     font-weight: 600;
 }
 
