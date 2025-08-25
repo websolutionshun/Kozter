@@ -689,7 +689,7 @@ AppAsset::register($this);
     </div>
 
     <!-- 2. sor: bal menü+keresőgomb, középen logo, jobb Támogatás -->
-    <div class="header-second py-3">
+    <div class="header-second pt-2 pb-2">
         <div class="container-fluid d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center gap-2">
                 <button class="btn btn-link p-2 text-decoration-none header-icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTags" aria-controls="offcanvasTags" title="Menü">
