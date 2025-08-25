@@ -187,6 +187,42 @@ AppAsset::register($this);
             }
         }
         
+        /* === ÚJSÁGSZERŰ KÉTSOROS FEJLÉC (TELEX-STÍLUS) === */
+        .site-header .header-top {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+        }
+        .site-header .header-top a { color: #e2e8f0; text-decoration: none; }
+        .site-header .mini-menu a { color: #e2e8f0; margin: 0 .5rem; font-weight: 600; font-size: 0.9rem; }
+        .site-header .mini-menu a:hover { color: var(--kozter-yellow); }
+        .site-header .header-second {
+            background-color: #111827;
+            color: #e5e7eb;
+            border-bottom: 1px solid #1f2937;
+        }
+        .site-header .logo-center a {
+            font-family: 'Merriweather', Georgia, serif;
+            font-weight: 800;
+            font-size: 2.2rem;
+            letter-spacing: 0.5px;
+            color: #f9fafb;
+            text-decoration: none;
+        }
+        .site-header .header-icon { color: #e5e7eb; }
+        .site-header .header-icon:hover { color: var(--kozter-yellow); }
+        .site-header .support-btn { background-color: var(--kozter-yellow); color: #111827; border: 0; font-weight: 700; }
+        .site-header .support-btn:hover { background-color: var(--kozter-yellow-dark); color: #0f172a; }
+        /* Keresősáv a header alatt */
+        .header-search-wrap { background-color: #0b1220; border-bottom: 1px solid #1f2937; }
+        .header-search-wrap input[type="text"] { border-radius: 999px; padding: .6rem 1rem; border: 1px solid #374151; background: #111827; color: #e5e7eb; }
+        .header-search-wrap input[type="text"]::placeholder { color: #9ca3af; }
+        .header-search-wrap .btn-search { border-radius: 999px; }
+        /* Offcanvas címke-menü */
+        .offcanvas-tags .offcanvas-header { background: #0f172a; color: #e2e8f0; }
+        .offcanvas-tags .offcanvas-body a { display: inline-block; margin: 0 .5rem .5rem 0; background: #111827; color: #e5e7eb; border: 1px solid #1f2937; padding: .35rem .7rem; border-radius: 999px; text-decoration: none; font-size: .9rem; }
+        .offcanvas-tags .offcanvas-body a:hover { background: #1f2937; color: var(--kozter-yellow); }
+
         /* Dropdown menük styling */
         .dropdown-menu {
             border: none;
@@ -625,87 +661,83 @@ AppAsset::register($this);
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
-<header>
-    <nav class="navbar navbar-expand-lg navbar-kozter">
-        <div class="container">
-            <?= Html::a('KözTér', Yii::$app->homeUrl, ['class' => 'navbar-brand']) ?>
-            
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="color: var(--kozter-blue-dark);">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <?= Html::a('Főoldal', ['/site/index'], ['class' => 'nav-link']) ?>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Támogass
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><?= Html::a('Támogatás módjai', ['/site/support'], ['class' => 'dropdown-item']) ?></li>
-                            <li><?= Html::a('Patrons', ['/site/patrons'], ['class' => 'dropdown-item']) ?></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Műsoraink
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><?= Html::a('Podcastok', ['/site/podcasts'], ['class' => 'dropdown-item']) ?></li>
-                            <li><?= Html::a('Videók', ['/site/videos'], ['class' => 'dropdown-item']) ?></li>
-                            <li><?= Html::a('Élő adások', ['/site/live'], ['class' => 'dropdown-item']) ?></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <?= Html::a('Bejegyzések', ['/post/index'], ['class' => 'nav-link']) ?>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            A drága olvasónak
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><?= Html::a('Kapcsolat', ['/site/contact'], ['class' => 'dropdown-item']) ?></li>
-                            <li><?= Html::a('GYIK', ['/site/faq'], ['class' => 'dropdown-item']) ?></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <?= Html::a('A drága sajtónak', ['/site/press'], ['class' => 'nav-link']) ?>
-                    </li>
-                    <li class="nav-item">
-                        <?= Html::a('Rólunk', ['/site/about'], ['class' => 'nav-link']) ?>
-                    </li>
-                </ul>
-                
-                <div class="d-flex">
-                    <?php if (Yii::$app->user->isGuest): ?>
-                        <?= Html::a('Bejelentkezés', ['/site/login'], ['class' => 'btn btn-kozter me-2']) ?>
-                        <?= Html::a('Regisztráció', ['/site/signup'], ['class' => 'btn btn-outline-primary']) ?>
-                    <?php else: ?>
-                        <div class="dropdown">
-                            <button class="btn btn-kozter dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                <?= Html::encode(Yii::$app->user->identity->username ?? 'Felhasználó') ?>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><?= Html::a('Profil', ['/site/profile'], ['class' => 'dropdown-item']) ?></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <?= Html::beginForm(['/site/logout'], 'post') ?>
-                                    <?= Html::submitButton('Kijelentkezés', ['class' => 'dropdown-item']) ?>
-                                    <?= Html::endForm() ?>
-                                </li>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
-                </div>
+<header class="site-header">
+    <!-- 1. sor: bal dátum+névnap, középen mini menü, jobb oldalt hőmérséklet -->
+    <div class="header-top py-2">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-3">
+                <span id="today-date"></span>
+                <span class="text-muted">•</span>
+                <span id="nameday"></span>
+            </div>
+            <div class="mini-menu d-none d-md-flex">
+                <?= Html::a('Belföld', ['/post/category', 'slug' => 'belfold']) ?>
+                <?= Html::a('Külföld', ['/post/category', 'slug' => 'kulfold']) ?>
+                <?= Html::a('Gazdaság', ['/post/category', 'slug' => 'gazdasag']) ?>
+                <?= Html::a('Tech', ['/post/category', 'slug' => 'tech']) ?>
+                <?= Html::a('Kult', ['/post/category', 'slug' => 'kult']) ?>
+            </div>
+            <div class="weather text-nowrap">
+                <i class="fa-solid fa-cloud-sun header-icon me-1"></i>
+                <span id="weather-temp">--°C</span>
             </div>
         </div>
-    </nav>
+    </div>
+
+    <!-- 2. sor: bal menü+keresőgomb, középen logo, jobb Támogatás -->
+    <div class="header-second py-3">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-link p-2 text-decoration-none header-icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTags" aria-controls="offcanvasTags" title="Menü">
+                    <i class="fa-solid fa-bars fa-lg"></i>
+            </button>
+                <button class="btn btn-link p-2 text-decoration-none header-icon" type="button" data-bs-toggle="collapse" data-bs-target="#headerSearch" aria-expanded="false" aria-controls="headerSearch" title="Keresés">
+                    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+                            </button>
+                        </div>
+            <div class="logo-center text-center flex-grow-1">
+                <a href="<?= Url::to(['/site/index']) ?>">KözTér</a>
+                </div>
+            <div class="text-end">
+                <button class="btn support-btn" type="button" data-bs-toggle="collapse" data-bs-target="#headerSearch" aria-expanded="false" aria-controls="headerSearch">Támogatás</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kereső sáv a header alatt -->
+    <div class="collapse header-search-wrap" id="headerSearch">
+        <div class="container-fluid py-3">
+            <form action="<?= Url::to(['/post/index']) ?>" method="get" class="d-flex justify-content-center gap-2">
+                <input type="text" name="q" class="form-control w-50" placeholder="Keresés a cikkek között...">
+                <button class="btn btn-kozter btn-search" type="submit"><i class="fa-solid fa-magnifying-glass me-1"></i>Keresés</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Offcanvas: címkék balról előúszva -->
+    <div class="offcanvas offcanvas-start offcanvas-tags" tabindex="-1" id="offcanvasTags" aria-labelledby="offcanvasTagsLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasTagsLabel">Címkék</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Bezárás"></button>
+        </div>
+        <div class="offcanvas-body">
+            <?php
+            // egyszerű címkelista (max 30) — a controller nélkül, közvetlen lekérdezéssel
+            try {
+                $tags = \common\models\Tag::find()->orderBy(['name' => SORT_ASC])->limit(30)->all();
+            } catch (\Throwable $e) {
+                $tags = [];
+            }
+            foreach ($tags as $tag) {
+                echo Html::a('#' . Html::encode($tag->name), ['/post/tag', 'slug' => $tag->slug ?? $tag->id]);
+            }
+            ?>
+        </div>
+    </div>
 </header>
 
-<main role="main" class="flex-shrink-0" style="padding-top: 20px;">
-    <div class="container-fluid">
+<main role="main" class="flex-shrink-0" style="padding-top: 0;">
+    <div class="container">
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
@@ -754,6 +786,25 @@ AppAsset::register($this);
 </footer>
 
 <?php $this->endBody() ?>
+<script>
+    // Dátum + névnap (egyszerű placeholder névnap szöveggel)
+    (function(){
+        const d = new Date();
+        const pad = n => (n<10?'0':'')+n;
+        const months = ['jan','feb','márc','ápr','máj','jún','júl','aug','szept','okt','nov','dec'];
+        const days = ['vasárnap','hétfő','kedd','szerda','csütörtök','péntek','szombat'];
+        const dateStr = `${d.getFullYear()}. ${pad(d.getMonth()+1)}. ${pad(d.getDate())}., ${days[d.getDay()]}`;
+        const el = document.getElementById('today-date');
+        if (el) el.textContent = dateStr;
+        const nameday = document.getElementById('nameday');
+        if (nameday) nameday.textContent = 'Névnap: n.a.';
+    })();
+    // Hőmérséklet placeholder (később API-ra cserélhető)
+    (function(){
+        const t = document.getElementById('weather-temp');
+        if (t) t.textContent = '12°C';
+    })();
+ </script>
 </body>
 </html>
 <?php $this->endPage();

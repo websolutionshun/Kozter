@@ -18,22 +18,13 @@ $this->title = 'KözTér - Főoldal';
 ?>
 
 <div class="homepage-3columns">
-    <div class="container-fluid">
-        <!-- Friss hírek banner -->
-        <?php if (!empty($column1Posts) && !empty($column1Posts[0])): ?>
-        <div class="alert alert-info alert-dismissible fade show mb-3" role="alert">
-            <i class="fas fa-newspaper me-2"></i>
-            <strong>Friss hírek:</strong> 
-            <?= Html::a(Html::encode($column1Posts[0]->title), ['/post/view', 'slug' => $column1Posts[0]->slug], ['class' => 'alert-link']) ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-        <?php endif; ?>
+    <div class="container">
 
         <!-- ÚJ 3 OSZLOPOS TELEX-STÍLUSÚ LAYOUT -->
         <div class="row telex-3col-layout">
             
             <!-- 1. OSZLOP (BAL) - 4 cikk -->
-            <div class="col-lg-4 column-1">
+            <div class="col-lg-3 column-1">
                 <div class="column-posts" id="column-1-container">
                     <?php foreach ($column1Posts as $index => $post): ?>
                         <article class="column-post mb-4">
@@ -70,16 +61,8 @@ $this->title = 'KözTér - Főoldal';
                                     </div>
                                 </div>
                             <?php else: ?>
-                                <!-- Többi cikk kompakt formátumban -->
+                                <!-- Többi cikk kompakt formátumban (kép NINCS a kérés szerint) -->
                                 <div class="post-compact d-flex">
-                                    <?php if ($post->featuredImage): ?>
-                                        <div class="post-thumb me-3" style="flex-shrink: 0; width: 80px;">
-                                            <img src="<?= Html::encode($post->featuredImage->getFileUrl()) ?>" 
-                                                 alt="<?= Html::encode($post->title) ?>" 
-                                                 class="img-fluid rounded" style="width: 80px; height: 60px; object-fit: cover;">
-                                        </div>
-                                    <?php endif; ?>
-                                    
                                     <div class="post-info">
                                         <h6 class="post-title-small mb-1">
                                             <?= Html::a(Html::encode($post->title), ['/post/view', 'slug' => $post->slug]) ?>
@@ -107,7 +90,7 @@ $this->title = 'KözTér - Főoldal';
             </div>
 
             <!-- 2. OSZLOP (KÖZÉP) - 3 cikk, első kiemelt LEAD -->
-            <div class="col-lg-4 column-2">
+            <div class="col-lg-6 column-2">
                 <div class="column-posts" id="column-2-container">
                     <?php foreach ($column2Posts as $index => $post): ?>
                         <article class="column-post mb-4">
@@ -118,7 +101,7 @@ $this->title = 'KözTér - Főoldal';
                                         <div class="lead-image mb-3">
                                             <img src="<?= Html::encode($post->featuredImage->getFileUrl()) ?>" 
                                                  alt="<?= Html::encode($post->title) ?>" 
-                                                 class="img-fluid rounded">
+                                                 class="img-fluid rounded" style="width: 100%; height: 360px; object-fit: cover;">
                                         </div>
                                     <?php endif; ?>
                                     
@@ -149,15 +132,7 @@ $this->title = 'KözTér - Főoldal';
                         </div>
                                 </div>
                             <?php else: ?>
-                                <!-- Többi cikk normál formátumban -->
-                                <?php if ($post->featuredImage): ?>
-                                    <div class="post-image mb-2">
-                                    <img src="<?= Html::encode($post->featuredImage->getFileUrl()) ?>" 
-                                         alt="<?= Html::encode($post->title) ?>" 
-                                         class="img-fluid rounded">
-                                </div>
-                                <?php endif; ?>
-                                
+                                <!-- Többi cikk normál formátum (kép nélkül) -->
                                 <div class="post-content">
                                     <?php if (!empty($post->categories)): ?>
                                         <span class="badge bg-primary-soft mb-2"><?= Html::encode($post->categories[0]->name) ?></span>
@@ -191,7 +166,7 @@ $this->title = 'KözTér - Főoldal';
                 </div>
 
             <!-- 3. OSZLOP (JOBB) - 4 cikk + kiegészítő tartalmak -->
-            <div class="col-lg-4 column-3">
+            <div class="col-lg-3 column-3">
                 <div class="column-posts" id="column-3-container">
                     <?php foreach ($column3Posts as $index => $post): ?>
                         <article class="column-post mb-4">
@@ -201,7 +176,7 @@ $this->title = 'KözTér - Főoldal';
                                     <div class="post-image mb-3">
                                                 <img src="<?= Html::encode($post->featuredImage->getFileUrl()) ?>" 
                                                      alt="<?= Html::encode($post->title) ?>" 
-                                                     class="img-fluid rounded">
+                                                     class="img-fluid rounded" style="width: 100%; height: 220px; object-fit: cover;">
                                             </div>
                                         <?php endif; ?>
                                         
@@ -228,16 +203,8 @@ $this->title = 'KözTér - Főoldal';
                                     </div>
                                 </div>
                             <?php else: ?>
-                                <!-- Többi cikk kompakt formátumban -->
+                                <!-- Többi cikk kompakt formátumban (kép nélkül) -->
                                 <div class="post-compact d-flex">
-                                    <?php if ($post->featuredImage): ?>
-                                        <div class="post-thumb me-3" style="flex-shrink: 0; width: 80px;">
-                                            <img src="<?= Html::encode($post->featuredImage->getFileUrl()) ?>" 
-                                                 alt="<?= Html::encode($post->title) ?>" 
-                                                 class="img-fluid rounded" style="width: 80px; height: 60px; object-fit: cover;">
-                                        </div>
-                                    <?php endif; ?>
-                                    
                                     <div class="post-info">
                                         <h6 class="post-title-small mb-1">
                                             <?= Html::a(Html::encode($post->title), ['/post/view', 'slug' => $post->slug]) ?>
@@ -396,6 +363,7 @@ $this->title = 'KözTér - Főoldal';
     background: #f8f9fa;
     border-radius: 8px;
     padding: 1.5rem;
+    padding-top: 0;
     margin-bottom: 2rem;
 }
 
@@ -434,6 +402,11 @@ $this->title = 'KözTér - Főoldal';
     color: #495057 !important;
     border: 1px solid #dee2e6;
 }
+
+/* Badge színek finomítása (kevésbé kontrasztos, olvasható) */
+.badge.bg-primary-soft { background-color: #e9f2ff !important; color: #1e40af !important; }
+.badge.bg-secondary-soft { background-color: #f5f6f7 !important; color: #334155 !important; }
+.badge.bg-danger-soft { background-color: #ffecec !important; color: #7f1d1d !important; }
 
 .badge {
     font-size: 0.75rem;
