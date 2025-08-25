@@ -326,12 +326,15 @@ $this->title = 'KözTér - Főoldal';
 
 .column-post {
     border-bottom: 1px solid #e9ecef;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
 }
 
 .column-post:last-child {
     border-bottom: none;
 }
+
+/* Bejegyzések közötti térköz csökkentése (Bootstrap mb-4 felülírása) */
+.column-post.mb-4 { margin-bottom: 0.75rem !important; }
 
 /* POST CÍMEK STÍLUSAI */
 .post-title a {
@@ -364,7 +367,7 @@ $this->title = 'KözTér - Főoldal';
     border-radius: 8px;
     padding: 1.5rem;
     padding-top: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .lead-title a {

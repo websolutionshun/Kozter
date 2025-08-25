@@ -27,10 +27,10 @@ AppAsset::register($this);
     <meta name="apple-mobile-web-app-title" content="Köztér" />
     <link rel="manifest" href="/imgs/icons/site.webmanifest" />
     
-    <!-- Google Fonts - Kozter.com stílusú betűtípus -->
+    <!-- Google Fonts - megadott betűtípusok -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <link property="stylesheet" rel='stylesheet' id='googlefonts-css' href='https://fonts.googleapis.com/css?family=Bungee:400|Encode+Sans+Expanded:100,200,300,400,500,600,700,800,900&subset=latin' type='text/css' media='all' />
     
     <!-- Kozter színvilág CSS -->
     <style>
@@ -49,14 +49,14 @@ AppAsset::register($this);
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Encode Sans Expanded', Arial, sans-serif;
             background-color: #FAFAFA;
             color: var(--kozter-gray-dark);
             line-height: 1.6;
         }
         
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Merriweather', Georgia, serif;
+            font-family: 'Encode Sans Expanded', Arial, sans-serif;
             font-weight: 700;
             color: var(--kozter-blue-dark);
         }
@@ -68,7 +68,7 @@ AppAsset::register($this);
         }
         
         .navbar-kozter .navbar-brand {
-            font-family: 'Merriweather', Georgia, serif;
+            font-family: 'Encode Sans Expanded', Arial, sans-serif;
             font-weight: 700;
             color: var(--kozter-blue-dark) !important;
             font-size: 1.5rem;
@@ -202,7 +202,7 @@ AppAsset::register($this);
             border-bottom: 1px solid #1f2937;
         }
         .site-header .logo-center a {
-            font-family: 'Merriweather', Georgia, serif;
+            font-family: 'Encode Sans Expanded', Arial, sans-serif;
             font-weight: 800;
             font-size: 2.2rem;
             letter-spacing: 0.5px;
