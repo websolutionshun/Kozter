@@ -376,10 +376,6 @@ $this->title = 'KözTér - Főoldal';
     line-height: 1.2;
 }
 
-.lead-title a:hover {
-    color: #dc3545;
-}
-
 .lead-excerpt {
     color: #6c757d;
     font-size: 1rem;
