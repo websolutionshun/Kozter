@@ -48,6 +48,7 @@ return [
                 'regisztracio' => 'site/signup',
                 'kapcsolat' => 'site/contact',
                 'rolunk' => 'site/about',
+                'valasztasi-terkep' => 'site/election-map',
                 'jelszo-visszaallitas' => 'site/request-password-reset',
                 'jelszo-uj/<token>' => 'site/reset-password',
                 'email-ujrakuldese' => 'site/resend-verification-email',

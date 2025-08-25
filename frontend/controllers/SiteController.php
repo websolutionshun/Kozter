@@ -268,6 +268,16 @@ class SiteController extends Controller
     }
 
     /**
+     * Választási térkép oldal.
+     *
+     * @return mixed
+     */
+    public function actionElectionMap()
+    {
+        return $this->render('election-map');
+    }
+
+    /**
      * Signs user up.
      *
      * @return mixed

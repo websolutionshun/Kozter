@@ -31,6 +31,8 @@ AppAsset::register($this);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link property="stylesheet" rel='stylesheet' id='googlefonts-css' href='https://fonts.googleapis.com/css?family=Bungee:400|Encode+Sans+Expanded:100,200,300,400,500,600,700,800,900&subset=latin' type='text/css' media='all' />
+    <!-- Font Awesome ikonok globálisan -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfQttEvP0S3QYx0Q7ESy90D1u2qE3XWUEK7iQ8b6+7bQ0Pp90NQO0F3A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <!-- Kozter színvilág CSS -->
     <style>
@@ -165,17 +167,46 @@ AppAsset::register($this);
         }
         
         .footer-kozter {
-            background: var(--kozter-gray-dark);
-            color: white;
+            background-color: #0f172a;
+            color: var(--kozter-green);
         }
-        
-        .footer-kozter a {
-            color: var(--kozter-yellow-light);
+        .footer-kozter .footer-title {
+            color: var(--kozter-green);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            font-family: 'Bungee', Arial, sans-serif;
+            font-size: .95rem;
         }
-        
-        .footer-kozter a:hover {
-            color: var(--kozter-yellow);
+        .footer-kozter .footer-nav a {
+            color: var(--kozter-green);
+            text-decoration: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin: .35rem 0;
+            font-family: 'Bungee', Arial, sans-serif;
+            letter-spacing: .5px;
         }
+        .footer-kozter .footer-nav a:hover { color: var(--kozter-yellow); }
+        .footer-kozter .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: var(--kozter-yellow);
+            color: #111827;
+            margin-right: .5rem;
+            font-size: 1.1rem;
+            transition: all .2s ease;
+        }
+        .footer-kozter .footer-social a:hover { background-color: var(--kozter-yellow-dark); color: #0f172a; transform: translateY(-1px); }
+        .footer-kozter .footer-contact { color: var(--kozter-green); text-decoration: none; font-weight: 700; }
+        .footer-kozter .footer-contact:hover { color: var(--kozter-yellow); }
+        .footer-kozter .footer-bottom { border-top: 1px solid #1f2937; color: #9ca3af; }
+        .footer-kozter .footer-bottom a { color: var(--kozter-green); text-decoration: none; }
+        .footer-kozter .footer-bottom a:hover { color: var(--kozter-yellow); }
         
         /* Responsive fejlesztések */
         @media (max-width: 768px) {
@@ -751,43 +782,37 @@ AppAsset::register($this);
     </div>
 </main>
 
-<footer class="footer-kozter mt-auto py-4">
+<footer class="footer-kozter mt-auto pt-5 pb-4">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h5 class="text-white mb-3">KözTér</h5>
-                <p class="mb-2">Független közéleti platform a szabad véleménynyilvánításért.</p>
-                <div class="social-links">
-                    <a href="#" class="me-3"><i class="fab fa-facebook"></i> Facebook</a>
-                    <a href="#" class="me-3"><i class="fab fa-twitter"></i> Twitter</a>
-                    <a href="#" class="me-3"><i class="fab fa-youtube"></i> YouTube</a>
+        <div class="row gy-4 align-items-start">
+            <div class="col-lg-6 d-flex align-items-start gap-3">
+                <a href="<?= Url::to(['/site/index']) ?>" class="me-2" aria-label="Kezdőlap">
+                    <img src="/imgs/kozter_logo_yellow.png" alt="KözTér" style="height:120px;" />
+                </a>
+                <nav class="footer-nav d-flex flex-column">
+                    <a href="<?= Url::to(['/site/support']) ?>">Támogass</a>
+                    <a href="<?= Url::to(['/site/index']) . '#musoraink' ?>">Műsoraink</a>
+                    <a href="<?= Url::to(['/site/support']) ?>">A drága olvasónak</a>
+                    <a href="<?= Url::to(['/site/contact']) ?>">A drága sajtónak</a>
+                    <a href="<?= Url::to(['/site/about']) ?>">Rólunk</a>
+                </nav>
+            </div>
+            <div class="col-lg-4 offset-lg-2">
+                <div class="footer-title mb-3">Kövess minket</div>
+                <div class="footer-social mb-4">
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <h6 class="text-white mb-3">Hasznos linkek</h6>
-                <ul class="list-unstyled">
-                    <li><a href="<?= Url::to(['/site/about']) ?>">Rólunk</a></li>
-                    <li><a href="<?= Url::to(['/site/contact']) ?>">Kapcsolat</a></li>
-                    <li><a href="<?= Url::to(['/site/privacy']) ?>">Adatvédelem</a></li>
-                    <li><a href="<?= Url::to(['/site/terms']) ?>">ÁSZF</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h6 class="text-white mb-3">Támogatás</h6>
-                <ul class="list-unstyled">
-                    <li><a href="<?= Url::to(['/site/support']) ?>">Támogass minket</a></li>
-                    <li><a href="<?= Url::to(['/site/patrons']) ?>">Támogatóink</a></li>
-                    <li><a href="<?= Url::to(['/site/donate']) ?>">Adományozás</a></li>
-                </ul>
+                <div class="footer-title mb-2">Kapcsolat</div>
+                <a class="footer-contact" href="mailto:info@kozter.com">info@kozter.com</a>
             </div>
         </div>
-        <hr class="my-4" style="border-color: #6B7280;">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <p class="mb-0">&copy; <?= date('Y') ?> <?= Html::encode(Yii::$app->name) ?>. Minden jog fenntartva.</p>
-            </div>
-            <div class="col-md-6 text-md-end">
-                <p class="mb-0">Fejlesztő: <span class="text-warning">Web Solutions Hungary Kft.</span></p>
+        <div class="footer-bottom mt-5 pt-3">
+            <div class="d-flex flex-wrap justify-content-between">
+                <p class="mb-0 small"><a href="https://kozter.com" target="_blank" rel="noopener">kozter.com</a> &copy; <?= date('Y') ?>. Minden jog fenntartva.</p>
+                <p class="mb-0 small">Fejlesztő: <span class="text-warning">Web Solutions Hungary Kft.</span></p>
             </div>
         </div>
     </div>
