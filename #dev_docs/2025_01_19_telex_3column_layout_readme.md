@@ -242,3 +242,4 @@ A 3 oszlopos Telex-stílusú főoldal sikeresen implementálásra került. A ren
 - ✅ Halványabb badge színek az olvashatóságért
 
 A fejlesztés során minden követelményt teljesítettünk és egy modern, nagy forgalmú hírportálokhoz méltó felhasználói élményt hoztunk létre.
+
