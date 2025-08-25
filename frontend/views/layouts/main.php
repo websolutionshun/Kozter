@@ -199,6 +199,9 @@ AppAsset::register($this);
         }
         .site-header .header-top a { color: #e2e8f0; text-decoration: none; }
         .site-header .mini-menu a { color: #e2e8f0; margin: 0 .5rem; font-weight: 600; font-size: 0.9rem; }
+        /* Felső mini-menü teljes középre igazítása */
+        .site-header .header-top .container-fluid { position: relative; }
+        .site-header .mini-menu { position: absolute; left: 50%; transform: translateX(-50%); }
         .site-header .mini-menu a:hover { color: var(--kozter-yellow); }
         .site-header .header-second {
             background-color: #111827;
@@ -675,11 +678,10 @@ AppAsset::register($this);
                 <span id="nameday"></span>
             </div>
             <div class="mini-menu d-none d-md-flex">
-                <?= Html::a('Belföld', ['/post/category', 'slug' => 'belfold']) ?>
-                <?= Html::a('Külföld', ['/post/category', 'slug' => 'kulfold']) ?>
-                <?= Html::a('Gazdaság', ['/post/category', 'slug' => 'gazdasag']) ?>
-                <?= Html::a('Tech', ['/post/category', 'slug' => 'tech']) ?>
-                <?= Html::a('Kult', ['/post/category', 'slug' => 'kult']) ?>
+                <?= Html::a('Műsoraink', ['/site/index', '#' => 'musoraink']) ?>
+                <?= Html::a('A drága olvasónak', ['/site/support']) ?>
+                <?= Html::a('A drága sajtónak', ['/site/contact']) ?>
+                <?= Html::a('Rólunk', ['/site/about']) ?>
             </div>
             <div class="weather text-nowrap">
                 <i class="fa-solid fa-cloud-sun header-icon me-1"></i>

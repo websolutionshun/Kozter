@@ -365,8 +365,6 @@ $this->title = 'KözTér - Főoldal';
 .lead-article {
     background: #f8f9fa;
     border-radius: 8px;
-    padding: 1.5rem;
-    padding-top: 0;
     margin-bottom: 1rem;
 }
 
@@ -567,10 +565,6 @@ $this->title = 'KözTér - Főoldal';
 @media (max-width: 991px) {
     .kozter-3col-layout .col-lg-4 {
         margin-bottom: 2rem;
-    }
-    
-    .lead-article {
-        padding: 1rem;
     }
     
     .post-thumb {
