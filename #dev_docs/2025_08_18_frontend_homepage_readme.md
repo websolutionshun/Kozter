@@ -188,10 +188,31 @@ class AjaxController extends Controller
 ### CSS Változók használata
 ```css
 :root {
-    --kozter-yellow: #FFD700;
     --kozter-blue: #1E3A8A;
-    --kozter-green: #059669;
+    --kozter-yellow: #FFD700;
+    --kozter-green: #74C9BE;      /* ÚJ: egységesített zöld (kékeszöld) */
+    --kozter-light-blue: #74C9BE; /* ÚJ: világoskék alias */
     /* ... további színek */
+}
+```
+
+#### Új színváltozók használata
+```css
+/* Header elemek finom kékezöld árnyalattal */
+.site-header .header-top,
+.site-header .header-top a,
+.site-header .mini-menu a,
+.site-header .header-second,
+.site-header .logo-center a,
+.site-header .header-icon,
+.offcanvas-tags .offcanvas-header,
+.offcanvas-tags .offcanvas-body a {
+    color: var(--kozter-green);
+}
+
+/* Kiemelt lead blokk háttérszíne */
+.lead-article {
+    background-color: var(--kozter-green);
 }
 ```
 

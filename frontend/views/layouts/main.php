@@ -41,11 +41,12 @@ AppAsset::register($this);
             --kozter-blue: #1E3A8A;
             --kozter-blue-light: #3B82F6;
             --kozter-blue-dark: #1E40AF;
-            --kozter-green: #059669;
+            --kozter-green: #74C9BE;
             --kozter-green-light: #10B981;
             --kozter-gray: #6B7280;
             --kozter-gray-light: #F3F4F6;
             --kozter-gray-dark: #374151;
+            --kozter-light-blue: #74C9BE;
         }
         
         body {
@@ -194,18 +195,18 @@ AppAsset::register($this);
         /* === ÚJSÁGSZERŰ KÉTSOROS FEJLÉC (MAGAZIN-STÍLUS) === */
         .site-header .header-top {
             background-color: #0f172a;
-            color: #74c9be;
+            color: var(--kozter-green);
             font-size: 0.9rem;
         }
-        .site-header .header-top a { color: #74c9be; text-decoration: none; }
-        .site-header .mini-menu a { color: #74c9be; margin: 0 .5rem; font-weight: 600; font-size: 0.9rem; }
+        .site-header .header-top a { color: var(--kozter-green); text-decoration: none; }
+        .site-header .mini-menu a { color: var(--kozter-green); margin: 0 .5rem; font-weight: 600; font-size: 0.9rem; }
         /* Felső mini-menü teljes középre igazítása */
         .site-header .header-top .container-fluid { position: relative; }
         .site-header .mini-menu { position: absolute; left: 50%; transform: translateX(-50%); }
         .site-header .mini-menu a:hover { color: var(--kozter-yellow); }
         .site-header .header-second {
             background-color: #111827;
-            color: #74c9be;
+            color: var(--kozter-green);
             border-bottom: 1px solid #1f2937;
         }
         .site-header .logo-center a {
@@ -213,10 +214,10 @@ AppAsset::register($this);
             font-weight: 800;
             font-size: 2.2rem;
             letter-spacing: 0.5px;
-            color: #74c9be;
+            color: var(--kozter-green);
             text-decoration: none;
         }
-        .site-header .header-icon { color: #74c9be; }
+        .site-header .header-icon { color: var(--kozter-green); }
         .site-header .header-icon:hover { color: var(--kozter-yellow); }
         .site-header .support-btn { background-color: var(--kozter-yellow); color: #111827; border: 0; font-weight: 700; }
         .site-header .support-btn:hover { background-color: var(--kozter-yellow-dark); color: #0f172a; }
@@ -226,8 +227,8 @@ AppAsset::register($this);
         .header-search-wrap input[type="text"]::placeholder { color: #9ca3af; }
         .header-search-wrap .btn-search { border-radius: 999px; }
         /* Offcanvas címke-menü */
-        .offcanvas-tags .offcanvas-header { background: #0f172a; color: #74c9be; }
-        .offcanvas-tags .offcanvas-body a { display: inline-block; margin: 0 .5rem .5rem 0; background: #111827; color: #74c9be; border: 1px solid #1f2937; padding: .35rem .7rem; border-radius: 999px; text-decoration: none; font-size: .9rem; }
+        .offcanvas-tags .offcanvas-header { background: #0f172a; color: var(--kozter-green); }
+        .offcanvas-tags .offcanvas-body a { display: inline-block; margin: 0 .5rem .5rem 0; background: #111827; color: var(--kozter-green); border: 1px solid #1f2937; padding: .35rem .7rem; border-radius: 999px; text-decoration: none; font-size: .9rem; }
         .offcanvas-tags .offcanvas-body a:hover { background: #1f2937; color: var(--kozter-yellow); }
 
         /* Dropdown menük styling */

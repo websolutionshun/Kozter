@@ -366,7 +366,7 @@ $this->title = 'KözTér - Főoldal';
     border-radius: 8px;
     margin-bottom: 1rem;
     padding: 1rem;
-    background-color: #74C9BE;
+    background-color: var(--kozter-green);
 }
 
 .lead-title a {
